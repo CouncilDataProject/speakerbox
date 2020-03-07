@@ -1,0 +1,8 @@
+ignore:
+    - "**/__init__.py"
+    - "speakerbox/bin/.*"
+    - "speakerbox/vendor/.*"
+
+coverage:
+  status:
+    patch: off
