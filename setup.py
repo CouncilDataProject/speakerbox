@@ -45,16 +45,21 @@ interactive_requirements = [
 ]
 
 requirements = [
+    # stepworkflow requires
     "bokeh",
+    "dask[bag]",
     "datastep>=0.1.5",
     "distributed",
     "docutils<0.16",  # needed for botocore (quilt dependency)
     "fire",
-    "numpy",
-    "pandas",
-    "Pillow",
     "prefect",
     "python-dateutil<=2.8.0",  # need <=2.8.0 for quilt3 in step
+    # project requires
+    "pandas",
+]
+
+data_requirements = [
+    "cdptools[all]>=2.0.5",
 ]
 
 extra_requirements = {
@@ -62,12 +67,14 @@ extra_requirements = {
     "setup": setup_requirements,
     "dev": dev_requirements,
     "interactive": interactive_requirements,
+    "data": data_requirements,
     "all": [
         *requirements,
         *test_requirements,
         *setup_requirements,
         *dev_requirements,
-        *interactive_requirements
+        *interactive_requirements,
+        *data_requirements,
     ]
 }
 
@@ -83,10 +90,13 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
-    description="A workflow for preparing and training from an audio + transcript dataset for speaker classification",
+    description=(
+        "A workflow for preparing and training from an audio + transcript "
+        "dataset for speaker classification"
+    ),
     entry_points={
         "console_scripts": [
-            "speakerbox=speakerbox.bin.cli:cli"
+            "speakerbox=speakerbox.bin.cli:cli",
         ]
     },
     install_requires=requirements,
