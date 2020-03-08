@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>speakerbox.bin.all &mdash; speakerbox 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> speakerbox
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#stable-release">Stable release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#from-sources">From sources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Package modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../speakerbox.html">speakerbox package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../speakerbox.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../speakerbox.bin.html">speakerbox.bin package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../speakerbox.steps.html">speakerbox.steps package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../speakerbox.html#module-speakerbox">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#get-started">Get Started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#deploying">Deploying</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">speakerbox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../speakerbox.html">speakerbox</a> &raquo;</li>
+        
+      <li>speakerbox.bin.all</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for speakerbox.bin.all</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This script will run all tasks in a prefect Flow.</span>
+
+<span class="sd">When you add steps to you step workflow be sure to add them to the step list</span>
+<span class="sd">and configure their IO in the `run` function.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">distributed</span> <span class="kn">import</span> <span class="n">LocalCluster</span>
+<span class="kn">from</span> <span class="nn">prefect</span> <span class="kn">import</span> <span class="n">Flow</span>
+<span class="kn">from</span> <span class="nn">prefect.engine.executors</span> <span class="kn">import</span> <span class="n">DaskExecutor</span><span class="p">,</span> <span class="n">LocalExecutor</span>
+
+<span class="kn">from</span> <span class="nn">speakerbox</span> <span class="kn">import</span> <span class="n">steps</span>
+
+<span class="c1">###############################################################################</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">###############################################################################</span>
+
+
+<div class="viewcode-block" id="All"><a class="viewcode-back" href="../../../speakerbox.bin.html#speakerbox.bin.all.All">[docs]</a><span class="k">class</span> <span class="nc">All</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set all of your available steps here.</span>
+<span class="sd">        This is only used for data logging operations, not computation purposes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">steps</span><span class="o">.</span><span class="n">Raw</span><span class="p">()]</span>
+
+<div class="viewcode-block" id="All.run"><a class="viewcode-back" href="../../../speakerbox.bin.html#speakerbox.bin.all.All.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">clean</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run a flow with your steps.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        clean: bool</span>
+<span class="sd">            Should the local staging directory be cleaned prior to this run.</span>
+<span class="sd">            Default: False (Do not clean)</span>
+<span class="sd">        debug: bool</span>
+<span class="sd">            A debug flag for the developer to use to manipulate how much data runs,</span>
+<span class="sd">            how it is processed, etc.</span>
+<span class="sd">            Default: False (Do not debug)</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Documentation on prefect:</span>
+<span class="sd">        https://docs.prefect.io/core/</span>
+
+<span class="sd">        Basic prefect example:</span>
+<span class="sd">        https://docs.prefect.io/core/</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initalize steps</span>
+        <span class="n">raw</span> <span class="o">=</span> <span class="n">steps</span><span class="o">.</span><span class="n">Raw</span><span class="p">()</span>
+
+        <span class="c1"># Choose executor</span>
+        <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+            <span class="n">exe</span> <span class="o">=</span> <span class="n">LocalExecutor</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Set up connection to computation cluster</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">LocalCluster</span><span class="p">()</span>
+
+            <span class="c1"># Inform of Dask UI</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cluster dashboard available at: </span><span class="si">{cluster.dashboard_link}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Create dask executor</span>
+            <span class="n">exe</span> <span class="o">=</span> <span class="n">DaskExecutor</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">scheduler_address</span><span class="p">)</span>
+
+        <span class="c1"># Configure your flow</span>
+        <span class="k">with</span> <span class="n">Flow</span><span class="p">(</span><span class="s2">&quot;speakerbox&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">flow</span><span class="p">:</span>
+            <span class="c1"># If you want to clean the local staging directories pass clean</span>
+            <span class="c1"># If you want to utilize some debugging functionality pass debug</span>
+            <span class="c1"># If you don&#39;t utilize any of these, just pass the parameters you need.</span>
+            <span class="n">raw</span><span class="p">(</span>
+                <span class="n">clean</span><span class="o">=</span><span class="n">clean</span><span class="p">,</span>
+                <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>  <span class="c1"># Allows us to pass `--n {some integer}` or other params</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Run flow and get ending state</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">executor</span><span class="o">=</span><span class="n">exe</span><span class="p">)</span>
+
+        <span class="c1"># Get and display any outputs you want to see on your local terminal</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">get_result</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">flow</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="All.pull"><a class="viewcode-back" href="../../../speakerbox.bin.html#speakerbox.bin.all.All.pull">[docs]</a>    <span class="k">def</span> <span class="nf">pull</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pull all steps.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_list</span><span class="p">:</span>
+            <span class="n">step</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="All.checkout"><a class="viewcode-back" href="../../../speakerbox.bin.html#speakerbox.bin.all.All.checkout">[docs]</a>    <span class="k">def</span> <span class="nf">checkout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checkout all steps.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_list</span><span class="p">:</span>
+            <span class="n">step</span><span class="o">.</span><span class="n">checkout</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="All.push"><a class="viewcode-back" href="../../../speakerbox.bin.html#speakerbox.bin.all.All.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Push all steps.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_list</span><span class="p">:</span>
+            <span class="n">step</span><span class="o">.</span><span class="n">push</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="All.clean"><a class="viewcode-back" href="../../../speakerbox.bin.html#speakerbox.bin.all.All.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clean all steps.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_list</span><span class="p">:</span>
+            <span class="n">step</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jackson Maxfield Brown
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

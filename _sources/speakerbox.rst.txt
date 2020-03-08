@@ -1,0 +1,18 @@
+speakerbox package
+==================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   speakerbox.bin
+   speakerbox.steps
+
+Module contents
+---------------
+
+.. automodule:: speakerbox
+   :members:
+   :undoc-members:
+   :show-inheritance:
