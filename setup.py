@@ -60,6 +60,7 @@ requirements = [
 
 data_requirements = [
     "cdptools[all]>=2.0.5",
+    "pydub>=0.23.1",
 ]
 
 extra_requirements = {
