@@ -11,7 +11,7 @@ A workflow for preparing and training from an audio + transcript dataset for spe
 ## Download Canned CDP Data
 ```bash
 pip install speakerbox[data]
-python scripts/download_cdp_dataset.py seattle
+download_cdp_dataset seattle
 ```
 
 ## Installation

@@ -97,6 +97,7 @@ setup(
     ),
     entry_points={
         "console_scripts": [
+            "download_cdp_dataset=speakerbox.bin.download_cdp_dataset:main",
             "speakerbox=speakerbox.bin.cli:cli",
         ]
     },
