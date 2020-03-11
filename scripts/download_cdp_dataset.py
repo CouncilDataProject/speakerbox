@@ -137,6 +137,7 @@ def _generate_initial_download_manifest(
 
 def _split_audio_portion(
     main_audio_path: Path,
+    speaker_block_id: str,
     index: int,
     sentence_data: Dict[str, Any],
     save_path: Path,
@@ -152,7 +153,7 @@ def _split_audio_portion(
     ]
 
     # Save the audio
-    audio_split_save_path = save_path / f"{index}.wav"
+    audio_split_save_path = (save_path / f"{speaker_block_id}_{index}.wav").resolve()
     if not audio_split_save_path.exists() or overwrite:
         split.export(audio_split_save_path, format="wav")
 
@@ -182,6 +183,7 @@ def _process_speaker_block(
         futures = client.map(
             _split_audio_portion,
             [main_audio_path for i in range(len(speaker_block["data"]))],
+            [speaker_block_id for i in range(len(speaker_block["data"]))],
             [i for i in range(len(speaker_block["data"]))],
             [sentence_data for sentence_data in speaker_block["data"]],
             [split_save_dir for i in range(len(speaker_block["data"]))],
