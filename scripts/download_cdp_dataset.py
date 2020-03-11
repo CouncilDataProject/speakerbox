@@ -137,8 +137,6 @@ def _generate_initial_download_manifest(
 
 def _split_audio_portion(
     main_audio_path: Path,
-    speaker_block_id: str,
-    index: int,
     sentence_data: Dict[str, Any],
     save_path: Path,
     overwrite: bool
@@ -153,12 +151,15 @@ def _split_audio_portion(
     ]
 
     # Save the audio
-    audio_split_save_path = (save_path / f"{speaker_block_id}_{index}.wav").resolve()
+    # Generate audio / sentence id
+    audio_id = str(uuid4())
+    audio_split_save_path = (save_path / f"{audio_id}.wav").resolve()
     if not audio_split_save_path.exists() or overwrite:
         split.export(audio_split_save_path, format="wav")
 
     return {
-        "split_path": audio_split_save_path,
+        "audio_id": audio_id,
+        "audio_path": audio_split_save_path,
         "duration": sentence_data["end_time"] - sentence_data["start_time"],
         **sentence_data
     }
@@ -171,22 +172,16 @@ def _process_speaker_block(
     save_path: Path,
     overwrite: bool
 ) -> Path:
-    # Generate speaker block id
-    speaker_block_id = str(uuid4())
-
-    # Create this splits subdir
-    split_save_dir = save_path / speaker_block_id
-    split_save_dir.mkdir(exist_ok=True)
+    # Create the save dir if it doesn't exist
+    save_path.mkdir(exist_ok=True)
 
     # Map splitting audio
     with worker_client() as client:
         futures = client.map(
             _split_audio_portion,
             [main_audio_path for i in range(len(speaker_block["data"]))],
-            [speaker_block_id for i in range(len(speaker_block["data"]))],
-            [i for i in range(len(speaker_block["data"]))],
             [sentence_data for sentence_data in speaker_block["data"]],
-            [split_save_dir for i in range(len(speaker_block["data"]))],
+            [save_path for i in range(len(speaker_block["data"]))],
             [overwrite for i in range(len(speaker_block["data"]))]
         )
 
@@ -196,7 +191,6 @@ def _process_speaker_block(
     # Add speaker block to the results
     for result in results:
         result["event_id"] = event_id
-        result["speaker_block_id"] = speaker_block_id
 
     return pd.DataFrame(results)
 
@@ -237,13 +231,13 @@ def _generate_splits(
 
 
 @task
-def _generate_splits_manifest(
+def _generate_audio_manifest(
     manifests: List[pd.DataFrame],
     save_dir: Path,
 ) -> Path:
     # Write splits manifest
     manifest = pd.concat(manifests)
-    manifest_save_path = save_dir / "splits_manifest.csv"
+    manifest_save_path = save_dir / "audio_manifest.csv"
     manifest.to_csv(manifest_save_path, index=False)
 
     return manifest_save_path
@@ -356,8 +350,8 @@ def download_cdp_dataset(args: Args):
                 unmapped(args.overwrite)
             )
 
-            # Generate splits manifest
-            _generate_splits_manifest(
+            # Generate autio manifest
+            _generate_audio_manifest(
                 manifests,
                 unmapped(args.save_dir)
             )
@@ -367,7 +361,7 @@ def download_cdp_dataset(args: Args):
 
         # Log resulting manifest
         manifest_save_path = (
-            state.result[flow.get_tasks(name="_generate_splits_manifest")[0]].result
+            state.result[flow.get_tasks(name="_generate_audio_manifest")[0]].result
         )
         log.info(f"Dataset manifest stored to: {manifest_save_path}")
 
