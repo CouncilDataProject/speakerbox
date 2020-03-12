@@ -44,6 +44,16 @@ interactive_requirements = [
     "matplotlib",
 ]
 
+data_requirements = [
+    "cdptools[all]>=2.0.5",
+    "pydub>=0.23.1",
+]
+
+annotation_requirements = [
+    "pynput>=1.6.8",
+    "simpleaudio>=1.0.4",
+]
+
 requirements = [
     # stepworkflow requires
     "bokeh",
@@ -58,17 +68,13 @@ requirements = [
     "pandas",
 ]
 
-data_requirements = [
-    "cdptools[all]>=2.0.5",
-    "pydub>=0.23.1",
-]
-
 extra_requirements = {
     "test": test_requirements,
     "setup": setup_requirements,
     "dev": dev_requirements,
     "interactive": interactive_requirements,
     "data": data_requirements,
+    "annotation": annotation_requirements,
     "all": [
         *requirements,
         *test_requirements,
@@ -76,6 +82,7 @@ extra_requirements = {
         *dev_requirements,
         *interactive_requirements,
         *data_requirements,
+        *annotation_requirements,
     ]
 }
 
@@ -97,6 +104,7 @@ setup(
     ),
     entry_points={
         "console_scripts": [
+            "annotate_audio_dataset=speakerbox.bin.annotate_audio_dataset:main",
             "download_cdp_dataset=speakerbox.bin.download_cdp_dataset:main",
             "speakerbox=speakerbox.bin.cli:cli",
         ]
