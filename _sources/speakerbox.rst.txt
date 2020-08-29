@@ -7,7 +7,6 @@ Subpackages
 .. toctree::
 
    speakerbox.bin
-   speakerbox.steps
 
 Module contents
 ---------------

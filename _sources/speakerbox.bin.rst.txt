@@ -1,26 +1,6 @@
 speakerbox.bin package
 ======================
 
-Submodules
-----------
-
-speakerbox.bin.all module
--------------------------
-
-.. automodule:: speakerbox.bin.all
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-speakerbox.bin.cli module
--------------------------
-
-.. automodule:: speakerbox.bin.cli
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
 Module contents
 ---------------
 

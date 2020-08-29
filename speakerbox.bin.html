@@ -1,15 +1,18 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>speakerbox.bin package &mdash; speakerbox 0.1.0 documentation</title>
+  <title>speakerbox.bin package &mdash; speakerbox 0.0.0 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
   
   
@@ -17,7 +20,9 @@
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,13 +34,9 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="speakerbox.steps package" href="speakerbox.steps.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
     <link rel="prev" title="speakerbox package" href="speakerbox.html" /> 
 </head>
 
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> speakerbox
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> speakerbox
           
 
           
@@ -60,7 +61,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.0.0
               </div>
             
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -96,7 +98,6 @@
 <li class="toctree-l2 current"><a class="reference internal" href="speakerbox.html">speakerbox package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="speakerbox.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">speakerbox.bin package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="speakerbox.steps.html">speakerbox.steps package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="speakerbox.html#module-speakerbox">Module contents</a></li>
@@ -114,6 +115,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -152,7 +154,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="modules.html">speakerbox</a> &raquo;</li>
         
@@ -174,7 +176,7 @@
   
   <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
       
-        <a href="speakerbox.steps.html" class="btn btn-neutral float-right" title="speakerbox.steps package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="speakerbox.html" class="btn btn-neutral float-left" title="speakerbox package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -188,79 +190,6 @@
             
   <div class="section" id="speakerbox-bin-package">
 <h1>speakerbox.bin package<a class="headerlink" href="#speakerbox-bin-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-speakerbox.bin.all">
-<span id="speakerbox-bin-all-module"></span><h2>speakerbox.bin.all module<a class="headerlink" href="#module-speakerbox.bin.all" title="Permalink to this headline">¶</a></h2>
-<p>This script will run all tasks in a prefect Flow.</p>
-<p>When you add steps to you step workflow be sure to add them to the step list
-and configure their IO in the <cite>run</cite> function.</p>
-<dl class="class">
-<dt id="speakerbox.bin.all.All">
-<em class="property">class </em><code class="sig-prename descclassname">speakerbox.bin.all.</code><code class="sig-name descname">All</code><a class="reference internal" href="_modules/speakerbox/bin/all.html#All"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#speakerbox.bin.all.All" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Set all of your available steps here.
-This is only used for data logging operations, not computation purposes.</p>
-<dl class="method">
-<dt id="speakerbox.bin.all.All.checkout">
-<code class="sig-name descname">checkout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/bin/all.html#All.checkout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#speakerbox.bin.all.All.checkout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checkout all steps.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="speakerbox.bin.all.All.clean">
-<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/bin/all.html#All.clean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#speakerbox.bin.all.All.clean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clean all steps.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="speakerbox.bin.all.All.pull">
-<code class="sig-name descname">pull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/bin/all.html#All.pull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#speakerbox.bin.all.All.pull" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pull all steps.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="speakerbox.bin.all.All.push">
-<code class="sig-name descname">push</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/bin/all.html#All.push"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#speakerbox.bin.all.All.push" title="Permalink to this definition">¶</a></dt>
-<dd><p>Push all steps.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="speakerbox.bin.all.All.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">clean: bool = False</em>, <em class="sig-param">debug: bool = False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/bin/all.html#All.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#speakerbox.bin.all.All.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run a flow with your steps.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>clean</strong> (<em>bool</em>) – Should the local staging directory be cleaned prior to this run.
-Default: False (Do not clean)</p></li>
-<li><p><strong>debug</strong> (<em>bool</em>) – A debug flag for the developer to use to manipulate how much data runs,
-how it is processed, etc.
-Default: False (Do not debug)</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Documentation on prefect:
-<a class="reference external" href="https://docs.prefect.io/core/">https://docs.prefect.io/core/</a></p>
-<p>Basic prefect example:
-<a class="reference external" href="https://docs.prefect.io/core/">https://docs.prefect.io/core/</a></p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-speakerbox.bin.cli">
-<span id="speakerbox-bin-cli-module"></span><h2>speakerbox.bin.cli module<a class="headerlink" href="#module-speakerbox.bin.cli" title="Permalink to this headline">¶</a></h2>
-<p>This script will convert all the steps into CLI callables.</p>
-<p>You should not edit this script.</p>
-<dl class="function">
-<dt id="speakerbox.bin.cli.cli">
-<code class="sig-prename descclassname">speakerbox.bin.cli.</code><code class="sig-name descname">cli</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/bin/cli.html#cli"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#speakerbox.bin.cli.cli" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-speakerbox.bin">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-speakerbox.bin" title="Permalink to this headline">¶</a></h2>
 <p>Bin scripts package for speakerbox.</p>
@@ -278,11 +207,19 @@ Default: False (Do not debug)</p></li>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Jackson Maxfield Brown
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -293,7 +230,6 @@ Default: False (Do not debug)</p></li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
