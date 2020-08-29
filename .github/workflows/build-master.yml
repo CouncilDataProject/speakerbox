@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.7, 3.8]
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
@@ -38,14 +38,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Python 3.7
+    - name: Set up Python
       uses: actions/setup-python@v1
       with:
-        python-version: 3.7
+        python-version: 3.8
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install .[test]
     - name: Lint with flake8
       run: |
-        flake8 speakerbox --count --verbose --max-line-length=127 --show-source --statistics
+        flake8 speakerbox --count --verbose --show-source --statistics
+    - name: Check with black
+      run: |
+        black --check speakerbox
