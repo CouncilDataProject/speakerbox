@@ -1,24 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# This script requires version 3.* of cdptools
+# install by doing:
+# git clone https://github.com/councildataproject/cdptools
+# cd cdptools
+# git checkout feature/update-index-pipeline
+# pip install .[seattle]
+
 import argparse
-import hashlib
-import json
 import logging
 import sys
 import traceback
 from pathlib import Path
-from typing import Any, Dict, List
-from uuid import uuid4
 
-import cdptools
-import pandas as pd
 from cdptools import CDPInstance, configs
-from cdptools.audio_splitters.ffmpeg_audio_splitter import FFmpegAudioSplitter
-from distributed import LocalCluster, worker_client
-from prefect import Flow, task, unmapped
-from prefect.engine.executors import DaskExecutor
-from pydub import AudioSegment
+from cdptools.research_utils import generate_dataset
 
 ###############################################################################
 
@@ -29,226 +26,8 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 ###############################################################################
-# Tasks
-
-
-@task
-def _download_video(
-    event_id: str,
-    db: cdptools.databases.Database,
-    corpus_dir: Path,
-    overwrite: bool
-) -> Path:
-    # Retrieve full event details
-    event_details = db.select_row_by_id("event", event_id)
-
-    # Set storage target
-    save_dir = corpus_dir / event_id
-    save_dir.mkdir(parents=True, exist_ok=True)
-
-    # Download video
-    video_ext = event_details["video_uri"].split(".")[-1]
-    video_save_path = save_dir / f"video.{video_ext}"
-    if not video_save_path.exists() or overwrite:
-        video_save_path = cdptools.file_stores.FileStore._external_resource_copy(
-            event_details["video_uri"],
-            video_save_path
-        )
-
-    return video_save_path
-
-
-@task
-def _download_transcript(
-    event_id: str,
-    db: cdptools.databases.Database,
-    fs: cdptools.file_stores.FileStore,
-    corpus_dir: Path,
-    overwrite: bool
-) -> Path:
-    # Retrieve full event details
-    event_details = db.select_row_by_id("event", event_id)
-
-    # Generate key
-    key = hashlib.sha256(event_details["video_uri"].encode("utf8")).hexdigest()
-
-    # Set storage target
-    save_dir = corpus_dir / event_id
-    save_dir.mkdir(parents=True, exist_ok=True)
-
-    # Download transcript
-    transcript_save_path = save_dir / "transcript.json"
-    if not transcript_save_path.exists() or overwrite:
-        transcript_save_path = fs.download_file(
-            f"{key}_ts_speaker_turns_transcript_0.json",
-            transcript_save_path
-        )
-
-    return transcript_save_path
-
-
-@task
-def _split_audio_from_video(video_path: Path, overwrite: bool) -> Path:
-    # Init splitter
-    splitter = FFmpegAudioSplitter()
-
-    # Split audio
-    audio_save_path = video_path.parent / "audio.wav"
-    if not audio_save_path.exists() or overwrite:
-        audio_save_path = splitter.split(
-            video_path,
-            video_path.parent / "audio.wav"
-        )
-
-    return audio_save_path
-
-
-@task
-def _generate_initial_download_manifest(
-    event_ids: List[Dict[str, Any]],
-    video_paths: List[Path],
-    audio_paths: List[Path],
-    transcript_paths: List[Path],
-    save_dir: Path,
-) -> pd.DataFrame:
-    # Generate rows
-    rows = []
-    for event_id, video_path, audio_path, transcript_path in zip(
-        event_ids, video_paths, audio_paths, transcript_paths
-    ):
-        # Create row
-        rows.append({
-            "event_id": event_id,
-            "video_path": video_path,
-            "audio_path": audio_path,
-            "transcript_path": transcript_path
-        })
-
-    # Create and save manifest
-    manifest = pd.DataFrame(rows)
-    manifest_save_path = save_dir / "download_manifest.csv"
-    manifest.to_csv(manifest_save_path, index=False)
-
-    # Log save location
-    log.info(f"Download manifest saved to: {manifest_save_path}")
-
-    return rows
-
-
-def _split_audio_portion(
-    main_audio_path: Path,
-    index: int,
-    sentence_data: Dict[str, Any],
-    save_path: Path,
-    overwrite: bool
-) -> Path:
-    # Read main audio
-    source_audio = AudioSegment.from_wav(main_audio_path)
-
-    # Split the audio portion
-    split = source_audio[
-        # Convert seconds to ms
-        sentence_data["start_time"] * 1000:sentence_data["end_time"] * 1000
-    ]
-
-    # Save the audio
-    audio_split_save_path = save_path / f"{index}.wav"
-    if not audio_split_save_path.exists() or overwrite:
-        split.export(audio_split_save_path, format="wav")
-
-    return {
-        "split_path": audio_split_save_path,
-        "duration": sentence_data["end_time"] - sentence_data["start_time"],
-        **sentence_data
-    }
-
-
-def _process_speaker_block(
-    speaker_block: Dict[str, Any],
-    event_id: str,
-    main_audio_path: Path,
-    save_path: Path,
-    overwrite: bool
-) -> Path:
-    # Generate speaker block id
-    speaker_block_id = str(uuid4())
-
-    # Create this splits subdir
-    split_save_dir = save_path / speaker_block_id
-    split_save_dir.mkdir(exist_ok=True)
-
-    # Map splitting audio
-    with worker_client() as client:
-        futures = client.map(
-            _split_audio_portion,
-            [main_audio_path for i in range(len(speaker_block["data"]))],
-            [i for i in range(len(speaker_block["data"]))],
-            [sentence_data for sentence_data in speaker_block["data"]],
-            [split_save_dir for i in range(len(speaker_block["data"]))],
-            [overwrite for i in range(len(speaker_block["data"]))]
-        )
-
-        # Block until all complete
-        results = client.gather(futures)
-
-    # Add speaker block to the results
-    for result in results:
-        result["event_id"] = event_id
-        result["speaker_block_id"] = speaker_block_id
-
-    return pd.DataFrame(results)
-
-
-@task
-def _generate_splits(
-    event_details: Dict[str, Any],
-    overwrite: bool
-) -> Path:
-    # Read transcript file
-    with open(event_details["transcript_path"], "r") as transcript_read:
-        transcript = json.load(transcript_read)
-
-    # Create splits save dir
-    splits_dir = (
-        event_details["audio_path"].parent / "splits"
-    )
-    splits_dir.mkdir(exist_ok=True)
-
-    # Mapped process of every speaker block
-    with worker_client() as client:
-        futures = client.map(
-            _process_speaker_block,
-            transcript["data"],
-            [event_details["event_id"] for i in range(len(transcript["data"]))],
-            [event_details["audio_path"] for i in range(len(transcript["data"]))],
-            [splits_dir for i in range(len(transcript["data"]))],
-            [overwrite for i in range(len(transcript["data"]))]
-        )
-
-        # Block until all complete
-        results = client.gather(futures)
-
-    # Join results into single dataframe for the event
-    event_manifest = pd.concat(results)
-
-    return event_manifest
-
-
-@task
-def _generate_splits_manifest(
-    manifests: List[pd.DataFrame],
-    save_dir: Path,
-) -> Path:
-    # Write splits manifest
-    manifest = pd.concat(manifests)
-    manifest_save_path = save_dir / "splits_manifest.csv"
-    manifest.to_csv(manifest_save_path, index=False)
-
-    return manifest_save_path
-
-
-###############################################################################
 # Args
+
 
 class Args(argparse.Namespace):
 
@@ -302,72 +81,12 @@ def download_cdp_dataset(args: Args):
         # Create connection to instance
         cdp_instance = CDPInstance(instance_config)
 
-        # Get speaker annotated transcripts
-        sats = cdp_instance.database.select_rows_as_list(
-            "transcript",
-            [("confidence", 0.97)]
-        )
+        # Get initial CDP dataframe
+        data = generate_dataset(cdp_instance)
 
-        # Spawn local dask cluster
-        cluster = LocalCluster()
-
-        # Log dashboard link
-        log.info(f"Dashboard available at: {cluster.dashboard_link}")
-
-        # Setup workflow
-        with Flow("get_dataset") as flow:
-            # Download videos
-            video_paths = _download_video.map(
-                [sat["event_id"] for sat in sats],
-                unmapped(cdp_instance.database),
-                unmapped(args.save_dir),
-                unmapped(args.overwrite)
-            )
-
-            # Split audio from video
-            audio_paths = _split_audio_from_video.map(
-                video_paths,
-                unmapped(args.overwrite)
-            )
-
-            # Download transcripts
-            transcript_paths = _download_transcript.map(
-                [sat["event_id"] for sat in sats],
-                unmapped(cdp_instance.database),
-                unmapped(cdp_instance.file_store),
-                unmapped(args.save_dir),
-                unmapped(args.overwrite)
-            )
-
-            # Create large audio manifest
-            events = _generate_initial_download_manifest(
-                [sat["event_id"] for sat in sats],
-                video_paths,
-                audio_paths,
-                transcript_paths,
-                args.save_dir
-            )
-
-            # Generate sentence splits
-            manifests = _generate_splits.map(
-                events,
-                unmapped(args.overwrite)
-            )
-
-            # Generate splits manifest
-            _generate_splits_manifest(
-                manifests,
-                unmapped(args.save_dir)
-            )
-
-        # Run the flow
-        state = flow.run(executor=DaskExecutor(cluster.scheduler_address))
-
-        # Log resulting manifest
-        manifest_save_path = (
-            state.result[flow.get_tasks(name="_generate_splits_manifest")[0]].result
-        )
-        log.info(f"Dataset manifest stored to: {manifest_save_path}")
+        # Store to CSV
+        args.save_dir.mkdir(exist_ok=True, parents=True)
+        data.to_csv(args.save_dir / "manifest.csv", index=False)
 
     # Catch any exception
     except Exception as e:
