@@ -1,0 +1,10 @@
+speakerbox package
+==================
+
+Module contents
+---------------
+
+.. automodule:: speakerbox
+   :members:
+   :undoc-members:
+   :show-inheritance:
