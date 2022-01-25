@@ -28,7 +28,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'pip'
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -47,7 +46,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
-        cache: 'pip'
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -66,7 +64,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
-        cache: 'pip'
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
