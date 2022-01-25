@@ -17,9 +17,12 @@ test_requirements = [
     "codecov>=2.1.4",
     "flake8>=3.8.3",
     "flake8-debugger>=3.2.1",
+    "isort>=5.7.0",
+    "mypy>=0.790",
     "pytest>=5.4.3",
     "pytest-cov>=2.9.0",
     "pytest-raises>=0.11",
+    "tox>=3.15.2",
 ]
 
 dev_requirements = [
@@ -27,17 +30,18 @@ dev_requirements = [
     *test_requirements,
     "bump2version>=1.0.1",
     "coverage>=5.1",
-    "ipython>=7.15.0",
+    "jupyterlab>=3.2.8",
     "m2r2>=0.2.7",
     "pytest-runner>=5.2",
     "Sphinx>=3.4.3",
     "sphinx_rtd_theme>=0.5.1",
-    "tox>=3.15.2",
     "twine>=3.1.1",
     "wheel>=0.34.2",
 ]
 
-requirements = []
+requirements = [
+    "cdp-backend>=3.0.3",
+]
 
 extra_requirements = {
     "setup": setup_requirements,
@@ -63,9 +67,7 @@ setup(
     ],
     description="Speaker Annotation for Transcripts using Audio Classification",
     entry_points={
-        "console_scripts": [
-            "my_example=speakerbox.bin.my_example:main"
-        ],
+        "console_scripts": [],
     },
     install_requires=requirements,
     license="MIT license",

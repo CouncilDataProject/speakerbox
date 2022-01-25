@@ -9,8 +9,5 @@ __email__ = "jmaxfieldbrown@gmail.com"
 __version__ = "0.0.0"
 
 
-def get_module_version():
+def get_module_version() -> str:
     return __version__
-
-
-from .example import Example  # noqa: F401

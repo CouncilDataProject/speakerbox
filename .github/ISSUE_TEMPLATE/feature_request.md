@@ -1,23 +1,28 @@
 ---
 name: Feature Request
-about: '"It would be really cool if x did y..."'
-title: ''
-labels: ''
-assignees: ''
-
+about: Suggest a feature for speakerbox
+labels: enhancement
 ---
 
-## Use Case
-*Please provide a use case to help us understand your request in context*
+<!--
+  ⚠️⚠️ Please do the following before submitting: ⚠️⚠️
 
+  📖 Please read our Code of Conduct.
+  🔎 Please search existing issues to avoid creating duplicates.
+-->
 
+### Feature Description
 
+<!-- A clear and concise description of the feature you're requesting. -->
 
-## Solution
-*Please describe your ideal solution*
+### Use Case
 
+<!-- Please provide a use case to help us understand your request in context. -->
 
+### Solution
 
+<!-- Please describe your ideal solution. -->
 
-## Alternatives
-*Please describe any alternatives you've considered, even if you've dismissed them*
+### Alternatives
+
+<!-- Please describe any alternatives you've considered, even if you've dismissed them. -->

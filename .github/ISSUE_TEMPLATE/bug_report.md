@@ -1,29 +1,31 @@
 ---
 name: Bug Report
-about: '"Something''s wrong..."'
-title: ''
-labels: ''
-assignees: ''
-
+about: Create a report to help us improve speakerbox
+labels: bug
 ---
 
-## Description
-*A clear description of the bug*
+<!--
+  ⚠️⚠️ Please do the following before submitting: ⚠️⚠️
 
+  📖 Please read our Code of Conduct.
+  🔎 Please search existing issues to avoid creating duplicates.
+-->
 
+### Describe the Bug
 
+<!-- A clear and concise description of the bug. -->
 
-## Expected Behavior
-*What did you expect to happen instead?*
+### Expected Behavior
 
+<!-- What did you expect to happen instead? -->
 
+### Reproduction
 
+<!-- Steps to reproduce the behavior and/or a minimal example that exhibits the behavior. -->
 
-## Reproduction
-*A minimal example that exhibits the behavior.*
+### Environment
 
+<!-- Any additional information about your environment. -->
 
-
-
-## Environment
-*Any additional information about your environment*
+-   OS Version: _[e.g. macOS 11.3.1]_
+-   speakerbox Version: _[e.g. 0.5.0]_

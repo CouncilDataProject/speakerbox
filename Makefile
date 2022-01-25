@@ -29,7 +29,7 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean:  ## clean all build, python, and testing files
+clean:  ## Clean all build, python, and testing files
 	rm -fr build/
 	rm -fr dist/
 	rm -fr .eggs/
@@ -44,6 +44,7 @@ clean:  ## clean all build, python, and testing files
 	rm -fr coverage.xml
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
+	rm -fr .mypy_cache
 
 build: ## run tox / run tests and lint
 	tox

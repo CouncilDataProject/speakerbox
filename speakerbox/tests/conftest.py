@@ -16,9 +16,7 @@ Docs: https://docs.pytest.org/en/latest/example/simple.html
       https://docs.pytest.org/en/latest/plugins.html#requiring-loading-plugins-in-a-test-module-or-conftest-file
 """
 
-import json
 from pathlib import Path
-from typing import Dict
 
 import pytest
 
@@ -26,12 +24,3 @@ import pytest
 @pytest.fixture
 def data_dir() -> Path:
     return Path(__file__).parent / "data"
-
-
-# Fixtures can simply be added as a parameter to the other test or fixture functions to
-# expose them. If we had multiple tests that wanted to use the contents of this file,
-# we could simply add "loaded_example_values" as a parameter for each test.
-@pytest.fixture
-def loaded_example_values(data_dir) -> Dict[str, int]:
-    with open(data_dir / "example_values.json", "r") as read_in:
-        return json.load(read_in)

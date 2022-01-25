@@ -3,6 +3,12 @@
 Contributions are welcome, and they are greatly appreciated! Every little bit
 helps, and credit will always be given.
 
+## Developer Installation
+
+If something goes wrong at any point during installing the library please see how
+[our CI/CD on GitHub Actions](.github/workflows/build-main.yml) installs and builds the
+project as it will always be the most up-to-date.
+
 ## Get Started!
 
 Ready to contribute? Here's how to set up `speakerbox` for local development.
@@ -42,7 +48,7 @@ Ready to contribute? Here's how to set up `speakerbox` for local development.
 
     ```bash
     git add .
-    git commit -m "Resolves gh-###. Your detailed description of your changes."
+    git commit -m "Your detailed description of your changes."
     git push origin {your_development_type}/short-description
     ```
 
@@ -55,9 +61,9 @@ Make sure all your changes are committed.
 Then run:
 
 ```bash
-bump2version patch # possible: major / minor / patch
-git push
-git push --tags
+$ bump2version patch # possible: major / minor / patch
+$ git push
+$ git push --tags
 ```
 
 This will release a new package version on Git + GitHub and publish to PyPI.
