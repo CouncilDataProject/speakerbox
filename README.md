@@ -19,16 +19,18 @@ For full package documentation please visit [councildataproject.github.io/speake
 
 ## Quickstart
 
-Load the 2021 Seattle Prototype Dataset and get summary statistics for speaker time.
+Load the 2021 Seattle Prototype Dataset, get summary statistics
+about speaker time, finally pull the matching audio file for each annotation file
+and store annotation file matched to audio as a `pandas.DataFrame`.
 
 ```python
-from speakerbox.datasets import (
-    unpack_seattle_2021_proto,
-    summarize_annotation_statistics,
-)
+from speakerbox import datasets
 
-ds_dir = unpack_seattle_2021_proto(clean=True)
-summary_stats = summarize_annotation_statistics(ds_dir / "annotations")
+seattle_2021_ds_dir = datasets.unpack_seattle_2021_proto(clean=True)
+seattle_2021_ds_summary_stats = datasets.summarize_annotation_statistics(
+    seattle_2021_ds_dir / "annotations"
+)
+seattle_2021_ds = datasets.pull_seattle_2021_proto_audio()
 ```
 
 ## Development

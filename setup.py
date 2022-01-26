@@ -41,6 +41,7 @@ dev_requirements = [
 
 requirements = [
     "cdp-backend>=3.0.3",
+    "pandas>=1.4.0",
 ]
 
 extra_requirements = {
