@@ -50,7 +50,7 @@ extra_requirements = {
     "all": [
         *requirements,
         *dev_requirements,
-    ]
+    ],
 }
 
 setup(
