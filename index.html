@@ -113,14 +113,16 @@
 </section>
 <section id="quickstart">
 <h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline"></a></h2>
-<p>Load the 2021 Seattle Prototype Dataset and get summary statistics for speaker time.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">speakerbox.datasets</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">unpack_seattle_2021_proto</span><span class="p">,</span>
-    <span class="n">summarize_annotation_statistics</span><span class="p">,</span>
-<span class="p">)</span>
+<p>Load the 2021 Seattle Prototype Dataset, get summary statistics
+about speaker time, finally pull the matching audio file for each annotation file
+and store annotation file matched to audio as a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">speakerbox</span> <span class="kn">import</span> <span class="n">datasets</span>
 
-<span class="n">ds_dir</span> <span class="o">=</span> <span class="n">unpack_seattle_2021_proto</span><span class="p">(</span><span class="n">clean</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">summary_stats</span> <span class="o">=</span> <span class="n">summarize_annotation_statistics</span><span class="p">(</span><span class="n">ds_dir</span> <span class="o">/</span> <span class="s2">&quot;annotations&quot;</span><span class="p">)</span>
+<span class="n">seattle_2021_ds_dir</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">unpack_seattle_2021_proto</span><span class="p">(</span><span class="n">clean</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">seattle_2021_ds_summary_stats</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">summarize_annotation_statistics</span><span class="p">(</span>
+    <span class="n">seattle_2021_ds_dir</span> <span class="o">/</span> <span class="s2">&quot;annotations&quot;</span>
+<span class="p">)</span>
+<span class="n">seattle_2021_ds</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">pull_seattle_2021_proto_audio</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>

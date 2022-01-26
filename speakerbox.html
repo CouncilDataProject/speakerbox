@@ -101,6 +101,25 @@
 <section id="module-speakerbox.datasets">
 <span id="speakerbox-datasets-module"></span><h2>speakerbox.datasets module<a class="headerlink" href="#module-speakerbox.datasets" title="Permalink to this headline"></a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="speakerbox.datasets.AnnotationAndAudio">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.</span></span><span class="sig-name descname"><span class="pre">AnnotationAndAudio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotation_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/datasets.html#AnnotationAndAudio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.AnnotationAndAudio" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></p>
+<p>Create new instance of AnnotationAndAudio(annotation_file, audio_file)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.AnnotationAndAudio.annotation_file">
+<span class="sig-name descname"><span class="pre">annotation_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pathlib.Path</span></em><a class="headerlink" href="#speakerbox.datasets.AnnotationAndAudio.annotation_file" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.AnnotationAndAudio.audio_file">
+<span class="sig-name descname"><span class="pre">audio_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pathlib.Path</span></em><a class="headerlink" href="#speakerbox.datasets.AnnotationAndAudio.audio_file" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="speakerbox.datasets.DatasetSummary">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.</span></span><span class="sig-name descname"><span class="pre">DatasetSummary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_speakers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_events</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speaker_times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#speakerbox.datasets.SpeakerTime" title="speakerbox.datasets.SpeakerTime"><span class="pre">speakerbox.datasets.SpeakerTime</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_speaker_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_speaker_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#speakerbox.datasets.SpeakerTime" title="speakerbox.datasets.SpeakerTime"><span class="pre">speakerbox.datasets.SpeakerTime</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_speaker_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#speakerbox.datasets.SpeakerTime" title="speakerbox.datasets.SpeakerTime"><span class="pre">speakerbox.datasets.SpeakerTime</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_speaker_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_speaker_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/datasets.html#DatasetSummary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.DatasetSummary" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -168,12 +187,54 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.datasets.pull_seattle_2021_proto_audio">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.</span></span><span class="sig-name descname"><span class="pre">pull_seattle_2021_proto_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotations_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('seattle-2021-proto/annotations')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('seattle-2021-proto/audio')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="reference internal" href="_modules/speakerbox/datasets.html#pull_seattle_2021_proto_audio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.pull_seattle_2021_proto_audio" title="Permalink to this definition"></a></dt>
+<dd><p>Using the filenames for the files found in the annotations directory as event
+ids, pull the matching audio files and store them in the dataset directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>annotations_dir</strong> (<em>Union[str, Path]</em>) – The path to the directory which contains the annotation files for a dataset.
+Default: Default Seattle 2021 Prototype Dataset Annotations Directory</p></li>
+<li><p><strong>audio_output_dir</strong> (<em>Union[str, Path]</em>) – The path to where to store the pulled audio files
+Default: Default Seattle 2021 Prototype Dataset Audio Directory</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) – If an audio file with a filename matching the event id already exists in the
+output directory exists, should it be overwritten (safer) or skipped (faster).
+Default: False (skipped)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>full_dataset</strong> – A minimal dataframe with columns for the annotation file and the
+matching audio file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotADirectoryError</strong> – Provided annotations_dir is not a directory.</p></li>
+<li><p><strong>NotADirectoryError</strong> – A file exists at the specified audio output directory.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">speakerbox.datasets</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">unpack_seattle_2021_proto</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">pull_seattle_2021_proto_audio</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span><span class="n">ds_dir</span> <span class="o">=</span> <span class="n">unpack_seattle_2021_proto</span><span class="p">()</span>
+<span class="gp">... </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pull_seattle_2021_proto_audio</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="speakerbox.datasets.summarize_annotation_statistics">
-<span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.</span></span><span class="sig-name descname"><span class="pre">summarize_annotation_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#speakerbox.datasets.DatasetSummary" title="speakerbox.datasets.DatasetSummary"><span class="pre">speakerbox.datasets.DatasetSummary</span></a></span></span><a class="reference internal" href="_modules/speakerbox/datasets.html#summarize_annotation_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.summarize_annotation_statistics" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.</span></span><span class="sig-name descname"><span class="pre">summarize_annotation_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotations_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#speakerbox.datasets.DatasetSummary" title="speakerbox.datasets.DatasetSummary"><span class="pre">speakerbox.datasets.DatasetSummary</span></a></span></span><a class="reference internal" href="_modules/speakerbox/datasets.html#summarize_annotation_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.summarize_annotation_statistics" title="Permalink to this definition"></a></dt>
 <dd><p>Summarize all annotation files into a single pandas DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dataset</strong> (<em>Union[str, Path]</em>) – The path to the directory which contains the annotation files for a dataset.</p>
+<dd class="field-odd"><p><strong>annotations_dir</strong> (<em>Union[str, Path]</em>) – The path to the directory which contains the annotation files for a dataset.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>summary</strong> – The summary stats for the dataset.</p>
