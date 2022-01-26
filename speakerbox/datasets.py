@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from dataclasses import dataclass
 import json
 import shutil
 import statistics
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Union
 
@@ -179,7 +179,7 @@ def summarize_annotation_statistics(
 
     # Add up the speaking time for all speakers found in every JSON
     # annotation file in the provided dataset directory
-    speaker_times: Dict[str, float] = {}
+    speaker_lut: Dict[str, float] = {}
     n_events = 0
     for annotation_file in dataset.glob("*.json"):
         # Open new annotation file
@@ -190,22 +190,22 @@ def summarize_annotation_statistics(
         for monologue in annotations["monologues"]:
             speaker = monologue["speaker"]["id"]
             duration = monologue["end"] - monologue["start"]
-            if speaker not in speaker_times:
-                speaker_times[speaker] = duration
+            if speaker not in speaker_lut:
+                speaker_lut[speaker] = duration
             else:
-                speaker_times[speaker] += duration
+                speaker_lut[speaker] += duration
 
         n_events += 1
 
     # Compute summary stats
-    total_speaker_time = sum([duration for speaker, duration in speaker_times.items()])
-    speaker_times = [
+    total_speaker_time = sum([duration for speaker, duration in speaker_lut.items()])
+    speaker_times: List[SpeakerTime] = [
         SpeakerTime(
             label=speaker,
             duration=duration,
             percent_of_total=duration / total_speaker_time,
         )
-        for speaker, duration in speaker_times.items()
+        for speaker, duration in speaker_lut.items()
     ]
     return DatasetSummary(
         n_speakers=len(speaker_times),
