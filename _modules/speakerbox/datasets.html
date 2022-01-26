@@ -91,10 +91,10 @@
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">statistics</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -269,7 +269,7 @@
 
     <span class="c1"># Add up the speaking time for all speakers found in every JSON</span>
     <span class="c1"># annotation file in the provided dataset directory</span>
-    <span class="n">speaker_times</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">speaker_lut</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">n_events</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">annotation_file</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.json&quot;</span><span class="p">):</span>
         <span class="c1"># Open new annotation file</span>
@@ -280,22 +280,22 @@
         <span class="k">for</span> <span class="n">monologue</span> <span class="ow">in</span> <span class="n">annotations</span><span class="p">[</span><span class="s2">&quot;monologues&quot;</span><span class="p">]:</span>
             <span class="n">speaker</span> <span class="o">=</span> <span class="n">monologue</span><span class="p">[</span><span class="s2">&quot;speaker&quot;</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
             <span class="n">duration</span> <span class="o">=</span> <span class="n">monologue</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">monologue</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">speaker</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">speaker_times</span><span class="p">:</span>
-                <span class="n">speaker_times</span><span class="p">[</span><span class="n">speaker</span><span class="p">]</span> <span class="o">=</span> <span class="n">duration</span>
+            <span class="k">if</span> <span class="n">speaker</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">speaker_lut</span><span class="p">:</span>
+                <span class="n">speaker_lut</span><span class="p">[</span><span class="n">speaker</span><span class="p">]</span> <span class="o">=</span> <span class="n">duration</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">speaker_times</span><span class="p">[</span><span class="n">speaker</span><span class="p">]</span> <span class="o">+=</span> <span class="n">duration</span>
+                <span class="n">speaker_lut</span><span class="p">[</span><span class="n">speaker</span><span class="p">]</span> <span class="o">+=</span> <span class="n">duration</span>
 
         <span class="n">n_events</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="c1"># Compute summary stats</span>
-    <span class="n">total_speaker_time</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">duration</span> <span class="k">for</span> <span class="n">speaker</span><span class="p">,</span> <span class="n">duration</span> <span class="ow">in</span> <span class="n">speaker_times</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
-    <span class="n">speaker_times</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">total_speaker_time</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">duration</span> <span class="k">for</span> <span class="n">speaker</span><span class="p">,</span> <span class="n">duration</span> <span class="ow">in</span> <span class="n">speaker_lut</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+    <span class="n">speaker_times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">SpeakerTime</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">SpeakerTime</span><span class="p">(</span>
             <span class="n">label</span><span class="o">=</span><span class="n">speaker</span><span class="p">,</span>
             <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span>
             <span class="n">percent_of_total</span><span class="o">=</span><span class="n">duration</span> <span class="o">/</span> <span class="n">total_speaker_time</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">for</span> <span class="n">speaker</span><span class="p">,</span> <span class="n">duration</span> <span class="ow">in</span> <span class="n">speaker_times</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">speaker</span><span class="p">,</span> <span class="n">duration</span> <span class="ow">in</span> <span class="n">speaker_lut</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">]</span>
     <span class="k">return</span> <span class="n">DatasetSummary</span><span class="p">(</span>
         <span class="n">n_speakers</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">speaker_times</span><span class="p">),</span>
