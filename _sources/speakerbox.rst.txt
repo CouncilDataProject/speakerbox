@@ -1,6 +1,17 @@
 speakerbox package
 ==================
 
+Submodules
+----------
+
+speakerbox.datasets module
+--------------------------
+
+.. automodule:: speakerbox.datasets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

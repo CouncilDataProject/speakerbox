@@ -50,6 +50,8 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Package modules</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">speakerbox package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-speakerbox.datasets">speakerbox.datasets module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-speakerbox">Module contents</a></li>
 </ul>
 </li>
@@ -93,6 +95,145 @@
              
   <section id="speakerbox-package">
 <h1>speakerbox package<a class="headerlink" href="#speakerbox-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-speakerbox.datasets">
+<span id="speakerbox-datasets-module"></span><h2>speakerbox.datasets module<a class="headerlink" href="#module-speakerbox.datasets" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="speakerbox.datasets.DatasetSummary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.</span></span><span class="sig-name descname"><span class="pre">DatasetSummary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_speakers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_events</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speaker_times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#speakerbox.datasets.SpeakerTime" title="speakerbox.datasets.SpeakerTime"><span class="pre">speakerbox.datasets.SpeakerTime</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_speaker_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_speaker_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#speakerbox.datasets.SpeakerTime" title="speakerbox.datasets.SpeakerTime"><span class="pre">speakerbox.datasets.SpeakerTime</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_speaker_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#speakerbox.datasets.SpeakerTime" title="speakerbox.datasets.SpeakerTime"><span class="pre">speakerbox.datasets.SpeakerTime</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_speaker_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_speaker_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/datasets.html#DatasetSummary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.DatasetSummary" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.DatasetSummary.max_speaker_time">
+<span class="sig-name descname"><span class="pre">max_speaker_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#speakerbox.datasets.SpeakerTime" title="speakerbox.datasets.SpeakerTime"><span class="pre">speakerbox.datasets.SpeakerTime</span></a></em><a class="headerlink" href="#speakerbox.datasets.DatasetSummary.max_speaker_time" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.DatasetSummary.mean_speaker_time">
+<span class="sig-name descname"><span class="pre">mean_speaker_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.datasets.DatasetSummary.mean_speaker_time" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.DatasetSummary.min_speaker_time">
+<span class="sig-name descname"><span class="pre">min_speaker_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#speakerbox.datasets.SpeakerTime" title="speakerbox.datasets.SpeakerTime"><span class="pre">speakerbox.datasets.SpeakerTime</span></a></em><a class="headerlink" href="#speakerbox.datasets.DatasetSummary.min_speaker_time" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.DatasetSummary.n_events">
+<span class="sig-name descname"><span class="pre">n_events</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#speakerbox.datasets.DatasetSummary.n_events" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.DatasetSummary.n_speakers">
+<span class="sig-name descname"><span class="pre">n_speakers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#speakerbox.datasets.DatasetSummary.n_speakers" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.DatasetSummary.speaker_times">
+<span class="sig-name descname"><span class="pre">speaker_times</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#speakerbox.datasets.SpeakerTime" title="speakerbox.datasets.SpeakerTime"><span class="pre">speakerbox.datasets.SpeakerTime</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#speakerbox.datasets.DatasetSummary.speaker_times" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.DatasetSummary.std_speaker_time">
+<span class="sig-name descname"><span class="pre">std_speaker_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.datasets.DatasetSummary.std_speaker_time" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.DatasetSummary.total_speaker_time">
+<span class="sig-name descname"><span class="pre">total_speaker_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.datasets.DatasetSummary.total_speaker_time" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="speakerbox.datasets.SpeakerTime">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.</span></span><span class="sig-name descname"><span class="pre">SpeakerTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percent_of_total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/datasets.html#SpeakerTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.SpeakerTime" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.SpeakerTime.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.datasets.SpeakerTime.duration" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.SpeakerTime.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#speakerbox.datasets.SpeakerTime.label" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.datasets.SpeakerTime.percent_of_total">
+<span class="sig-name descname"><span class="pre">percent_of_total</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.datasets.SpeakerTime.percent_of_total" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.datasets.summarize_annotation_statistics">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.</span></span><span class="sig-name descname"><span class="pre">summarize_annotation_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#speakerbox.datasets.DatasetSummary" title="speakerbox.datasets.DatasetSummary"><span class="pre">speakerbox.datasets.DatasetSummary</span></a></span></span><a class="reference internal" href="_modules/speakerbox/datasets.html#summarize_annotation_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.summarize_annotation_statistics" title="Permalink to this definition"></a></dt>
+<dd><p>Summarize all annotation files into a single pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dataset</strong> (<em>Union[str, Path]</em>) – The path to the directory which contains the annotation files for a dataset.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>summary</strong> – The summary stats for the dataset.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#speakerbox.datasets.DatasetSummary" title="speakerbox.datasets.DatasetSummary">DatasetSummary</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">speakerbox.datasets</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">unpack_seattle_2021_proto</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">summarize_annotation_statistics</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span><span class="n">ds_dir</span> <span class="o">=</span> <span class="n">unpack_seattle_2021_proto</span><span class="p">()</span>
+<span class="gp">... </span><span class="n">summary_stats</span> <span class="o">=</span> <span class="n">summarize_annotation_statistics</span><span class="p">(</span><span class="n">ds_dir</span> <span class="o">/</span> <span class="s2">&quot;annotations&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – The provided dataset directory was not found.</p></li>
+<li><p><strong>FileNotFoundError</strong> – The provided dataset directory did not contain any annotation files.</p></li>
+<li><p><strong>NotADirectoryError</strong> – THe provided dataset directory was a file and not a directory.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.datasets.unpack_seattle_2021_proto">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.</span></span><span class="sig-name descname"><span class="pre">unpack_seattle_2021_proto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('seattle-2021-proto')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pathlib.Path</span></span></span><a class="reference internal" href="_modules/speakerbox/datasets.html#unpack_seattle_2021_proto"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.unpack_seattle_2021_proto" title="Permalink to this definition"></a></dt>
+<dd><p>Unpacks the Seattle 2021 Prototype Dataset from a zipfile to the provided
+destination location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dest</strong> (<em>Union[str, Path]</em>) – The destination to unpack to.
+Default: A new directory in your current working directory with the standard
+Seattle 2021 Prototype Dataset name.</p></li>
+<li><p><strong>clean</strong> (<em>bool</em>) – If a directory already exists at the destination location, should the directory
+be removed entirely before unpacking again.
+Default: False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>dataset_path</strong> – The path to the unpacked data.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Path</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotADirectoryError</strong> – A file exists at the specified destination.</p></li>
+<li><p><strong>FileExistsError</strong> – A directory exists at the specified destination and is not empty.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-speakerbox">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-speakerbox" title="Permalink to this headline"></a></h2>
 <p>Top-level package for speakerbox.</p>

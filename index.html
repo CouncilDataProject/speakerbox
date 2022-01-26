@@ -49,6 +49,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Package modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="speakerbox.html">speakerbox package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="speakerbox.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="speakerbox.html#module-speakerbox.datasets">speakerbox.datasets module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="speakerbox.html#module-speakerbox">Module contents</a></li>
 </ul>
 </li>
@@ -108,6 +110,19 @@
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h2>
 <p>For full package documentation please visit <a class="reference external" href="https://councildataproject.github.io/speakerbox">councildataproject.github.io/speakerbox</a>.</p>
+</section>
+<section id="quickstart">
+<h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline"></a></h2>
+<p>Load the 2021 Seattle Prototype Dataset and get summary statistics for speaker time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">speakerbox.datasets</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">unpack_seattle_2021_proto</span><span class="p">,</span>
+    <span class="n">summarize_annotation_statistics</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">ds_dir</span> <span class="o">=</span> <span class="n">unpack_seattle_2021_proto</span><span class="p">(</span><span class="n">clean</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">summary_stats</span> <span class="o">=</span> <span class="n">summarize_annotation_statistics</span><span class="p">(</span><span class="n">ds_dir</span> <span class="o">/</span> <span class="s2">&quot;annotations&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="development">
 <h2>Development<a class="headerlink" href="#development" title="Permalink to this headline"></a></h2>
