@@ -17,6 +17,20 @@ Speaker Annotation for Transcripts using Audio Classification
 
 For full package documentation please visit [councildataproject.github.io/speakerbox](https://councildataproject.github.io/speakerbox).
 
+## Quickstart
+
+Load the 2021 Seattle Prototype Dataset and get summary statistics for speaker time.
+
+```python
+from speakerbox.datasets import (
+    unpack_seattle_2021_proto,
+    summarize_annotation_statistics,
+)
+
+ds_dir = unpack_seattle_2021_proto(clean=True)
+summary_stats = summarize_annotation_statistics(ds_dir / "annotations")
+```
+
 ## Development
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for information related to developing the code.
