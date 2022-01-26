@@ -110,3 +110,6 @@ ENV/
 
 # VSCode
 .vscode
+
+# Datasets
+seattle-2021-proto/
