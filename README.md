@@ -24,13 +24,13 @@ about speaker time, finally pull the matching audio file for each annotation fil
 and store annotation file matched to audio as a `pandas.DataFrame`.
 
 ```python
-from speakerbox import datasets
+from speakerbox.datasets import seattle_2021_proto, utils
 
-seattle_2021_ds_dir = datasets.unpack_seattle_2021_proto(clean=True)
-seattle_2021_ds_summary_stats = datasets.summarize_annotation_statistics(
+seattle_2021_ds_dir = seattle_2021_proto.unpack(clean=True)
+seattle_2021_ds = seattle_2021_proto.pull_audio_and_stitch_dataframe()
+seattle_2021_ds_summary_stats = utils.summarize_annotation_statistics(
     seattle_2021_ds_dir / "annotations"
 )
-seattle_2021_ds = datasets.pull_seattle_2021_proto_audio()
 ```
 
 ## Development

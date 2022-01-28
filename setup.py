@@ -41,6 +41,7 @@ dev_requirements = [
 
 requirements = [
     "cdp-backend>=3.0.3",
+    "dataclasses_json",  # no version pin, pulled from cdp-backend
     "pandas>=1.4.0",
 ]
 
