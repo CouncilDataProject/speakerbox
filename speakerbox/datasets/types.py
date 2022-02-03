@@ -15,10 +15,9 @@ class AnnotationAndAudio(NamedTuple):
     audio_file: Path
 
 
-@dataclass
 @dataclass_json
+@dataclass
 class AnnotatedAudio:
-    speaker: str
-    audio_file: str
-    start_time: float
-    end_time: float
+    label: str
+    audio: str
+    duration: float

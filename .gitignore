@@ -111,5 +111,8 @@ ENV/
 # VSCode
 .vscode
 
+# Project specific
+chunked-audio/
+
 # Datasets
 seattle-2021-proto/

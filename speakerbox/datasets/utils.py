@@ -2,15 +2,20 @@
 # -*- coding: utf-8 -*-
 
 import json
+import logging
 import shutil
-import statistics
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Union
+from typing import List, Union
 
+import numpy as np
 import pandas as pd
+from pydub import AudioSegment
 
 from .types import AnnotatedAudio, AnnotationAndAudio
+
+###############################################################################
+
+log = logging.getLogger(__name__)
 
 ###############################################################################
 
@@ -75,114 +80,11 @@ def _unpack_zip(
     return dest.resolve(strict=True)
 
 
-###############################################################################
-# Dataset Summarization
-
-
-@dataclass
-class SpeakerTime:
-    label: str
-    duration: float
-    percent_of_total: float
-
-
-@dataclass
-class DatasetSummary:
-    n_speakers: int
-    n_events: int
-    speaker_times: List[SpeakerTime]
-    mean_speaker_time: float
-    min_speaker_time: SpeakerTime
-    max_speaker_time: SpeakerTime
-    std_speaker_time: float
-    total_speaker_time: float
-
-
-def summarize_annotation_statistics(
-    annotations_dir: Union[str, Path],
-) -> DatasetSummary:
-    """
-    Summarize all annotation files into a single pandas DataFrame.
-
-    Parameters
-    ----------
-    annotations_dir: Union[str, Path]
-        The path to the directory which contains the annotation files for a dataset.
-
-    Returns
-    -------
-    summary: DatasetSummary
-        The summary stats for the dataset.
-
-    Examples
-    --------
-    >>> from speakerbox.datasets import (
-    ...     unpack_seattle_2021_proto,
-    ...     summarize_annotation_statistics,
-    ... )
-    ... ds_dir = unpack_seattle_2021_proto()
-    ... summary_stats = summarize_annotation_statistics(ds_dir / "annotations")
-
-    Raises
-    ------
-    FileNotFoundError
-        The provided dataset directory was not found.
-    FileNotFoundError
-        The provided dataset directory did not contain any annotation files.
-    NotADirectoryError
-        THe provided dataset directory was a file and not a directory.
-    """
-    # Ensure dataset dir is valid
-    annotations_dir = Path(annotations_dir).resolve(strict=True)
-    if annotations_dir.is_file():
-        raise NotADirectoryError(annotations_dir)
-
-    # Add up the speaking time for all speakers found in every JSON
-    # annotation file in the provided dataset directory
-    speaker_lut: Dict[str, float] = {}
-    n_events = 0
-    for annotation_file in annotations_dir.glob("*.json"):
-        # Open new annotation file
-        with open(annotation_file, "r") as open_f:
-            annotations = json.load(open_f)
-
-        # Iter through each "monologue" section and add up times
-        for monologue in annotations["monologues"]:
-            speaker = monologue["speaker"]["id"]
-            duration = monologue["end"] - monologue["start"]
-            if speaker not in speaker_lut:
-                speaker_lut[speaker] = duration
-            else:
-                speaker_lut[speaker] += duration
-
-        n_events += 1
-
-    # Compute summary stats
-    total_speaker_time = sum([duration for speaker, duration in speaker_lut.items()])
-    speaker_times: List[SpeakerTime] = [
-        SpeakerTime(
-            label=speaker,
-            duration=duration,
-            percent_of_total=duration / total_speaker_time,
-        )
-        for speaker, duration in speaker_lut.items()
-    ]
-    return DatasetSummary(
-        n_speakers=len(speaker_times),
-        n_events=n_events,
-        speaker_times=speaker_times,
-        mean_speaker_time=total_speaker_time / len(speaker_times),
-        min_speaker_time=min(speaker_times, key=lambda st: st.duration),
-        max_speaker_time=max(speaker_times, key=lambda st: st.duration),
-        std_speaker_time=statistics.stdev([st.duration for st in speaker_times]),
-        total_speaker_time=total_speaker_time,
-    )
-
-
 def expand_annotations_to_dataset(
     annotations_and_audios: List[AnnotationAndAudio],
+    audio_output_dir: Union[str, Path] = Path("chunked-audio/"),
+    overwrite: bool = False,
     max_audio_chunk_duration: int = 5,
-    audio_chunk_creation_scheme: str = "first-to-last",
 ) -> pd.DataFrame:
     """
     Expand a list of annotation and audio files into a full dataset to be used for
@@ -193,31 +95,88 @@ def expand_annotations_to_dataset(
     annotations_and_audios: List[AnnotationAndAudio]
         A list of annotation and their matching audio files to expand into a speaker,
         audio file path, start and end times.
+    audio_output_dir: Union[str, Path]
+        A directory path to store the chunked audio files in.
+        Default: "chunked-audio" directory in the current working directory.
+    overwrite: bool
+        When writting out an audio chunk, should existing files be overwritten.
+        Default: False (do not overwrite)
     max_audio_chunk_duration: int
         Length of the audio duration to split larger audio files into.
         Default: 5 seconds
-    audio_chunk_creation_scheme: str
-        Function lookup for how to split audio files larger than the
-        max_audio_chunk_duration.
-        Default: "first-to-last"
 
     Returns
     -------
     dataset: pd.DataFrame
         The expanded dataset with columns: speaker, audio_file, start_time, end_time
 
-    Notes
-    -----
-    This does not split larger audio files into smaller files.
-    Rather, this function records the start and end times to split an audio
-    file with during the training process. This is done as to not duplicate audio.
+    Raises
+    ------
+    NotADirectoryError
+        A file exists at the specified destination.
+    FileExistsError
+        A file exists at the target chunk audio location but overwrite is False.
     """
+    # Ensure dataset dir is valid
+    audio_output_dir = Path(audio_output_dir).resolve()
+    if audio_output_dir.is_file():
+        raise NotADirectoryError(audio_output_dir)
+    audio_output_dir.mkdir(parents=True, exist_ok=True)
+
     # Iter annotations and audios
     annotated_audios: List[AnnotatedAudio] = []
     for aaa in annotations_and_audios:
-        # check length
-        # construct start and end times
-        # create aa for all start and end time pairs
-        pass
+        audio = AudioSegment.from_file(aaa.audio_file)
+        with open(aaa.annotation_file, "r") as open_f:
+            annotations = json.load(open_f)
+
+        # Iter through each "monologue" section and add up times
+        for i, monologue in enumerate(annotations["monologues"]):
+            monologue_speaker = monologue["speaker"]["id"]
+            monologue_start_time = monologue["start"]
+            monologue_end_time = monologue["end"]
+
+            # Split monologue into chunks
+            for chunk_i, chunk_start_time in enumerate(
+                np.arange(
+                    monologue_start_time,
+                    monologue_end_time,
+                    max_audio_chunk_duration,
+                )
+            ):
+                # Get chunk start and end in millis
+                chunk_start_millis = chunk_start_time * 1000
+                chunk_end = chunk_start_time + max_audio_chunk_duration
+
+                # Monologues can end under max audio chunk length
+                if monologue_end_time < chunk_end:
+                    chunk_end_millis = monologue_end_time * 1000
+                else:
+                    chunk_end_millis = chunk_end * 1000
+
+                # Get chunk
+                chunk = audio[chunk_start_millis:chunk_end_millis]
+
+                # Determine save pattern
+                chunk_save_path = (
+                    audio_output_dir / f"{aaa.audio_file.with_suffix('').name}-"
+                    f"monologue_{i}-{monologue_speaker}-chunk_{chunk_i}.wav"
+                )
+                if chunk_save_path.exists() and not overwrite:
+                    raise FileExistsError(chunk_save_path)
+
+                # Save audio chunk
+                chunk.export(chunk_save_path, format="wav")
+
+                # Append new chunk to list
+                annotated_audios.append(
+                    AnnotatedAudio(
+                        label=monologue_speaker,
+                        audio=str(chunk_save_path),
+                        duration=monologue_end_time - monologue_start_time,
+                    )
+                )
+
+        log.info(f"Completed expansion for annotation file: {aaa.annotation_file}")
 
     return pd.DataFrame([aa.to_dict() for aa in annotated_audios])
