@@ -4,4 +4,5 @@ from speakerbox.main import train
 
 ds = pull_audio()
 ds = expand_annotations_to_dataset(ds, overwrite=True)
+ds = ds.sample(frac=0.05)
 train(ds)

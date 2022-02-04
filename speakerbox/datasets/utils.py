@@ -148,34 +148,33 @@ def expand_annotations_to_dataset(
                 chunk_start_millis = chunk_start_time * 1000
                 chunk_end = chunk_start_time + max_audio_chunk_duration
 
-                # Monologues can end under max audio chunk length
-                if monologue_end_time < chunk_end:
-                    chunk_end_millis = monologue_end_time * 1000
-                else:
+                # Only add chunks where the full chunk is available
+                # (if there is more time available in the monologue)
+                if monologue_end_time > chunk_end:
                     chunk_end_millis = chunk_end * 1000
 
-                # Get chunk
-                chunk = audio[chunk_start_millis:chunk_end_millis]
+                    # Get chunk
+                    chunk = audio[chunk_start_millis:chunk_end_millis]
 
-                # Determine save pattern
-                chunk_save_path = (
-                    audio_output_dir / f"{aaa.audio_file.with_suffix('').name}-"
-                    f"monologue_{i}-{monologue_speaker}-chunk_{chunk_i}.wav"
-                )
-                if chunk_save_path.exists() and not overwrite:
-                    raise FileExistsError(chunk_save_path)
-
-                # Save audio chunk
-                chunk.export(chunk_save_path, format="wav")
-
-                # Append new chunk to list
-                annotated_audios.append(
-                    AnnotatedAudio(
-                        label=monologue_speaker,
-                        audio=str(chunk_save_path),
-                        duration=monologue_end_time - monologue_start_time,
+                    # Determine save pattern
+                    chunk_save_path = (
+                        audio_output_dir / f"{aaa.audio_file.with_suffix('').name}-"
+                        f"monologue_{i}-{monologue_speaker}-chunk_{chunk_i}.wav"
                     )
-                )
+                    if chunk_save_path.exists() and not overwrite:
+                        raise FileExistsError(chunk_save_path)
+
+                    # Save audio chunk
+                    chunk.export(chunk_save_path, format="wav")
+
+                    # Append new chunk to list
+                    annotated_audios.append(
+                        AnnotatedAudio(
+                            label=monologue_speaker,
+                            audio=str(chunk_save_path),
+                            duration=(chunk_end_millis - chunk_start_millis) / 1000,
+                        )
+                    )
 
         log.info(f"Completed expansion for annotation file: {aaa.annotation_file}")
 

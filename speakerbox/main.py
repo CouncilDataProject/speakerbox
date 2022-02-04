@@ -5,12 +5,13 @@ from typing import Union
 
 import numpy as np
 import pandas as pd
+import torch
 from datasets import Audio, Dataset, DatasetDict, load_metric
 from transformers import (
-    AutoModelForAudioClassification,
     Trainer,
     TrainingArguments,
     Wav2Vec2FeatureExtractor,
+    Wav2Vec2ForSequenceClassification,
 )
 
 ###############################################################################
@@ -28,7 +29,7 @@ def train(
     ],
     model_base: str = DEFAULT_BASE_MODEL,
     max_duration: float = 5.0,
-    batch_size: int = 32,
+    batch_size: int = 2,
 ) -> None:
     """
     Train a speaker classification model.
@@ -46,37 +47,36 @@ def train(
         this will convert it into a DatasetDict with random train and test splits.
     model_base: str
         The model base to use before fine tuning.
-        Default: "superb/wav2vec2-base-superb-sid"
     max_duration: float
         The maximum duration to use for each audio clip.
         Any clips longer than this will be trimmed.
         Default: 5.0
     batch_size: int
         The number of examples to use in a batch during training.
-        Default: 32
+        Default: 2
 
     Returns
     -------
     model
     """
+    # Load feature extractor
+    feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(model_base)
+
     # Convert provided dataset to HF Dataset
     if isinstance(dataset, pd.DataFrame):
-        dataset = Dataset.from_pandas(dataset)
+        dataset = Dataset.from_pandas(dataset, preserve_index=False)
         dataset = dataset.class_encode_column("label")
-        dataset = dataset.cast_column("audio", Audio())
+        dataset = dataset.cast_column("audio", Audio(feature_extractor.sampling_rate))
 
     # Convert into train test dict
     if isinstance(dataset, Dataset):
         dataset = dataset.train_test_split()
 
     # Construct label to id and vice-versa LUTs
-    label2id, id2label = {}, {}
+    label2id, id2label = dict(), dict()
     for i, label in enumerate(dataset["train"].features["label"].names):
         label2id[label] = str(i)
         id2label[str(i)] = label
-
-    # Load feature extractor
-    feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(model_base)
 
     # Construct preprocessing function
     def preprocess(examples):
@@ -90,10 +90,10 @@ def train(
         return inputs
 
     # Encode the dataset
-    dataset = dataset.map(preprocess, remove_columns=["audio"], batched=True)
+    dataset = dataset.map(preprocess, batched=True)
 
     # Create AutoModel
-    model = AutoModelForAudioClassification.from_pretrained(
+    model = Wav2Vec2ForSequenceClassification.from_pretrained(
         model_base,
         num_labels=len(id2label),
         label2id=label2id,
@@ -110,18 +110,19 @@ def train(
         per_device_train_batch_size=batch_size,
         gradient_accumulation_steps=4,
         per_device_eval_batch_size=batch_size,
-        num_train_epochs=5,
+        num_train_epochs=3,
         warmup_ratio=0.1,
-        logging_steps=10,
+        logging_steps=5,
         load_best_model_at_end=True,
         metric_for_best_model="accuracy",
+        gradient_checkpointing=True,
     )
 
     # Compute accuracy metrics
     metric = load_metric("accuracy")
 
     def compute_metrics(eval_pred):
-        predictions = np.argmax(eval_pred.predictions, axis=1)
+        predictions = np.argmax(eval_pred.predictions, axis=-1)
         return metric.compute(predictions=predictions, references=eval_pred.label_ids)
 
     # Trainer and train!
@@ -133,7 +134,11 @@ def train(
         tokenizer=feature_extractor,
         compute_metrics=compute_metrics,
     )
+    torch.cuda.empty_cache()
     trainer.train()
+
+    # Save
+    trainer.save_model()
 
     # Eval
     trainer.evaluate()
