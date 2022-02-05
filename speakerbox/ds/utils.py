@@ -190,7 +190,7 @@ def expand_annotations_to_dataset(
         log.info(f"Completed expansion for annotation file: {aaa.annotation_file}")
 
     # Merge all into a single dataframe
-    dataset = pd.DataFrame([aa.to_dict() for aa in annotated_audios])
+    dataset = pd.DataFrame([aa.to_dict() for aa in annotated_audios])  # type: ignore
 
     # Dataset should be balanced by each speaker
     # Group by label and get random sample with the min of all labels

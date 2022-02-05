@@ -2,19 +2,21 @@
 # -*- coding: utf-8 -*-
 
 from pathlib import Path
-from typing import Union
+from typing import Dict, Optional, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import torch
-from datasets import Audio, Dataset, DatasetDict, load_metric
+from datasets import Audio, Dataset, DatasetDict, arrow_dataset, load_metric
 from sklearn.metrics import ConfusionMatrixDisplay
 from transformers import (
+    EvalPrediction,
     Trainer,
     TrainingArguments,
     Wav2Vec2FeatureExtractor,
     Wav2Vec2ForSequenceClassification,
+    feature_extraction_utils,
     pipeline,
 )
 
@@ -109,7 +111,9 @@ def train(
         id2label[str(i)] = label
 
     # Construct preprocessing function
-    def preprocess(examples):
+    def preprocess(
+        examples: arrow_dataset.Batch,
+    ) -> feature_extraction_utils.BatchFeature:
         audio_arrays = [x["array"] for x in examples["audio"]]
         inputs = feature_extractor(
             audio_arrays,
@@ -153,7 +157,7 @@ def train(
     # Compute accuracy metrics
     metric = load_metric("accuracy")
 
-    def compute_metrics(eval_pred):
+    def compute_metrics(eval_pred: EvalPrediction) -> Optional[Dict]:
         # Eval pred comes with both the predictions and the attention mask
         # grab just the predictions
         predictions = np.argmax(eval_pred.predictions[0], axis=-1)
