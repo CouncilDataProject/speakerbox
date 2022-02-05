@@ -97,6 +97,7 @@ def train(
     for subset in ["train", "test", "valid"]:
         pd_subset = ds_dict[subset].to_pandas()
         print(f"Summary stats for '{subset}' dataset")
+        print(f"n-rows: {len(pd_subset)}")
         print(f"n-labels: {pd_subset.label.nunique()}")
         print(f"Avg duration: {pd_subset.duration.mean()}")
         print(f"Min duration: {pd_subset.duration.min()}")
