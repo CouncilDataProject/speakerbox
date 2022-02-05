@@ -84,7 +84,8 @@ def expand_annotations_to_dataset(
     annotations_and_audios: List[AnnotationAndAudio],
     audio_output_dir: Union[str, Path] = Path("chunked-audio/"),
     overwrite: bool = False,
-    max_audio_chunk_duration: int = 5,
+    min_audio_chunk_duration: float = 0.5,
+    max_audio_chunk_duration: float = 2.0,
 ) -> pd.DataFrame:
     """
     Expand a list of annotation and audio files into a full dataset to be used for
@@ -101,9 +102,12 @@ def expand_annotations_to_dataset(
     overwrite: bool
         When writting out an audio chunk, should existing files be overwritten.
         Default: False (do not overwrite)
-    max_audio_chunk_duration: int
-        Length of the audio duration to split larger audio files into.
-        Default: 5 seconds
+    min_audio_chunk_duration: float
+        Length of the minimum audio duration to allow through after chunking.
+        default: 0.5 seconds
+    max_audio_chunk_duration: float
+        Length of the maximum audio duration to split larger audio files into.
+        Default: 2.0 seconds
 
     Returns
     -------
@@ -130,7 +134,7 @@ def expand_annotations_to_dataset(
         with open(aaa.annotation_file, "r") as open_f:
             annotations = json.load(open_f)
 
-        # Iter through each "monologue" section and add up times
+        # Iter through each "monologue" section
         for i, monologue in enumerate(annotations["monologues"]):
             monologue_speaker = monologue["speaker"]["id"]
             monologue_start_time = monologue["start"]
@@ -148,11 +152,18 @@ def expand_annotations_to_dataset(
                 chunk_start_millis = chunk_start_time * 1000
                 chunk_end = chunk_start_time + max_audio_chunk_duration
 
-                # Only add chunks where the full chunk is available
-                # (if there is more time available in the monologue)
+                # Determine chunk end time
+                # If start + chunk duration is longer than monologue
+                # Chunk needs to be cut at monologue end
                 if monologue_end_time > chunk_end:
                     chunk_end_millis = chunk_end * 1000
+                else:
+                    chunk_end_millis = monologue_end_time * 1000
 
+                # Only allow chunk through if duration is greater than
+                # min chunk length
+                duration = (chunk_end_millis - chunk_start_millis) / 1000
+                if duration >= min_audio_chunk_duration:
                     # Get chunk
                     chunk = audio[chunk_start_millis:chunk_end_millis]
 
@@ -172,10 +183,19 @@ def expand_annotations_to_dataset(
                         AnnotatedAudio(
                             label=monologue_speaker,
                             audio=str(chunk_save_path),
-                            duration=(chunk_end_millis - chunk_start_millis) / 1000,
+                            duration=duration,
                         )
                     )
 
         log.info(f"Completed expansion for annotation file: {aaa.annotation_file}")
 
-    return pd.DataFrame([aa.to_dict() for aa in annotated_audios])
+    # Merge all into a single dataframe
+    dataset = pd.DataFrame([aa.to_dict() for aa in annotated_audios])
+
+    # Dataset should be balanced by each speaker
+    # Group by label and get random sample with the min of all labels
+    groups = dataset.groupby("label")
+    dataset = pd.DataFrame(
+        groups.apply(lambda x: x.sample(groups.size().min()).reset_index(drop=True))
+    )
+    return dataset

@@ -113,6 +113,7 @@ ENV/
 
 # Project specific
 chunked-audio/
+trained-speakerbox/
 
 # Datasets
 seattle-2021-proto/

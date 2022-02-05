@@ -19,18 +19,45 @@ For full package documentation please visit [councildataproject.github.io/speake
 
 ## Quickstart
 
-Load the 2021 Seattle Prototype Dataset, get summary statistics
-about speaker time, finally pull the matching audio file for each annotation file
-and store annotation file matched to audio as a `pandas.DataFrame`.
+```python
+from speakerbox import expand_annotations_to_dataset, train
+from speakerbox.ds import seattle_2021_proto
+
+# Unpack / unzip the Seattle city council 2021 prototype dataset
+seattle_2021_ds_dir = seattle_2021_proto.unpack(clean=True)
+
+# Pull matching audio files for each annotation file
+seattle_2021_ds_items = seattle_2021_proto.pull_audio()
+
+# Expand from multiple matching large gecko annotation files and large audio files
+# into many small audio clips with speaker labels
+seattle_2021_ds = expand_annotations_to_dataset(seattle_2021_ds_items, overwrite=True)
+
+# Train a new model
+model_dir = train(seattle_2021_ds)
+
+# See the created trained-speakerbox directory for a confusion matrix image
+# generated from a holdout validation set.
+```
+
+Once training is complete, a model will be available for use with:
 
 ```python
-from speakerbox.datasets import seattle_2021_proto, utils
+from transformers import pipeline
 
-seattle_2021_ds_dir = seattle_2021_proto.unpack(clean=True)
-seattle_2021_ds = seattle_2021_proto.pull_audio_and_stitch_dataframe()
-seattle_2021_ds_summary_stats = utils.summarize_annotation_statistics(
-    seattle_2021_ds_dir / "annotations"
+# Assume you have some two second audio file stored
+speaker_audio_clip_path = "..."
+
+# Init the classifier
+classifier = pipeline(
+    "audio-classification",
+    model=model_dir,  # output from `train` from above
 )
+
+# Apply and see results
+print(classifier(speaker_audio_clip_path, top_k=5))
+
+# For most use cases you really just care about `top_k=1`
 ```
 
 ## Development

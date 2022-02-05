@@ -44,6 +44,7 @@ requirements = [
     "dataclasses_json",  # no version pin, pulled from cdp-backend
     "datasets[audio]>=1.18.2",
     "librosa>=0.8.1",
+    "matplotlib>=3.5.1",
     "pandas>=1.3.5",
     "pydub>=0.25.1",
     "scikit-learn>=1.0.2",
