@@ -27,7 +27,7 @@ from speakerbox.ds import seattle_2021_proto
 seattle_2021_ds_dir = seattle_2021_proto.unpack(clean=True)
 
 # Pull matching audio files for each annotation file
-seattle_2021_ds_items = seattle_2021_proto.pull_audio()
+seattle_2021_ds_items = seattle_2021_proto.pull_all_files()
 
 # Expand from multiple matching large gecko annotation files and large audio files
 # into many small audio clips with speaker labels
