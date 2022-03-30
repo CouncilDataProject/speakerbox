@@ -48,9 +48,12 @@ requirements = [
     "pandas>=1.3.5",
     "pydub>=0.25.1",
     "scikit-learn>=1.0.2",
+    "speechbrain>=0.5.11",
     "torch>=1.10.2",
     "torchaudio>=0.10.2",
     "transformers>=4.16.2",
+    # until v2 release
+    "pyannote.audio @ https://github.com/pyannote/pyannote-audio/archive/develop.zip",
 ]
 
 extra_requirements = {
