@@ -11,7 +11,6 @@ import torch
 from datasets import Audio, Dataset, DatasetDict, arrow_dataset, load_metric
 from sklearn.metrics import ConfusionMatrixDisplay
 from transformers import (
-    EarlyStoppingCallback,
     EvalPrediction,
     Trainer,
     TrainingArguments,
@@ -176,7 +175,7 @@ def train(
         # callbacks=[
         #     EarlyStoppingCallback(
         #         early_stopping_patience=2,  # num evals that acc worsens before exit
-        #         early_stopping_threshold=0.02,  # acc must improve my this much or exit
+        #         early_stopping_threshold=0.02,  # acc must improve by this or exit
         #     )
         # ],
     )

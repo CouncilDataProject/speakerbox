@@ -145,10 +145,8 @@ def _get_matching_unlabelled_transcript_and_audio(
         fs.get(remote_audio_uri, str(audio_save_path))
 
     # Update progress
-    try:
+    if progress_bar:
         progress_bar.update()
-    except Exception:
-        pass
 
     return AnnotationAndAudio(
         annotation_file=annotation_file,
