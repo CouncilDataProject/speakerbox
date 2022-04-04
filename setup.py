@@ -13,7 +13,7 @@ setup_requirements = [
 ]
 
 test_requirements = [
-    "black>=19.10b0",
+    "black>=22.3.0",
     "codecov>=2.1.4",
     "flake8>=3.8.3",
     "flake8-debugger>=3.2.1",
