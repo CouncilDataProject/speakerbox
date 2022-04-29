@@ -2,18 +2,20 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from speakerbox.preprocessing import diarize_audio
+from pathlib import Path
+
+from speakerbox.preprocessing import diarize_and_split_audio
 
 ###############################################################################
 
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="[%(levelname)4s: %(module)s:%(lineno)4s %(asctime)s] %(message)s",
 )
 log = logging.getLogger(__name__)
 
 ###############################################################################
 
-diarize_audio(
-    "/Users/maxfield/Desktop/active/cdp/speakerbox/seattle-2021-proto/audio/7fe4c0d99b44.wav"
-)
+test_file = Path(__file__).parent / "seattle-2021-proto/audio/5e881a137b6d.wav"
+
+diarize_and_split_audio(test_file)
