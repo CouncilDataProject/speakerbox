@@ -5,7 +5,7 @@ import logging
 
 import pandas as pd
 
-from speakerbox import preprocess
+from speakerbox import preprocess, train
 from speakerbox.datasets import seattle_2021_proto
 
 ###############################################################################
@@ -32,6 +32,7 @@ diarized_ds = ds = preprocess.expand_labeled_diarized_audio_dir_to_dataset(
         "ANNOTATED-event-2cdf68ae3c2c/",
         "ANNOTATED-event-6d6702d7b820/",
         "ANNOTATED-event-9f55f22d8e61/",
+        "ANNOTATED-event-9f581faa5ece/",
     ],
     overwrite=True,
 )
@@ -40,4 +41,7 @@ diarized_ds = ds = preprocess.expand_labeled_diarized_audio_dir_to_dataset(
 combined_ds = pd.concat([seattle_2021_ds, diarized_ds], ignore_index=True)
 
 # Generate train test validate splits
-train, test, valid = preprocess.check_and_create_dataset(combined_ds)
+dataset, _ = preprocess.prepare_dataset(combined_ds, False)
+
+# Train a model
+model_path = train(dataset)

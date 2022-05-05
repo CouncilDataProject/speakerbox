@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import logging
 from pathlib import Path
-from typing import Dict, Optional, Union
+from typing import Dict, Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import torch
-from datasets import Audio, Dataset, DatasetDict, arrow_dataset, load_metric
+from datasets import Audio, DatasetDict, arrow_dataset, load_metric
 from sklearn.metrics import ConfusionMatrixDisplay
 from transformers import (
     EvalPrediction,
@@ -22,17 +22,17 @@ from transformers import (
 
 ###############################################################################
 
+log = logging.getLogger(__name__)
+
+###############################################################################
+
 DEFAULT_BASE_MODEL = "superb/wav2vec2-base-superb-sid"
 
 ###############################################################################
 
 
 def train(
-    dataset: Union[
-        pd.DataFrame,
-        Dataset,
-        DatasetDict,
-    ],
+    dataset: DatasetDict,
     model_name: str = "trained-speakerbox",
     model_base: str = DEFAULT_BASE_MODEL,
     max_duration: float = 2.0,
@@ -43,16 +43,10 @@ def train(
 
     Parameters
     ----------
-    dataset: Union[pd.DataFrame, Dataset, DatasetDict]
-        The dataset to use for training.
-
+    dataset: DatasetDict
+        The datasets to use for training, testing, and validation.
         Should only contain the columns/features: "label" and "audio".
-
-        If provided a pandas DataFrame, this will convert it into a Dataset object
-        and cast the "label" column into ClassLabels and the "audio" column into Audio.
-        If provided a Dataset object (or the converted pandas DataFrame),
-        this will convert it into a DatasetDict with
-        random train, test, and validation splits.
+        The values in the "audio" column should be paths to the audio files.
     model_name: str
         A name for the model. This will also create a directory with the same name
         to store the produced model in.
@@ -75,39 +69,13 @@ def train(
     # Load feature extractor
     feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(model_base)
 
-    # Convert provided dataset to HF Dataset
-    if isinstance(dataset, pd.DataFrame):
-        dataset = Dataset.from_pandas(dataset, preserve_index=False)
-        dataset = dataset.class_encode_column("label")
-        dataset = dataset.cast_column("audio", Audio(feature_extractor.sampling_rate))
-
-    # Convert into train, test, and validate dict
-    if isinstance(dataset, Dataset):
-        train_and_test = dataset.train_test_split(test_size=0.4)
-        test_and_valid = train_and_test["test"].train_test_split(test_size=0.5)
-        ds_dict = DatasetDict(
-            {
-                "train": train_and_test["train"],
-                "test": test_and_valid["train"],
-                "valid": test_and_valid["test"],
-            }
-        )
-
-    # Show dataset summary stats
-    for subset in ["train", "test", "valid"]:
-        pd_subset = ds_dict[subset].to_pandas()
-        print(f"Summary stats for '{subset}' dataset")
-        print(f"n-rows: {len(pd_subset)}")
-        print(f"n-labels: {pd_subset.label.nunique()}")
-        print(f"Avg duration: {pd_subset.duration.mean()}")
-        print(f"Min duration: {pd_subset.duration.min()}")
-        print(f"Max duration: {pd_subset.duration.max()}")
-        print(f"StD duration: {pd_subset.duration.std()}")
-        print("-" * 80)
+    # Convert dataset audios
+    log.debug("Casting all audio paths to torch Audio")
+    dataset = dataset.cast_column("audio", Audio(feature_extractor.sampling_rate))
 
     # Construct label to id and vice-versa LUTs
     label2id, id2label = dict(), dict()
-    for i, label in enumerate(ds_dict["train"].features["label"].names):
+    for i, label in enumerate(dataset["train"].features["label"].names):
         label2id[label] = str(i)
         id2label[str(i)] = label
 
@@ -127,7 +95,7 @@ def train(
         return inputs
 
     # Encode the dataset
-    ds_dict = ds_dict.map(preprocess, batched=True)
+    ds_dict = dataset.map(preprocess, batched=True)
 
     # Create AutoModel
     model = Wav2Vec2ForSequenceClassification.from_pretrained(
