@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from pathlib import Path
 
-from speakerbox.preprocessing import diarize_and_split_audio
+import pandas as pd
+
+from speakerbox import preprocess
+from speakerbox.datasets import seattle_2021_proto
 
 ###############################################################################
 
@@ -16,6 +18,26 @@ log = logging.getLogger(__name__)
 
 ###############################################################################
 
-test_file = Path(__file__).parent / "seattle-2021-proto/audio/5e881a137b6d.wav"
+# Pull / prep original Seattle data
+seattle_2021_ds_items = seattle_2021_proto.pull_all_files()
+seattle_2021_ds = preprocess.expand_gecko_annotations_to_dataset(
+    seattle_2021_ds_items,
+    overwrite=True,
+)
 
-diarize_and_split_audio(test_file)
+# Expand diarized data
+diarized_ds = ds = preprocess.expand_labeled_diarized_audio_dir_to_dataset(
+    [
+        "ANNOTATED-event-01e7f8bb1c03/",
+        "ANNOTATED-event-2cdf68ae3c2c/",
+        "ANNOTATED-event-6d6702d7b820/",
+        "ANNOTATED-event-9f55f22d8e61/",
+    ],
+    overwrite=True,
+)
+
+# Combine into single
+combined_ds = pd.concat([seattle_2021_ds, diarized_ds], ignore_index=True)
+
+# Generate train test validate splits
+train, test, valid = preprocess.check_and_create_dataset(combined_ds)
