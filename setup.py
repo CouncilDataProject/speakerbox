@@ -12,6 +12,10 @@ setup_requirements = [
     "pytest-runner>=5.2",
 ]
 
+seattle_reqs = [
+    "cdp-backend~=3.0.3",
+]
+
 test_requirements = [
     "black>=22.3.0",
     "codecov>=2.1.4",
@@ -23,6 +27,7 @@ test_requirements = [
     "pytest-cov>=2.9.0",
     "pytest-raises>=0.11",
     "tox>=3.15.2",
+    *seattle_reqs,
 ]
 
 dev_requirements = [
@@ -32,26 +37,24 @@ dev_requirements = [
     "coverage>=5.1",
     "jupyterlab>=3.2.8",
     "m2r2>=0.2.7",
-    "pytest-runner>=5.2",
     "Sphinx>=3.4.3",
-    "sphinx_rtd_theme>=0.5.1",
+    "furo>=2022.4.7",
     "twine>=3.1.1",
     "wheel>=0.34.2",
 ]
 
 requirements = [
-    "cdp-backend>=3.0.3",
-    "dataclasses_json",  # no version pin, pulled from cdp-backend
-    "datasets[audio]>=1.18.2",
-    "librosa>=0.8.1",
-    "matplotlib>=3.5.1",
-    "pandas>=1.3.5",
-    "pydub>=0.25.1",
-    "scikit-learn>=1.0.2",
-    "speechbrain>=0.5.11",
-    "torch>=1.10.2",
-    "torchaudio>=0.10.2",
-    "transformers>=4.16.2",
+    "dataclasses_json~=0.5",
+    "datasets[audio]~=1.18",
+    "librosa~=0.8",
+    "matplotlib~=3.5",
+    "pandas~=1.0",
+    "pydub~=0.25",
+    "scikit-learn~=1.0",
+    "speechbrain~=0.5.11",
+    "torch~=1.10",
+    "torchaudio~=0.10",
+    "transformers~=4.16",
     # until v2 release
     "pyannote.audio @ https://github.com/pyannote/pyannote-audio/archive/develop.zip",
 ]
@@ -60,6 +63,7 @@ extra_requirements = {
     "setup": setup_requirements,
     "test": test_requirements,
     "dev": dev_requirements,
+    "seattle": seattle_reqs,
     "all": [
         *requirements,
         *dev_requirements,
@@ -70,12 +74,13 @@ setup(
     author="Jackson Maxfield Brown",
     author_email="jmaxfieldbrown@gmail.com",
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 3 - Pre-Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
     description="Speaker Annotation for Transcripts using Audio Classification",
     entry_points={
