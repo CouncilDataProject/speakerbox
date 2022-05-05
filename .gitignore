@@ -117,3 +117,5 @@ trained-speakerbox/
 
 # Datasets
 seattle-2021-proto/
+event-*/
+ANNOTATED-event-*/
