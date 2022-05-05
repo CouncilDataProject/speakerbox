@@ -10,7 +10,7 @@ from dataclasses_json import dataclass_json
 ###############################################################################
 
 
-class AnnotationAndAudio(NamedTuple):
+class GeckoAnnotationAndAudio(NamedTuple):
     annotation_file: Path
     audio_file: Path
 
@@ -18,6 +18,7 @@ class AnnotationAndAudio(NamedTuple):
 @dataclass_json
 @dataclass
 class AnnotatedAudio:
+    conversation_id: str
     label: str
     audio: str
     duration: float

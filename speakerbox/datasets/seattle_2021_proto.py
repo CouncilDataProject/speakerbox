@@ -15,8 +15,8 @@ from google.auth.credentials import AnonymousCredentials
 from google.cloud.firestore import Client
 from tqdm import tqdm
 
-from .types import AnnotationAndAudio
-from .utils import _unpack_zip
+from ..types import GeckoAnnotationAndAudio
+from ..utils import _unpack_zip
 
 ###############################################################################
 
@@ -86,7 +86,7 @@ def _get_matching_unlabelled_transcript_and_audio(
     fs: GCSFileSystem,
     overwrite: bool,
     progress_bar: Optional[tqdm] = None,
-) -> Optional[AnnotationAndAudio]:
+) -> Optional[GeckoAnnotationAndAudio]:
     # Remove suffix and use just the file name for the event id
     event_id = annotation_file.with_suffix("").name
 
@@ -148,7 +148,7 @@ def _get_matching_unlabelled_transcript_and_audio(
     if progress_bar:
         progress_bar.update()
 
-    return AnnotationAndAudio(
+    return GeckoAnnotationAndAudio(
         annotation_file=annotation_file,
         audio_file=audio_save_path,
     )
@@ -159,7 +159,7 @@ def pull_all_files(
     transcript_output_dir: Union[str, Path] = SEATTLE_2021_PROTOTYPE_TRANSCRIPT_DIR,
     audio_output_dir: Union[str, Path] = SEATTLE_2021_PROTOTYPE_AUDIO_DIR,
     overwrite: bool = False,
-) -> List[AnnotationAndAudio]:
+) -> List[GeckoAnnotationAndAudio]:
     """
     Using the filenames for the files found in the annotations directory as event
     ids, pull the matching audio files and store them in the dataset directory.
@@ -182,8 +182,8 @@ def pull_all_files(
 
     Returns
     -------
-    annotations_and_audios: List[AnnotationAndAudio]
-        A list of matching AnnotationAndAudio objects.
+    annotations_and_audios: List[GeckoAnnotationAndAudio]
+        A list of matching GeckoAnnotationAndAudio objects.
 
     Raises
     ------
@@ -245,4 +245,4 @@ def pull_all_files(
         results = list(exe.map(downloader, annotation_files))
 
     # Filter out bad events
-    return [r for r in results if isinstance(r, AnnotationAndAudio)]
+    return [r for r in results if isinstance(r, GeckoAnnotationAndAudio)]

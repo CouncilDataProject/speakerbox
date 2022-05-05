@@ -13,5 +13,4 @@ def get_module_version() -> str:
     return __version__
 
 
-from .ds.utils import expand_annotations_to_dataset  # noqa: F401
 from .main import train  # noqa: F401
