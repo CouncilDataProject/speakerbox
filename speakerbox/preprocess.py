@@ -4,11 +4,11 @@
 import json
 import logging
 from pathlib import Path
-from typing import List, Optional, Union
+from typing import List, Optional, Tuple, Union
 
 import numpy as np
 import pandas as pd
-from datasets import Audio, Dataset, DatasetDict
+from datasets import Dataset, DatasetDict
 from pyannote.audio import Pipeline
 from pydub import AudioSegment
 from sklearn.model_selection import train_test_split
@@ -273,7 +273,7 @@ def expand_gecko_annotations_to_dataset(
                 label=monologue_speaker,
             )
 
-        log.info(f"Completed expansion for annotation file: {aaa.annotation_file}")
+        log.debug(f"Completed expansion for annotation file: {aaa.annotation_file}")
 
     # Merge all into a single dataframe
     return pd.DataFrame([aa.to_dict() for aa in annotated_audios])  # type: ignore
@@ -388,7 +388,7 @@ def expand_labeled_diarized_audio_dir_to_dataset(
                         label=monologue_speaker.lower(),
                     )
 
-                log.info(f"Completed expansion for diarized audio dir: {label_dir}")
+                log.debug(f"Completed expansion for diarized audio dir: {label_dir}")
 
     # Merge all into a single dataframe
     return pd.DataFrame([aa.to_dict() for aa in annotated_audios])  # type: ignore
@@ -398,18 +398,18 @@ def expand_labeled_diarized_audio_dir_to_dataset(
 # Data expections and cleaning
 
 
-def check_and_create_dataset(
+def prepare_dataset(
     dataset: pd.DataFrame,
     equalize_data: bool = True,
-    test_and_valid_size: float = 0.4,
-) -> DatasetDict:
+    test_and_valid_size: float = 0.6,
+) -> Tuple[DatasetDict, pd.DataFrame]:
     # partition to equal amounts of data per label
     # partition to splits with different meetings
     if equalize_data:
         groups = dataset.groupby("label")
         dataset = pd.DataFrame(
             groups.apply(lambda x: x.sample(groups.size().min()).reset_index(drop=True))
-        )
+        ).reset_index(drop=True)
 
     # Holdout by conversation id
     labels = set(dataset.label.unique())
@@ -429,12 +429,6 @@ def check_and_create_dataset(
         train_ds = dataset.loc[dataset.conversation_id.isin(train_ids)]
         test_ds = dataset.loc[dataset.conversation_id.isin(test_ids)]
         valid_ds = dataset.loc[dataset.conversation_id.isin(valid_ids)]
-        print(train_ds.conversation_id.unique())
-        print(train_ds.label.unique(), len(train_ds.label.unique()))
-        print(test_ds.conversation_id.unique())
-        print(test_ds.label.unique(), len(test_ds.label.unique()))
-        print(valid_ds.conversation_id.unique())
-        print(valid_ds.label.unique(), len(valid_ds.label.unique()))
         if (
             set(train_ds.label.unique()) == labels
             and set(test_ds.label.unique()) == labels
@@ -443,12 +437,44 @@ def check_and_create_dataset(
             all_labels_present = True
 
         iters += 1
-        print(f"attempting train test split construction {iters} times.")
         if iters == 5:
             raise ValueError(
                 "Could not construct dataset holdouts from conversation ids while "
                 "stratifying by label."
             )
-        print("-" * 80)
+        log.debug(f"Attempted train test validation split construction {iters} times.")
 
-    return train_ds, test_ds, valid_ds
+    # Drop extra columns
+    train_ds = train_ds.drop(["conversation_id", "duration"], axis=1)
+    test_ds = test_ds.drop(["conversation_id", "duration"], axis=1)
+    valid_ds = valid_ds.drop(["conversation_id", "duration"], axis=1)
+
+    # Construct summary table
+    value_counts = pd.DataFrame(
+        {
+            "train_counts": train_ds.label.value_counts(),
+            "test_counts": test_ds.label.value_counts(),
+            "valid_counts": valid_ds.label.value_counts(),
+        }
+    )
+    log.info(f"Constructed train, test, validation sets contain:\n{value_counts}")
+
+    # Construct DatasetDict
+    train_ds = Dataset.from_pandas(train_ds, preserve_index=False)
+    train_ds = train_ds.class_encode_column("label")
+    test_ds = Dataset.from_pandas(test_ds, preserve_index=False)
+    test_ds = test_ds.class_encode_column("label")
+    valid_ds = Dataset.from_pandas(valid_ds, preserve_index=False)
+    valid_ds = valid_ds.class_encode_column("label")
+
+    # Return both the dataset dict and the value counts
+    return (
+        DatasetDict(
+            {
+                "train": train_ds,
+                "test": test_ds,
+                "valid": valid_ds,
+            }
+        ),
+        value_counts,
+    )
