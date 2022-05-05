@@ -99,7 +99,7 @@ def _get_matching_unlabelled_transcript_and_audio(
 
     # There should only be a single session so drop this event if more than one
     if len(matching_sessions) > 1:
-        log.info(
+        log.debug(
             f"Multiple sessions found for event: {event_id}, "
             f"dropping annotations from dataset."
         )
@@ -125,7 +125,7 @@ def _get_matching_unlabelled_transcript_and_audio(
         if overwrite:
             fs.get(matching_transcript_file.uri, str(transcript_save_path))
         else:
-            log.info(
+            log.debug(
                 f"Using existing transcript file found for event: {event_id}, "
                 f"({transcript_save_path})."
             )
@@ -137,7 +137,7 @@ def _get_matching_unlabelled_transcript_and_audio(
         if overwrite:
             fs.get(remote_audio_uri, str(audio_save_path))
         else:
-            log.info(
+            log.debug(
                 f"Using existing audio file found for event: {event_id}, "
                 f"({audio_save_path})."
             )
