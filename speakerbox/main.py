@@ -11,6 +11,7 @@ import torch
 from datasets import Audio, DatasetDict, arrow_dataset, load_metric
 from sklearn.metrics import ConfusionMatrixDisplay
 from transformers import (
+    EarlyStoppingCallback,
     EvalPrediction,
     Trainer,
     TrainingArguments,
@@ -36,7 +37,7 @@ def train(
     model_name: str = "trained-speakerbox",
     model_base: str = DEFAULT_BASE_MODEL,
     max_duration: float = 2.0,
-    batch_size: int = 2,
+    batch_size: int = 4,
 ) -> Path:
     """
     Train a speaker classification model.
@@ -59,7 +60,7 @@ def train(
         Default: 2.0
     batch_size: int
         The number of examples to use in a batch during training.
-        Default: 2
+        Default: 4
 
     Returns
     -------
@@ -115,7 +116,7 @@ def train(
         per_device_train_batch_size=batch_size,
         gradient_accumulation_steps=4,
         per_device_eval_batch_size=batch_size,
-        num_train_epochs=5,
+        num_train_epochs=3,
         warmup_ratio=0.1,
         logging_steps=10,
         load_best_model_at_end=True,
@@ -140,12 +141,12 @@ def train(
         eval_dataset=ds_dict["test"],
         tokenizer=feature_extractor,
         compute_metrics=compute_metrics,
-        # callbacks=[
-        #     EarlyStoppingCallback(
-        #         early_stopping_patience=2,  # num evals that acc worsens before exit
-        #         early_stopping_threshold=0.02,  # acc must improve by this or exit
-        #     )
-        # ],
+        callbacks=[
+            EarlyStoppingCallback(
+                early_stopping_patience=2,  # num evals that acc worsens before exit
+                early_stopping_threshold=0.02,  # acc must improve by this or exit
+            )
+        ],
     )
     torch.cuda.empty_cache()
     trainer.train()
