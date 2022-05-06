@@ -401,7 +401,7 @@ def expand_labeled_diarized_audio_dir_to_dataset(
 def prepare_dataset(
     dataset: pd.DataFrame,
     equalize_data: bool = True,
-    test_and_valid_size: float = 0.6,
+    test_and_valid_size: float = 0.4,
 ) -> Tuple[DatasetDict, pd.DataFrame]:
     # partition to equal amounts of data per label
     # partition to splits with different meetings

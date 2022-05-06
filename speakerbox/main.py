@@ -96,7 +96,7 @@ def train(
         return inputs
 
     # Encode the dataset
-    ds_dict = dataset.map(preprocess, batched=True)
+    dataset = dataset.map(preprocess, batched=True)
 
     # Create AutoModel
     model = Wav2Vec2ForSequenceClassification.from_pretrained(
@@ -137,8 +137,8 @@ def train(
     trainer = Trainer(
         model,
         args,
-        train_dataset=ds_dict["train"],
-        eval_dataset=ds_dict["test"],
+        train_dataset=dataset["train"],
+        eval_dataset=dataset["test"],
         tokenizer=feature_extractor,
         compute_metrics=compute_metrics,
         callbacks=[
@@ -159,7 +159,7 @@ def train(
         "audio-classification",
         model=model_name,
     )
-    ds_dict["valid"] = ds_dict["valid"].map(
+    dataset["valid"] = dataset["valid"].map(
         lambda example: {
             "prediction": classifier(example["audio"]["path"], top_k=1)[0]["label"],
             "label_str": classifier.model.config.id2label[example["label"]],
@@ -168,8 +168,8 @@ def train(
 
     # Create confusion
     ConfusionMatrixDisplay.from_predictions(
-        ds_dict["valid"]["label_str"],
-        ds_dict["valid"]["prediction"],
+        dataset["valid"]["label_str"],
+        dataset["valid"]["prediction"],
     )
     plt.xticks(rotation=45)
     plt.yticks(rotation=45)
