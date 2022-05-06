@@ -19,7 +19,11 @@ log = logging.getLogger(__name__)
 ###############################################################################
 
 # Pull / prep original Seattle data
-seattle_2021_ds_items = seattle_2021_proto.pull_all_files()
+seattle_2021_ds_items = seattle_2021_proto.pull_all_files(
+    annotations_dir="training-data/seattle-2021-proto/annotations/",
+    transcript_output_dir="training-data/seattle-2021-proto/unlabeled_transcripts/",
+    audio_output_dir="training-data/seattle-2021-proto/audio/",
+)
 seattle_2021_ds = preprocess.expand_gecko_annotations_to_dataset(
     seattle_2021_ds_items,
     overwrite=True,
@@ -28,11 +32,11 @@ seattle_2021_ds = preprocess.expand_gecko_annotations_to_dataset(
 # Expand diarized data
 diarized_ds = ds = preprocess.expand_labeled_diarized_audio_dir_to_dataset(
     [
-        "ANNOTATED-event-01e7f8bb1c03/",
-        "ANNOTATED-event-2cdf68ae3c2c/",
-        "ANNOTATED-event-6d6702d7b820/",
-        "ANNOTATED-event-9f55f22d8e61/",
-        "ANNOTATED-event-9f581faa5ece/",
+        "training-data/diarized/01e7f8bb1c03/",
+        "training-data/diarized/2cdf68ae3c2c/",
+        "training-data/diarized/6d6702d7b820/",
+        "training-data/diarized/9f55f22d8e61/",
+        "training-data/diarized/9f581faa5ece/",
     ],
     overwrite=True,
 )
