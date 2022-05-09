@@ -437,12 +437,16 @@ def prepare_dataset(
             all_labels_present = True
 
         iters += 1
-        if iters == 5:
+        if iters == 100:
             raise ValueError(
                 "Could not construct dataset holdouts from conversation ids while "
                 "stratifying by label."
             )
         log.debug(f"Attempted train test validation split construction {iters} times.")
+
+    log.debug(f"train_ds conversation_ids: {train_ds.conversation_id.unique()}")
+    log.debug(f"test_ds conversation_ids: {test_ds.conversation_id.unique()}")
+    log.debug(f"valid_ds conversation_ids: {valid_ds.conversation_id.unique()}")
 
     # Drop extra columns
     train_ds = train_ds.drop(["conversation_id", "duration"], axis=1)
