@@ -20,7 +20,18 @@ from pathlib import Path
 
 import pytest
 
+from speakerbox.utils import _unpack_zip
 
-@pytest.fixture
+###############################################################################
+
+
+@pytest.fixture(scope="session")
 def data_dir() -> Path:
-    return Path(__file__).parent / "data"
+    d_dir = Path(__file__).parent / "data"
+
+    # Check for diarized audio
+    diarized_dir = d_dir / "diarized"
+    if not diarized_dir.exists():
+        _unpack_zip(d_dir / "diarized.zip", diarized_dir)
+
+    return d_dir
