@@ -280,7 +280,13 @@ def expand_gecko_annotations_to_dataset(
 
 
 def expand_labeled_diarized_audio_dir_to_dataset(
-    labeled_diarized_audio_dir: Union[Union[str, Path], List[Union[str, Path]]],
+    labeled_diarized_audio_dir: Union[
+        str,
+        Path,
+        List[str],
+        List[Path],
+        List[Union[str, Path]],
+    ],
     audio_output_dir: Union[str, Path] = Path("chunked-audio/"),
     overwrite: bool = False,
     min_audio_chunk_duration: float = 0.5,
