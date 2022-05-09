@@ -114,7 +114,7 @@ def train(
         save_strategy="epoch",
         learning_rate=3e-5,
         per_device_train_batch_size=batch_size,
-        gradient_accumulation_steps=4,
+        gradient_accumulation_steps=2,
         per_device_eval_batch_size=batch_size,
         num_train_epochs=3,
         warmup_ratio=0.1,
