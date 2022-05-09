@@ -19,6 +19,7 @@ jobs:
     - name: Install System Dependencies
       run: |
         sudo apt-get install libsndfile1
+        sudo apt-get install ffmpeg
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
