@@ -10,8 +10,8 @@ from speakerbox import preprocess, train
 
 def test_train(data_dir: Path) -> None:
     """
-    We don't check the evaluation of the trained model, rather we are testing
-    that the training completes.
+    This is a smoke test. We do not check the validity of the produced model,
+    we simply care that the functions run through without error.
     """
     # Get diarized dirs
     diarized_audio = data_dir / "diarized"
@@ -35,4 +35,8 @@ def test_train(data_dir: Path) -> None:
     )
 
     # Train
-    train(dataset_dict, model_name="test-output-trained-speakerbox")
+    train(
+        dataset_dict,
+        model_name="test-outputs/trained-speakerbox",
+        seed=20220421,
+    )
