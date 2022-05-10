@@ -33,6 +33,7 @@ clean:  ## Clean all build, python, and testing files
 	rm -fr build/
 	rm -fr dist/
 	rm -fr .eggs/
+	rm -fr test-outputs/
 	find . -name '*.egg-info' -exec rm -fr {} +
 	find . -name '*.egg' -exec rm -f {} +
 	find . -name '*.pyc' -exec rm -f {} +
