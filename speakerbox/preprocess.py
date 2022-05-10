@@ -14,6 +14,7 @@ from pydub import AudioSegment
 from sklearn.model_selection import train_test_split
 
 from .types import AnnotatedAudio, GeckoAnnotationAndAudio
+from .utils import set_global_seed
 
 ###############################################################################
 
@@ -28,6 +29,7 @@ def diarize_and_split_audio(
     storage_dir: Optional[Union[str, Path]] = None,
     min_audio_chunk_duration: float = 0.5,
     diarization_pipeline: Optional[Pipeline] = None,
+    seed: Optional[int] = None,
 ) -> Path:
     """
     Diarize a single audio file and split the file into smaller chunks stored into
@@ -46,6 +48,9 @@ def diarize_and_split_audio(
     diarization_pipeline: Optional[Pipeline]
         A preloaded PyAnnote Pipeline.
         Default: None (load default)
+    seed: Optional[int]
+        Seed to pass to torch, numpy, and Python RNGs.
+        Default: None (do not set a seed)
 
     Returns
     -------
@@ -70,6 +75,9 @@ def diarize_and_split_audio(
         │   ├── {start_time_millis}-{start_end_millis}.wav
         │   └── {start_time_millis}-{start_end_millis}.wav
     """
+    if seed:
+        set_global_seed(seed)
+
     # Handle audio file
     if isinstance(audio_file, str):
         audio_file = Path(audio_file)
@@ -220,7 +228,7 @@ def expand_gecko_annotations_to_dataset(
     Returns
     -------
     dataset: pd.DataFrame
-        The expanded dataset with columns: label, audio, duration
+        The expanded dataset with columns: conversation_id, label, audio, duration
 
     Raises
     ------
@@ -317,7 +325,7 @@ def expand_labeled_diarized_audio_dir_to_dataset(
     Returns
     -------
     dataset: pd.DataFrame
-        The expanded dataset with columns: label, audio, duration
+        The expanded dataset with columns: conversation_id, label, audio, duration
 
     Raises
     ------
@@ -406,16 +414,68 @@ def expand_labeled_diarized_audio_dir_to_dataset(
 
 def prepare_dataset(
     dataset: pd.DataFrame,
-    equalize_data: bool = True,
     test_and_valid_size: float = 0.4,
+    n_iterations: int = 100,
+    seed: Optional[int] = None,
 ) -> Tuple[DatasetDict, pd.DataFrame]:
-    # partition to equal amounts of data per label
-    # partition to splits with different meetings
-    if equalize_data:
-        groups = dataset.groupby("label")
-        dataset = pd.DataFrame(
-            groups.apply(lambda x: x.sample(groups.size().min()).reset_index(drop=True))
-        ).reset_index(drop=True)
+    """
+    Prepare a dataset for training a new speakerbox / audio-classification model.
+    This function attempts to randomly create train, test, and validation splits
+    from the provided dataframe that meet the following two conditions:
+
+    1. There is data holdout by conversation_id. I.e. if the dataset contains data from
+    nine unique conversation ids, the training, test, and validation sets should all
+    have different conversation ids (train has 0, 1, 2, 3; test has 4, 5, 6; validation
+    has 7, 8).
+
+    2. There is data stratification by label. I.e. if the dataset contains nine unique
+    labels, the training, test, and validation sets should each have all nine labels
+    present (train, test, and validation all have labels 0-8).
+
+    Parameters
+    ----------
+    dataset: pd.DataFrame
+        An expanded dataset with columns: conversation_id, label, audio, duration
+    test_and_valid_size: float
+        How much of the dataset to use for the combined test and validation sets
+        as a percent (i.e. 0.4 = 40% of the dataset).
+        The test and validation sets will further split this in half (i.e. 0.4 = 40%
+        which means 20% of the total data for testing and 20% of the total data for
+        validation).
+    n_iterations: int
+        The number of iterations to attempt to find viable train, test, and validation
+        sets.
+        Default: 100
+    seed: Optional[int]
+        Seed to pass to torch, numpy, and Python RNGs.
+        Default: None (do not set a seed)
+
+    Returns
+    -------
+    dataset: DatasetDict
+        The prepared dataset split into train, test, and validation splits.
+    value_counts: pd.DataFrame
+        A value count table where each row is a different label and each column is the
+        count of that label in the matching train, test, or validation set.
+
+    See Also
+    --------
+    expand_labeled_diarized_audio_dir_to_dataset
+        Function to move from a directory of diarized audio (or multiple) into a
+        dataset to provide to this function.
+    expand_gecko_annotations_to_dataset
+        Function to move from a gecko annotation file (or multiple) into a dataset
+        to provide to this function.
+
+    Raises
+    ------
+    ValueError
+        Could not find train, test, and validation sets that meet the holdout and
+        stratification criteria after n iterations. Recommended to annotate more data.
+    """
+    # Handle random seed
+    if seed:
+        set_global_seed(seed)
 
     # Holdout by conversation id
     labels = set(dataset.label.unique())
@@ -443,10 +503,11 @@ def prepare_dataset(
             all_labels_present = True
 
         iters += 1
-        if iters == 100:
+        if iters == n_iterations:
             raise ValueError(
-                "Could not construct dataset holdouts from conversation ids while "
-                "stratifying by label."
+                f"Could not find train, test, and validation sets that meet the "
+                f"holdout and stratification criteria after {n_iterations}. "
+                f"Recommended to annotate more data."
             )
         log.debug(f"Attempted train test validation split construction {iters} times.")
 
