@@ -47,5 +47,7 @@ combined_ds = pd.concat([seattle_2021_ds, diarized_ds], ignore_index=True)
 # Generate train test validate splits
 dataset, _ = preprocess.prepare_dataset(combined_ds, equalize_data=False)
 
+# dataset.save_to_disk(SOME_PATH)
+
 # Train a model
 model_path = train(dataset)
