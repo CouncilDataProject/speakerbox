@@ -3,7 +3,8 @@
 
 from pathlib import Path
 
-from speakerbox import preprocess, train
+from speakerbox import eval_model, preprocess, train
+from speakerbox.utils import set_global_seed
 
 ###############################################################################
 
@@ -13,6 +14,9 @@ def test_train(data_dir: Path) -> None:
     This is a smoke test. We do not check the validity of the produced model,
     we simply care that the functions run through without error.
     """
+    # Set global seed for some level of reproducibility across tests
+    set_global_seed(20220421)
+
     # Get diarized dirs
     diarized_audio = data_dir / "diarized"
     diarized_audio_dirs = [
@@ -29,14 +33,16 @@ def test_train(data_dir: Path) -> None:
     )
 
     # Prepare and check
-    dataset_dict, _ = preprocess.prepare_dataset(
-        expanded_dataset,
-        equalize_data=False,
-    )
+    dataset_dict, _ = preprocess.prepare_dataset(expanded_dataset)
 
     # Train
     train(
         dataset_dict,
         model_name="test-outputs/trained-speakerbox",
-        seed=20220421,
+    )
+
+    # Eval
+    eval_model(
+        dataset_dict["valid"],
+        model_name="test-outputs/trained-speakerbox",
     )

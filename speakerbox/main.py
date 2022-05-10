@@ -3,12 +3,12 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from datasets import Audio, DatasetDict, arrow_dataset, load_metric
+from datasets import Audio, Dataset, DatasetDict, arrow_dataset, load_metric
 from sklearn.metrics import (
     ConfusionMatrixDisplay,
     accuracy_score,
@@ -25,6 +25,8 @@ from transformers import (
     feature_extraction_utils,
     pipeline,
 )
+
+from .utils import set_global_seed
 
 ###############################################################################
 
@@ -63,12 +65,89 @@ DEFAULT_TRAINER_ARGUMENTS_ARGS = dict(
 ###############################################################################
 
 
+def eval_model(
+    validation_dataset: Dataset,
+    model_name: str = "trained-speakerbox",
+) -> Tuple[float, float, float]:
+    """
+    Evaluate a trained model.
+
+    This will store two files in the model directory, one for the accuracy, precision,
+    and recall in a markdown file and the other is the generated top one confusion
+    matrix as a PNG file.
+
+    Parameters
+    ----------
+    validation_dataset: Dataset
+        The dataset to validate the model against.
+    model_name: str
+        A name for the model. This will also create a directory with the same name
+        to store the produced model in.
+        Default: "trained-speakerbox"
+
+    Returns
+    -------
+    accuracy: float
+        The model accuracy as returned by sklearn.metrics.accuracy_score.
+    precision: float
+        The model (macro) precision as returned by sklearn.metrics.precision_score.
+    recall: float
+        The model (macro) recall as returned by sklearn.metrics.recall_score.
+    """
+    classifier = pipeline(
+        "audio-classification",
+        model=model_name,
+    )
+    validation_dataset = validation_dataset.map(
+        lambda example: {
+            "prediction": classifier(example["audio"], top_k=1)[0]["label"],
+            "label_str": classifier.model.config.id2label[example["label"]],
+        }
+    )
+
+    # Create confusion
+    ConfusionMatrixDisplay.from_predictions(
+        validation_dataset["label_str"],
+        validation_dataset["prediction"],
+    )
+    plt.xticks(rotation=45)
+    plt.yticks(rotation=45)
+    plt.savefig(f"{model_name}/validation-confusion.png", bbox_inches="tight")
+
+    # Compute metrics
+    accuracy = accuracy_score(
+        y_true=validation_dataset["label_str"],
+        y_pred=validation_dataset["prediction"],
+    )
+    precision = precision_score(
+        y_true=validation_dataset["label_str"],
+        y_pred=validation_dataset["prediction"],
+        average="macro",
+    )
+    recall = recall_score(
+        y_true=validation_dataset["label_str"],
+        y_pred=validation_dataset["prediction"],
+        average="macro",
+    )
+
+    # Store metrics
+    with open(f"{model_name}/results.md", "w") as open_f:
+        open_f.write(
+            EVAL_RESULTS_TEMPLATE.format(
+                accuracy=accuracy,
+                precision=precision,
+                recall=recall,
+            )
+        )
+
+    return (accuracy, precision, recall)
+
+
 def train(
     dataset: DatasetDict,
     model_name: str = "trained-speakerbox",
     model_base: str = DEFAULT_BASE_MODEL,
     max_duration: float = 2.0,
-    eval_model: bool = True,
     seed: Optional[int] = None,
     trainer_arguments_kws: Dict[str, Any] = DEFAULT_TRAINER_ARGUMENTS_ARGS,
 ) -> Path:
@@ -91,12 +170,9 @@ def train(
         The maximum duration to use for each audio clip.
         Any clips longer than this will be trimmed.
         Default: 2.0
-    eval_model: bool
-        Should the model be evaluated against the provided evaluation set.
-        Default: True
     seed: Optional[int]
         Seed to pass to torch, numpy, and Python RNGs.
-        Default: None
+        Default: None (do not set a seed)
     trainer_arguments_kws: Dict[Any]
         Any additional keyword arguments to be passed to the HuggingFace
         TrainerArguments object.
@@ -109,11 +185,7 @@ def train(
     """
     # Handle seed
     if seed:
-        import random
-
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
+        set_global_seed(seed)
 
     # Load feature extractor
     feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(model_base)
@@ -156,17 +228,10 @@ def train(
     )
 
     # Create fine tuning Trainer
-    if seed:
-        args = TrainingArguments(
-            model_name,
-            seed=seed,
-            **trainer_arguments_kws,
-        )
-    else:
-        args = TrainingArguments(
-            model_name,
-            **trainer_arguments_kws,
-        )
+    args = TrainingArguments(
+        model_name,
+        **trainer_arguments_kws,
+    )
 
     # Compute accuracy metrics
     metric = load_metric("accuracy")
@@ -197,48 +262,5 @@ def train(
 
     # Save model
     trainer.save_model()
-
-    # Eval validation set
-    if eval_model:
-        classifier = pipeline(
-            "audio-classification",
-            model=model_name,
-        )
-        dataset["valid"] = dataset["valid"].map(
-            lambda example: {
-                "prediction": classifier(example["audio"]["path"], top_k=1)[0]["label"],
-                "label_str": classifier.model.config.id2label[example["label"]],
-            }
-        )
-
-        # Create confusion
-        ConfusionMatrixDisplay.from_predictions(
-            dataset["valid"]["label_str"],
-            dataset["valid"]["prediction"],
-        )
-        plt.xticks(rotation=45)
-        plt.yticks(rotation=45)
-        plt.savefig(f"{model_name}/validation-confusion.png")
-
-        # Store metrics
-        with open(f"{model_name}/results.md", "w") as open_f:
-            open_f.write(
-                EVAL_RESULTS_TEMPLATE.format(
-                    accuracy=accuracy_score(
-                        y_true=dataset["valid"]["label_str"],
-                        y_pred=dataset["valid"]["prediction"],
-                    ),
-                    precision=precision_score(
-                        y_true=dataset["valid"]["label_str"],
-                        y_pred=dataset["valid"]["prediction"],
-                        average="macro",
-                    ),
-                    recall=recall_score(
-                        y_true=dataset["valid"]["label_str"],
-                        y_pred=dataset["valid"]["prediction"],
-                        average="macro",
-                    ),
-                )
-            )
 
     return Path(model_name).resolve()

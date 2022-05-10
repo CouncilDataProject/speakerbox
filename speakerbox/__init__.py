@@ -13,4 +13,4 @@ def get_module_version() -> str:
     return __version__
 
 
-from .main import train  # noqa: F401
+from .main import eval_model, train  # noqa: F401
