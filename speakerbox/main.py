@@ -3,13 +3,18 @@
 
 import logging
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from datasets import Audio, DatasetDict, arrow_dataset, load_metric
-from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import (
+    ConfusionMatrixDisplay,
+    accuracy_score,
+    precision_score,
+    recall_score,
+)
 from transformers import (
     EarlyStoppingCallback,
     EvalPrediction,
@@ -29,6 +34,32 @@ log = logging.getLogger(__name__)
 
 DEFAULT_BASE_MODEL = "superb/wav2vec2-base-superb-sid"
 
+EVAL_RESULTS_TEMPLATE = """
+## Results
+
+* **Accuracy:** {accuracy}
+* **Precision:** {precision}
+* **Recall:** {recall}
+
+### Confusion
+"""
+
+DEFAULT_TRAINER_ARGUMENTS_ARGS = dict(
+    evaluation_strategy="epoch",
+    save_strategy="epoch",
+    learning_rate=3e-5,
+    per_device_train_batch_size=4,
+    gradient_accumulation_steps=2,
+    per_device_eval_batch_size=4,
+    num_train_epochs=3,
+    warmup_ratio=0.1,
+    logging_steps=10,
+    load_best_model_at_end=True,
+    metric_for_best_model="accuracy",
+    gradient_checkpointing=True,
+)
+
+
 ###############################################################################
 
 
@@ -37,7 +68,9 @@ def train(
     model_name: str = "trained-speakerbox",
     model_base: str = DEFAULT_BASE_MODEL,
     max_duration: float = 2.0,
-    batch_size: int = 4,
+    eval_model: bool = True,
+    seed: Optional[int] = None,
+    trainer_arguments_kws: Dict[str, Any] = DEFAULT_TRAINER_ARGUMENTS_ARGS,
 ) -> Path:
     """
     Train a speaker classification model.
@@ -58,15 +91,30 @@ def train(
         The maximum duration to use for each audio clip.
         Any clips longer than this will be trimmed.
         Default: 2.0
-    batch_size: int
-        The number of examples to use in a batch during training.
-        Default: 4
+    eval_model: bool
+        Should the model be evaluated against the provided evaluation set.
+        Default: True
+    seed: Optional[int]
+        Seed to pass to torch, numpy, and Python RNGs.
+        Default: None
+    trainer_arguments_kws: Dict[Any]
+        Any additional keyword arguments to be passed to the HuggingFace
+        TrainerArguments object.
+        Default: DEFAULT_TRAINER_ARGUMENTS_ARGS
 
     Returns
     -------
     model_storage_path: Path
         The path to the directory where the model is stored.
     """
+    # Handle seed
+    if seed:
+        import random
+
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+
     # Load feature extractor
     feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(model_base)
 
@@ -108,21 +156,17 @@ def train(
     )
 
     # Create fine tuning Trainer
-    args = TrainingArguments(
-        model_name,
-        evaluation_strategy="epoch",
-        save_strategy="epoch",
-        learning_rate=3e-5,
-        per_device_train_batch_size=batch_size,
-        gradient_accumulation_steps=2,
-        per_device_eval_batch_size=batch_size,
-        num_train_epochs=3,
-        warmup_ratio=0.1,
-        logging_steps=10,
-        load_best_model_at_end=True,
-        metric_for_best_model="accuracy",
-        gradient_checkpointing=True,
-    )
+    if seed:
+        args = TrainingArguments(
+            model_name,
+            seed=seed,
+            **trainer_arguments_kws,
+        )
+    else:
+        args = TrainingArguments(
+            model_name,
+            **trainer_arguments_kws,
+        )
 
     # Compute accuracy metrics
     metric = load_metric("accuracy")
@@ -155,24 +199,46 @@ def train(
     trainer.save_model()
 
     # Eval validation set
-    classifier = pipeline(
-        "audio-classification",
-        model=model_name,
-    )
-    dataset["valid"] = dataset["valid"].map(
-        lambda example: {
-            "prediction": classifier(example["audio"]["path"], top_k=1)[0]["label"],
-            "label_str": classifier.model.config.id2label[example["label"]],
-        }
-    )
+    if eval_model:
+        classifier = pipeline(
+            "audio-classification",
+            model=model_name,
+        )
+        dataset["valid"] = dataset["valid"].map(
+            lambda example: {
+                "prediction": classifier(example["audio"]["path"], top_k=1)[0]["label"],
+                "label_str": classifier.model.config.id2label[example["label"]],
+            }
+        )
 
-    # Create confusion
-    ConfusionMatrixDisplay.from_predictions(
-        dataset["valid"]["label_str"],
-        dataset["valid"]["prediction"],
-    )
-    plt.xticks(rotation=45)
-    plt.yticks(rotation=45)
-    plt.savefig(f"{model_name}/validation-confusion.png")
+        # Create confusion
+        ConfusionMatrixDisplay.from_predictions(
+            dataset["valid"]["label_str"],
+            dataset["valid"]["prediction"],
+        )
+        plt.xticks(rotation=45)
+        plt.yticks(rotation=45)
+        plt.savefig(f"{model_name}/validation-confusion.png")
+
+        # Store metrics
+        with open(f"{model_name}/results.md", "w") as open_f:
+            open_f.write(
+                EVAL_RESULTS_TEMPLATE.format(
+                    accuracy=accuracy_score(
+                        y_true=dataset["valid"]["label_str"],
+                        y_pred=dataset["valid"]["prediction"],
+                    ),
+                    precision=precision_score(
+                        y_true=dataset["valid"]["label_str"],
+                        y_pred=dataset["valid"]["prediction"],
+                        average="macro",
+                    ),
+                    recall=recall_score(
+                        y_true=dataset["valid"]["label_str"],
+                        y_pred=dataset["valid"]["prediction"],
+                        average="macro",
+                    ),
+                )
+            )
 
     return Path(model_name).resolve()
