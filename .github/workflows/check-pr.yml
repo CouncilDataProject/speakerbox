@@ -29,7 +29,9 @@ jobs:
     - name: Upload Codecov
       uses: codecov/codecov-action@v1
     - uses: iterative/setup-cml@v1
+      if: matrix.python-version == '3.10'
     - name: Create CML report
+      if: matrix.python-version == '3.10'
       env:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
