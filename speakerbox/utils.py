@@ -66,3 +66,17 @@ def _unpack_zip(
 
     # Return extracted data dir
     return dest.resolve(strict=True)
+
+
+def set_global_seed(seed: int) -> None:
+    """
+    Set the global RNG seed for torch, numpy, and Python.
+    """
+    import random
+
+    import numpy as np
+    import torch
+
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
