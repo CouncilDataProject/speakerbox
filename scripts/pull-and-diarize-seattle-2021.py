@@ -19,8 +19,6 @@ log = logging.getLogger(__name__)
 
 ###############################################################################
 
-torch.device("cpu")
-
 # Pull specific meetings
 for start_date, end_date in [
     ("2021-05-24", "2021-05-25"),

@@ -5,7 +5,7 @@ import logging
 
 import pandas as pd
 
-from speakerbox import preprocess, train
+from speakerbox import eval_model, preprocess, train
 from speakerbox.datasets import seattle_2021_proto
 
 ###############################################################################
@@ -51,3 +51,4 @@ dataset, _ = preprocess.prepare_dataset(combined_ds, equalize_data=False)
 
 # Train a model
 model_path = train(dataset)
+eval_model(dataset["valid"])
