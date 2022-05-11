@@ -33,7 +33,10 @@ def test_train(data_dir: Path) -> None:
     )
 
     # Prepare and check
-    dataset_dict, _ = preprocess.prepare_dataset(expanded_dataset)
+    dataset_dict, _ = preprocess.prepare_dataset(
+        expanded_dataset,
+        equalize_data_within_splits=True,
+    )
 
     # Train
     train(

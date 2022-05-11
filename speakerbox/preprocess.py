@@ -415,6 +415,7 @@ def expand_labeled_diarized_audio_dir_to_dataset(
 def prepare_dataset(
     dataset: pd.DataFrame,
     test_and_valid_size: float = 0.4,
+    equalize_data_within_splits: bool = False,
     n_iterations: int = 100,
     seed: Optional[int] = None,
 ) -> Tuple[DatasetDict, pd.DataFrame]:
@@ -442,6 +443,10 @@ def prepare_dataset(
         The test and validation sets will further split this in half (i.e. 0.4 = 40%
         which means 20% of the total data for testing and 20% of the total data for
         validation).
+    equalize_data_within_splits: bool
+        After finding valid train, test, and validation splits, should the data within
+        each split be reduced to have an equal number of data for each label.
+        Default: False (Do not equalize labels within splits)
     n_iterations: int
         The number of iterations to attempt to find viable train, test, and validation
         sets.
@@ -519,6 +524,29 @@ def prepare_dataset(
     train_ds = train_ds.drop(["conversation_id", "duration"], axis=1)
     test_ds = test_ds.drop(["conversation_id", "duration"], axis=1)
     valid_ds = valid_ds.drop(["conversation_id", "duration"], axis=1)
+
+    # Handle equalization
+    if equalize_data_within_splits:
+        # Subsets should be balanced by each label
+        # Group by label and get random sample with the min of all labels
+        train_groups = train_ds.groupby("label")
+        train_ds = pd.DataFrame(
+            train_groups.apply(
+                lambda x: x.sample(train_groups.size().min()).reset_index(drop=True)
+            )
+        )
+        test_groups = test_ds.groupby("label")
+        test_ds = pd.DataFrame(
+            test_groups.apply(
+                lambda x: x.sample(test_groups.size().min()).reset_index(drop=True)
+            )
+        )
+        valid_groups = valid_ds.groupby("label")
+        valid_ds = pd.DataFrame(
+            valid_groups.apply(
+                lambda x: x.sample(valid_groups.size().min()).reset_index(drop=True)
+            )
+        )
 
     # Construct summary table
     value_counts = pd.DataFrame(
