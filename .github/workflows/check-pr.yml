@@ -36,6 +36,8 @@ jobs:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cml publish test-outputs/trained-speakerbox/validation-confusion.png --md >> test-outputs/trained-speakerbox/results.md
+        currentHash=$(git rev-parse --short HEAD)
+        echo "**Results from commit:** $currentHash" >> results.md
         cml send-comment test-outputs/trained-speakerbox/results.md
   lint:
     runs-on: ubuntu-latest
