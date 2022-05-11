@@ -49,12 +49,12 @@ EVAL_RESULTS_TEMPLATE = """
 DEFAULT_TRAINER_ARGUMENTS_ARGS = dict(
     evaluation_strategy="epoch",
     save_strategy="epoch",
-    learning_rate=3e-6,
+    learning_rate=3e-5,
     per_device_train_batch_size=4,
     gradient_accumulation_steps=2,
     per_device_eval_batch_size=4,
     num_train_epochs=3,
-    warmup_ratio=0.05,
+    warmup_ratio=0.1,
     logging_steps=10,
     load_best_model_at_end=True,
     metric_for_best_model="accuracy",
@@ -149,6 +149,7 @@ def train(
     model_base: str = DEFAULT_BASE_MODEL,
     max_duration: float = 2.0,
     seed: Optional[int] = None,
+    use_cpu: bool = False,
     trainer_arguments_kws: Dict[str, Any] = DEFAULT_TRAINER_ARGUMENTS_ARGS,
 ) -> Path:
     """
@@ -173,6 +174,10 @@ def train(
     seed: Optional[int]
         Seed to pass to torch, numpy, and Python RNGs.
         Default: None (do not set a seed)
+    use_cpu: bool
+        Should the model be trained using CPU.
+        This also sets `no_cuda=True` on TrainerArguments.
+        Default: False (use GPU if available)
     trainer_arguments_kws: Dict[Any]
         Any additional keyword arguments to be passed to the HuggingFace
         TrainerArguments object.
@@ -186,6 +191,10 @@ def train(
     # Handle seed
     if seed:
         set_global_seed(seed)
+
+    # Handle cpu
+    if use_cpu:
+        trainer_arguments_kws["no_cuda"] = True
 
     # Load feature extractor
     feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(model_base)

@@ -39,6 +39,7 @@ def test_train(data_dir: Path) -> None:
     train(
         dataset_dict,
         model_name="test-outputs/trained-speakerbox",
+        use_cpu=True,
     )
 
     # Eval
