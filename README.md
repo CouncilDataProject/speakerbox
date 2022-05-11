@@ -20,6 +20,7 @@ For full package documentation please visit [councildataproject.github.io/speake
 ## Problem
 
 Given a set of recordings of multi-speaker conversations or meetings:
+
 ```
 example/
 ├── 0.wav
@@ -32,12 +33,12 @@ example/
 
 Where each conversation has some or all of a consistent set of speakers, for example:
 
-* 0.wav -- contains speakers: A, B, C, D, E
-* 1.wav -- contains speakers: B, D, E
-* 2.wav -- contains speakers: A, B, C
-* 3.wav -- contains speakers: A, B, C, D, E
-* 4.wav -- contains speakers: A, C, D
-* 5.wav -- contains speakers: A, B, C, D, E
+-   0.wav -- contains speakers: A, B, C, D, E
+-   1.wav -- contains speakers: B, D, E
+-   2.wav -- contains speakers: A, B, C
+-   3.wav -- contains speakers: A, B, C, D, E
+-   4.wav -- contains speakers: A, C, D
+-   5.wav -- contains speakers: A, B, C, D, E
 
 You want to train a model to classify portions of audio as one of the N known speakers
 in future conversations not included in your original training set.
@@ -63,14 +64,15 @@ of the clusters into their own directories that you can then manually clean up
 (by removing incorrectly clustered audio segments).
 
 #### Notes
-* It is recommended to have each larger audio file named with a unique id that
-  can be used to act as a "conversation id".
-* Diarization time depends on machine resources and make take a long time -- one
-  potential recommendation is to run a diarization script overnight and clean up the
-  produced annotations the following day.
-* During this process audio will be duplicated in the form of smaller audio clips --
-  ensure you have enough space on your machine to complete this process before
-  you begin.
+
+-   It is recommended to have each larger audio file named with a unique id that
+    can be used to act as a "conversation id".
+-   Diarization time depends on machine resources and make take a long time -- one
+    potential recommendation is to run a diarization script overnight and clean up the
+    produced annotations the following day.
+-   During this process audio will be duplicated in the form of smaller audio clips --
+    ensure you have enough space on your machine to complete this process before
+    you begin.
 
 ```python
 from speakerbox import preprocess
@@ -85,6 +87,7 @@ the audio clips that were clustered together.
 
 For example, if `"0.wav"` had three speakers, the produced directory structure may look
 like the following tree:
+
 ```
 0/
 ├── SPEAKER_00
@@ -105,10 +108,11 @@ clips that were incorrectly clustered together as well as renaming the sub-direc
 (from "SPEAKER_00", "SPEAKER_01", "SPEAKER_02", etc. to "A", "B", "C", etc.).
 
 #### Notes
-* Most operating systems have an audio playback application to queue an entire directory
-  of audio files as a playlist for playback. This makes it easy to listen to a whole
-  unlabeled sub-directory (i.e. "SPEAKER_00") at a time and pause playback and remove
-  files from the directory which were incorrectly clustered.
+
+-   Most operating systems have an audio playback application to queue an entire directory
+    of audio files as a playlist for playback. This makes it easy to listen to a whole
+    unlabeled sub-directory (i.e. "SPEAKER_00") at a time and pause playback and remove
+    files from the directory which were incorrectly clustered.
 
 ### Training Preparation
 
@@ -116,6 +120,7 @@ Once you have annotated what you think is enough conversations, you can try prep
 a dataset for training.
 
 The following functions will prepare the audio for training by:
+
 1. Finding all labeled audio clips in the provided directories
 2. Chunk all found audio clips into smaller duration clips _(parametrizable)_
 3. Check that the provided annotated dataset meets the following conditions:
@@ -125,10 +130,11 @@ The following functions will prepare the audio for training by:
        contain all labels present in the whole dataset.
 
 #### Notes
-* During this process audio will be duplicated in the form of smaller audio clips --
-  ensure you have enough space on your machine to complete this process before
-  you begin.
-* Directory names are used as conversation ids during dataset construction.
+
+-   During this process audio will be duplicated in the form of smaller audio clips --
+    ensure you have enough space on your machine to complete this process before
+    you begin.
+-   Directory names are used as conversation ids during dataset construction.
 
 ```python
 from speakerbox import preprocess
@@ -162,11 +168,12 @@ precision, and recall of the model and additionally store a file called
 [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix).
 
 #### Notes
-* The model (and evaluation metrics) will be stored in a new directory called
-  `trained-speakerbox` _(parametrizable)_.
-* Training time depends on how much data you have annotated and provided.
-* It is recommended to train with an NVidia GPU with CUDA available to speed up
-  the training process.
+
+-   The model (and evaluation metrics) will be stored in a new directory called
+    `trained-speakerbox` _(parametrizable)_.
+-   Training time depends on how much data you have annotated and provided.
+-   It is recommended to train with an NVidia GPU with CUDA available to speed up
+    the training process.
 
 ```python
 from speakerbox import train, eval_model

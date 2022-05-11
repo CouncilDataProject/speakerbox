@@ -74,7 +74,7 @@ setup(
     author="Jackson Maxfield Brown",
     author_email="jmaxfieldbrown@gmail.com",
     classifiers=[
-        "Development Status :: 3 - Pre-Alpha",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
