@@ -17,6 +17,8 @@ Workflow for Annotation and Speaker Classification Model Training from Audio
 
 For full package documentation please visit [councildataproject.github.io/speakerbox](https://councildataproject.github.io/speakerbox).
 
+![Speakerbox example workflow](https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png)
+
 ## Problem
 
 Given a set of recordings of multi-speaker conversations or meetings:
@@ -53,8 +55,6 @@ and for utilizing multiple audio annotation schemes to train such a model.
 ## Workflow
 
 ⚠️ `speakerbox` currently only works on Ubuntu due to upstream dependencies ⚠️
-
-![TODO]()
 
 ### Diarization
 
