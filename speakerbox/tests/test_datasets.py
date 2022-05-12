@@ -14,8 +14,6 @@ def test_unpack_pull_and_expand_seattle() -> None:
         clean=True,
     )
 
-    print(seattle_2021_ds_dir)
-
     # Pull matching audio files for each annotation file
     seattle_2021_ds_items = seattle_2021_proto.pull_all_files(
         annotations_dir=seattle_2021_ds_dir / "annotations",
