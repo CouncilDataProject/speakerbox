@@ -3,16 +3,24 @@
 
 from pathlib import Path
 
+from pytest import Config
+
 from speakerbox import eval_model, preprocess, train
 from speakerbox.utils import set_global_seed
 
 ###############################################################################
 
 
-def test_train(data_dir: Path) -> None:
+def test_train(data_dir: Path, pytestconfig: Config) -> None:
     """
     This is a smoke test. We do not check the validity of the produced model,
     we simply care that the functions run through without error.
+
+    Run with CPU with pytest:
+    pytest speakerbox/tests/test_train.py --cpu
+
+    Or with tox:
+    tox -- --cpu
     """
     # Set global seed for some level of reproducibility across tests
     set_global_seed(20220421)
@@ -33,16 +41,15 @@ def test_train(data_dir: Path) -> None:
     )
 
     # Prepare and check
-    dataset_dict, _ = preprocess.prepare_dataset(
-        expanded_dataset,
-        equalize_data_within_splits=True,
-    )
+    dataset_dict, _ = preprocess.prepare_dataset(expanded_dataset)
+
+    print(pytestconfig.getoption("use_cpu"))
 
     # Train
     train(
         dataset_dict,
         model_name="test-outputs/trained-speakerbox",
-        use_cpu=True,
+        use_cpu=pytestconfig.getoption("use_cpu"),
     )
 
     # Eval
