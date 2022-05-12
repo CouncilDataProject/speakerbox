@@ -43,8 +43,6 @@ def test_train(data_dir: Path, pytestconfig: Config) -> None:
     # Prepare and check
     dataset_dict, _ = preprocess.prepare_dataset(expanded_dataset)
 
-    print(pytestconfig.getoption("use_cpu"))
-
     # Train
     train(
         dataset_dict,
