@@ -47,8 +47,11 @@ clean:  ## Clean all build, python, and testing files
 	rm -fr .pytest_cache
 	rm -fr .mypy_cache
 
-build: ## run tox / run tests and lint
+build: ## run tox / run tests and lint / use GPU for training test
 	tox
+
+build-cpu: ## run tox / run tests and lint / use CPU to training test
+	tox -- --cpu
 
 gen-docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/speakerbox*.rst
