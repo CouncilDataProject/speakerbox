@@ -92,7 +92,7 @@ def diarize_and_split_audio(
         # No storage dir provided
         # Make one using the audio file name
         audio_file_name = audio_file.with_suffix("").name
-        storage_dir = Path(f"dia-{audio_file_name}").resolve()
+        storage_dir = Path(audio_file_name)
 
     # Make storage dir
     storage_dir.mkdir(parents=True, exist_ok=True)
