@@ -8,6 +8,7 @@ from typing import Any, Dict, Optional, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+import transformers
 from datasets import Audio, Dataset, DatasetDict, arrow_dataset, load_metric
 from sklearn.metrics import (
     ConfusionMatrixDisplay,
@@ -94,10 +95,12 @@ def eval_model(
     recall: float
         The model (macro) recall as returned by sklearn.metrics.recall_score.
     """
+    log.info("Setting up evaluation pipeline")
     classifier = pipeline(
         "audio-classification",
         model=model_name,
     )
+    log.info("Running eval")
     validation_dataset = validation_dataset.map(
         lambda example: {
             "prediction": classifier(example["audio"], top_k=1)[0]["label"],
@@ -200,7 +203,7 @@ def train(
     feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(model_base)
 
     # Convert dataset audios
-    log.debug("Casting all audio paths to torch Audio")
+    log.info("Casting all audio paths to torch Audio")
     dataset = dataset.cast_column("audio", Audio(feature_extractor.sampling_rate))
 
     # Construct label to id and vice-versa LUTs
@@ -225,9 +228,11 @@ def train(
         return inputs
 
     # Encode the dataset
+    log.info("Extracting features from audio")
     dataset = dataset.map(preprocess, batched=True)
 
     # Create AutoModel
+    log.info("Setting up Trainer")
     model = Wav2Vec2ForSequenceClassification.from_pretrained(
         model_base,
         num_labels=len(id2label),
@@ -267,6 +272,7 @@ def train(
         ],
     )
     torch.cuda.empty_cache()
+    transformers.logging.set_verbosity_info()
     trainer.train()
 
     # Save model

@@ -489,6 +489,7 @@ def prepare_dataset(
     # Reroll holdouts until all labels are present in each split
     all_labels_present = False
     iters = 0
+    log.info("Finding data splits for provided dataset")
     while not all_labels_present:
         # Get conversation ids split randomly
         train_ids, test_and_valid_ids = train_test_split(
