@@ -73,6 +73,10 @@ of the clusters into their own directories that you can then manually clean up
 -   During this process audio will be duplicated in the form of smaller audio clips --
     ensure you have enough space on your machine to complete this process before
     you begin.
+-   Clustering accuracy depends on how many speakers there are, how distinct their
+    voices are, and how much speech is talking over one-another.
+-   If possible, try to find meetings where speakers have a roughly uniform distribution
+    of speaking durations.
 
 ```python
 from speakerbox import preprocess
@@ -105,6 +109,7 @@ like the following tree:
 
 We leave it to you as a user to then go through these directories and remove any audio
 clips that were incorrectly clustered together as well as renaming the sub-directories
+to their correct speaker labels
 (from "SPEAKER_00", "SPEAKER_01", "SPEAKER_02", etc. to "A", "B", "C", etc.).
 
 #### Notes
