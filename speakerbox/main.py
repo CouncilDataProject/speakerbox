@@ -5,6 +5,7 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
+import datasets
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
@@ -13,6 +14,7 @@ from datasets import Audio, Dataset, DatasetDict, arrow_dataset, load_metric
 from sklearn.metrics import (
     ConfusionMatrixDisplay,
     accuracy_score,
+    log_loss,
     precision_score,
     recall_score,
 )
@@ -43,6 +45,7 @@ EVAL_RESULTS_TEMPLATE = """
 * **Accuracy:** {accuracy}
 * **Precision:** {precision}
 * **Recall:** {recall}
+* **Validation Loss:** {loss}
 
 ### Confusion
 """
@@ -70,7 +73,7 @@ DEFAULT_TRAINER_ARGUMENTS_ARGS = dict(
 def eval_model(
     validation_dataset: Dataset,
     model_name: str = "trained-speakerbox",
-) -> Tuple[float, float, float]:
+) -> Tuple[float, float, float, float]:
     """
     Evaluate a trained model.
 
@@ -92,9 +95,11 @@ def eval_model(
     accuracy: float
         The model accuracy as returned by sklearn.metrics.accuracy_score.
     precision: float
-        The model (macro) precision as returned by sklearn.metrics.precision_score.
+        The model (weighted) precision as returned by sklearn.metrics.precision_score.
     recall: float
-        The model (macro) recall as returned by sklearn.metrics.recall_score.
+        The model (weighted) recall as returned by sklearn.metrics.recall_score.
+    loss: float
+        The model log loss as returned by sklearn.metrics.log_loss.
     """
     log.info("Setting up evaluation pipeline")
     classifier = pipeline(
@@ -102,17 +107,23 @@ def eval_model(
         model=model_name,
     )
     log.info("Running eval")
-    validation_dataset = validation_dataset.map(
-        lambda example: {
-            "prediction": classifier(example["audio"], top_k=1)[0]["label"],
-            "label_str": classifier.model.config.id2label[example["label"]],
+
+    def predict(example: datasets.arrow_dataset.Example) -> Dict[str, Any]:
+        pred = classifier(example["audio"], top_k=1000)
+        pred_as_dict = {i["label"]: i["score"] for i in pred}
+        top_pred = max(pred_as_dict, key=pred_as_dict.get)  # type: ignore
+        return {
+            "pred_label": top_pred,
+            "true_label": classifier.model.config.id2label[example["label"]],
+            "pred_scores": [i["score"] for i in pred],
         }
-    )
+
+    validation_dataset = validation_dataset.map(predict)
 
     # Create confusion
     ConfusionMatrixDisplay.from_predictions(
-        validation_dataset["label_str"],
-        validation_dataset["prediction"],
+        validation_dataset["true_label"],
+        validation_dataset["pred_label"],
     )
     plt.xticks(rotation=45)
     plt.yticks(rotation=45)
@@ -120,18 +131,22 @@ def eval_model(
 
     # Compute metrics
     accuracy = accuracy_score(
-        y_true=validation_dataset["label_str"],
-        y_pred=validation_dataset["prediction"],
+        y_true=validation_dataset["true_label"],
+        y_pred=validation_dataset["pred_label"],
     )
     precision = precision_score(
-        y_true=validation_dataset["label_str"],
-        y_pred=validation_dataset["prediction"],
-        average="macro",
+        y_true=validation_dataset["true_label"],
+        y_pred=validation_dataset["pred_label"],
+        average="weighted",
     )
     recall = recall_score(
-        y_true=validation_dataset["label_str"],
-        y_pred=validation_dataset["prediction"],
-        average="macro",
+        y_true=validation_dataset["true_label"],
+        y_pred=validation_dataset["pred_label"],
+        average="weighted",
+    )
+    loss = log_loss(
+        y_true=validation_dataset["true_label"],
+        y_pred=validation_dataset["pred_scores"],
     )
 
     # Store metrics
@@ -141,10 +156,11 @@ def eval_model(
                 accuracy=accuracy,
                 precision=precision,
                 recall=recall,
+                loss=loss,
             )
         )
 
-    return (accuracy, precision, recall)
+    return (accuracy, precision, recall, loss)
 
 
 def train(
