@@ -3,7 +3,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple, Union
 
 import datasets
 import matplotlib.pyplot as plt
@@ -28,6 +28,8 @@ from transformers import (
     feature_extraction_utils,
     pipeline,
 )
+from transformers.feature_extraction_utils import BatchFeature
+from transformers.modeling_outputs import SequenceClassifierOutput
 
 from .utils import set_global_seed
 
@@ -164,12 +166,15 @@ def eval_model(
 
 
 class SpeakerboxTrainer(Trainer):
-    def compute_loss(self, model, inputs, return_outputs=False):
+    def compute_loss(
+        self,
+        model: Wav2Vec2ForSequenceClassification,
+        inputs: BatchFeature,
+        return_outputs: bool = True,
+    ) -> Union[Tuple[torch.Tensor, SequenceClassifierOutput], torch.Tensor]:
         labels = inputs.get("labels")
-        # forward pass
         outputs = model(**inputs)
         logits = outputs.get("logits")
-        # compute custom loss (suppose one has 3 labels with different weights)
         loss_fct = torch.nn.CrossEntropyLoss()
         loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
         return (loss, outputs) if return_outputs else loss
