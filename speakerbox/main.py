@@ -58,7 +58,7 @@ DEFAULT_TRAINER_ARGUMENTS_ARGS = dict(
     gradient_accumulation_steps=1,
     eval_accumulation_steps=40,
     per_device_eval_batch_size=8,
-    num_train_epochs=3,
+    num_train_epochs=10,
     warmup_ratio=0.1,
     logging_steps=10,
     load_best_model_at_end=True,
@@ -161,6 +161,18 @@ def eval_model(
         )
 
     return (accuracy, precision, recall, loss)
+
+
+class SpeakerboxTrainer(Trainer):
+    def compute_loss(self, model, inputs, return_outputs=False):
+        labels = inputs.get("labels")
+        # forward pass
+        outputs = model(**inputs)
+        logits = outputs.get("logits")
+        # compute custom loss (suppose one has 3 labels with different weights)
+        loss_fct = torch.nn.CrossEntropyLoss()
+        loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+        return (loss, outputs) if return_outputs else loss
 
 
 def train(
@@ -274,7 +286,7 @@ def train(
         return metric.compute(predictions=predictions, references=eval_pred.label_ids)
 
     # Trainer and train!
-    trainer = Trainer(
+    trainer = SpeakerboxTrainer(
         model,
         args,
         train_dataset=dataset["train"],
@@ -284,7 +296,7 @@ def train(
         callbacks=[
             EarlyStoppingCallback(
                 early_stopping_patience=2,  # num evals that acc worsens before exit
-                early_stopping_threshold=0.02,  # acc must improve by this or exit
+                early_stopping_threshold=0.005,  # acc must improve by this or exit
             )
         ],
     )
