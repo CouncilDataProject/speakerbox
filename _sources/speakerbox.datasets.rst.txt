@@ -1,0 +1,21 @@
+speakerbox.datasets package
+===========================
+
+Submodules
+----------
+
+speakerbox.datasets.seattle\_2021\_proto module
+-----------------------------------------------
+
+.. automodule:: speakerbox.datasets.seattle_2021_proto
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: speakerbox.datasets
+   :members:
+   :undoc-members:
+   :show-inheritance:

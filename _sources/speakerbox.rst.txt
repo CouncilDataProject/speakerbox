@@ -1,13 +1,45 @@
 speakerbox package
 ==================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   speakerbox.datasets
+
 Submodules
 ----------
 
-speakerbox.datasets module
---------------------------
+speakerbox.main module
+----------------------
 
-.. automodule:: speakerbox.datasets
+.. automodule:: speakerbox.main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+speakerbox.preprocess module
+----------------------------
+
+.. automodule:: speakerbox.preprocess
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+speakerbox.types module
+-----------------------
+
+.. automodule:: speakerbox.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+speakerbox.utils module
+-----------------------
+
+.. automodule:: speakerbox.utils
    :members:
    :undoc-members:
    :show-inheritance:

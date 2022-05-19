@@ -1,139 +1,402 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="installation.html" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to speakerbox’s documentation! &mdash; speakerbox 0.0.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+        <title>speakerbox 0.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" /> 
-</head>
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> speakerbox
-          </a>
-              <div class="version">
-                0.0.0
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#stable-release">Stable release</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#from-sources">From sources</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Package modules</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="speakerbox.html">speakerbox package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="speakerbox.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="speakerbox.html#module-speakerbox.datasets">speakerbox.datasets module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="speakerbox.html#module-speakerbox">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#developer-installation">Developer Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#get-started">Get Started!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#deploying">Deploying</a></li>
-</ul>
-</li>
-</ul>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
 
-        </div>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="#"><div class="brand">speakerbox 0.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
       </div>
-    </nav>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+  
+  
+  <span class="sidebar-brand-text">speakerbox 0.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">Package modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="speakerbox.html">speakerbox package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="speakerbox.datasets.html">speakerbox.datasets package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">speakerbox</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>Welcome to speakerbox’s documentation!</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-  </div>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="welcome-to-speakerbox-s-documentation">
-<h1>Welcome to speakerbox’s documentation!<a class="headerlink" href="#welcome-to-speakerbox-s-documentation" title="Permalink to this headline"></a></h1>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="welcome-to-speakerbox-s-documentation">
+<h1>Welcome to speakerbox’s documentation!<a class="headerlink" href="#welcome-to-speakerbox-s-documentation" title="Permalink to this headline">#</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 </section>
 <section id="speakerbox">
-<h1>speakerbox<a class="headerlink" href="#speakerbox" title="Permalink to this headline"></a></h1>
-<a class="reference external image-reference" href="https://github.com/CouncilDataProject/speakerbox/actions"><img alt="Build Status" src="https://github.com/CouncilDataProject/speakerbox/workflows/Build/badge.svg" /></a>
-<a class="reference external image-reference" href="https://CouncilDataProject.github.io/speakerbox"><img alt="Documentation" src="https://github.com/CouncilDataProject/speakerbox/workflows/Documentation/badge.svg" /></a>
-<a class="reference external image-reference" href="https://codecov.io/gh/CouncilDataProject/speakerbox"><img alt="Code Coverage" src="https://codecov.io/gh/CouncilDataProject/speakerbox/branch/main/graph/badge.svg" /></a>
-<p>Speaker Annotation for Transcripts using Audio Classification</p>
-<hr class="docutils" />
+<h1>speakerbox<a class="headerlink" href="#speakerbox" title="Permalink to this headline">#</a></h1>
+<a class="reference external image-reference" href="https://github.com/CouncilDataProject/speakerbox/actions"><img alt="Build Status" src="https://github.com/CouncilDataProject/speakerbox/workflows/Build/badge.svg"/></a>
+<a class="reference external image-reference" href="https://CouncilDataProject.github.io/speakerbox"><img alt="Documentation" src="https://github.com/CouncilDataProject/speakerbox/workflows/Documentation/badge.svg"/></a>
+<a class="reference external image-reference" href="https://codecov.io/gh/CouncilDataProject/speakerbox"><img alt="Code Coverage" src="https://codecov.io/gh/CouncilDataProject/speakerbox/branch/main/graph/badge.svg"/></a>
+<p>Workflow for Annotation and Speaker Classification Model Training from Audio</p>
+<hr class="docutils"/>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
-<p><strong>Stable Release:</strong> <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">speakerbox</span></code><span class="raw-html-m2r"><br></span>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
+<p><strong>Stable Release:</strong> <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">speakerbox</span></code><span class="raw-html-m2r"><br/></span>
 <strong>Development Head:</strong> <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/CouncilDataProject/speakerbox.git</span></code></p>
 </section>
 <section id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h2>
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">#</a></h2>
 <p>For full package documentation please visit <a class="reference external" href="https://councildataproject.github.io/speakerbox">councildataproject.github.io/speakerbox</a>.</p>
+<a class="reference external image-reference" href="https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png"><img alt="Speakerbox example workflow" src="https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png"/></a>
 </section>
-<section id="quickstart">
-<h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline"></a></h2>
-<p>Load the 2021 Seattle Prototype Dataset, get summary statistics
-about speaker time, finally pull the matching audio file for each annotation file
-and store annotation file matched to audio as a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">speakerbox</span> <span class="kn">import</span> <span class="n">datasets</span>
+<section id="problem">
+<h2>Problem<a class="headerlink" href="#problem" title="Permalink to this headline">#</a></h2>
+<p>Given a set of recordings of multi-speaker conversations or meetings:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>example/
+├── 0.wav
+├── 1.wav
+├── 2.wav
+├── 3.wav
+├── 4.wav
+└── 5.wav
+</pre></div>
+</div>
+<p>Where each conversation has some or all of a consistent set of speakers, for example:</p>
+<ul class="simple">
+<li><p>0.wav – contains speakers: A, B, C, D, E</p></li>
+<li><p>1.wav – contains speakers: B, D, E</p></li>
+<li><p>2.wav – contains speakers: A, B, C</p></li>
+<li><p>3.wav – contains speakers: A, B, C, D, E</p></li>
+<li><p>4.wav – contains speakers: A, C, D</p></li>
+<li><p>5.wav – contains speakers: A, B, C, D, E</p></li>
+</ul>
+<p>You want to train a model to classify portions of audio as one of the N known speakers
+in future conversations not included in your original training set.</p>
+<p><code class="docutils literal notranslate"><span class="pre">f(audio)</span> <span class="pre">-&gt;</span> <span class="pre">[(start_time,</span> <span class="pre">end_time,</span> <span class="pre">speaker),</span> <span class="pre">(start_time,</span> <span class="pre">end_time,</span> <span class="pre">speaker),</span> <span class="pre">...]</span></code></p>
+<p>i.e. <code class="docutils literal notranslate"><span class="pre">f(audio)</span> <span class="pre">-&gt;</span> <span class="pre">[(2.4,</span> <span class="pre">10.5,</span> <span class="pre">"A"),</span> <span class="pre">(10.8,</span> <span class="pre">14.1,</span> <span class="pre">"D"),</span> <span class="pre">(14.8,</span> <span class="pre">22.7,</span> <span class="pre">"B"),</span> <span class="pre">...]</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">speakerbox</span></code> library contains methods for both generating datasets for annotation
+and for utilizing multiple audio annotation schemes to train such a model.</p>
+</section>
+<section id="workflow">
+<h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">#</a></h2>
+<p>⚠️ <code class="docutils literal notranslate"><span class="pre">speakerbox</span></code> currently only works on Ubuntu due to upstream dependencies ⚠️</p>
+<section id="diarization">
+<h3>Diarization<a class="headerlink" href="#diarization" title="Permalink to this headline">#</a></h3>
+<p>We quickly generate an annotated dataset by first diarizing (or clustering based
+on the features of speaker audio) portions of larger audio files and splitting each the
+of the clusters into their own directories that you can then manually clean up
+(by removing incorrectly clustered audio segments).</p>
+<section id="notes">
+<h4>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>It is recommended to have each larger audio file named with a unique id that
+can be used to act as a “conversation id”.</p></li>
+<li><p>Diarization time depends on machine resources and make take a long time – one
+potential recommendation is to run a diarization script overnight and clean up the
+produced annotations the following day.</p></li>
+<li><p>During this process audio will be duplicated in the form of smaller audio clips –
+ensure you have enough space on your machine to complete this process before
+you begin.</p></li>
+<li><p>Clustering accuracy depends on how many speakers there are, how distinct their
+voices are, and how much speech is talking over one-another.</p></li>
+<li><p>If possible, try to find meetings where speakers have a roughly uniform distribution
+of speaking durations.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">speakerbox</span> <span class="kn">import</span> <span class="n">preprocess</span>
 
-<span class="n">seattle_2021_ds_dir</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">unpack_seattle_2021_proto</span><span class="p">(</span><span class="n">clean</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">seattle_2021_ds_summary_stats</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">summarize_annotation_statistics</span><span class="p">(</span>
-    <span class="n">seattle_2021_ds_dir</span> <span class="o">/</span> <span class="s2">&quot;annotations&quot;</span>
-<span class="p">)</span>
-<span class="n">seattle_2021_ds</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">pull_seattle_2021_proto_audio</span><span class="p">()</span>
+<span class="n">diarized_and_split_audio_dir</span> <span class="o">=</span> <span class="n">preprocess</span><span class="o">.</span><span class="n">diarize_and_split_audio</span><span class="p">(</span><span class="s2">"0.wav"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
+</section>
+<section id="cleaning">
+<h3>Cleaning<a class="headerlink" href="#cleaning" title="Permalink to this headline">#</a></h3>
+<p>Diarization will produce a directory structure organized by unlabeled speakers with
+the audio clips that were clustered together.</p>
+<p>For example, if <code class="docutils literal notranslate"><span class="pre">"0.wav"</span></code> had three speakers, the produced directory structure may look
+like the following tree:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>0/
+├── SPEAKER_00
+│   ├── 567-12928.wav
+│   ├── ...
+│   └── 76192-82901.wav
+├── SPEAKER_01
+│   ├── 34123-38918.wav
+│   ├── ...
+│   └── 88212-89111.wav
+└── SPEAKER_02
+    ├── ...
+    └── 53998-62821.wav
+</pre></div>
+</div>
+<p>We leave it to you as a user to then go through these directories and remove any audio
+clips that were incorrectly clustered together as well as renaming the sub-directories
+to their correct speaker labels
+(from “SPEAKER_00”, “SPEAKER_01”, “SPEAKER_02”, etc. to “A”, “B”, “C”, etc.).</p>
+<section id="id1">
+<h4>Notes<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>Most operating systems have an audio playback application to queue an entire directory
+of audio files as a playlist for playback. This makes it easy to listen to a whole
+unlabeled sub-directory (i.e. “SPEAKER_00”) at a time and pause playback and remove
+files from the directory which were incorrectly clustered.</p></li>
+</ul>
+</section>
+</section>
+<section id="training-preparation">
+<h3>Training Preparation<a class="headerlink" href="#training-preparation" title="Permalink to this headline">#</a></h3>
+<p>Once you have annotated what you think is enough conversations, you can try preparing
+a dataset for training.</p>
+<p>The following functions will prepare the audio for training by:</p>
+<ol class="arabic simple">
+<li><p>Finding all labeled audio clips in the provided directories</p></li>
+<li><p>Chunk all found audio clips into smaller duration clips <em>(parametrizable)</em></p></li>
+<li><p>Check that the provided annotated dataset meets the following conditions:</p>
+<ol class="arabic simple">
+<li><p>There is enough data such that the training, test, and validation subsets all
+contain different conversation ids.</p></li>
+<li><p>There is enough data such that the training, test, and validation subsets each
+contain all labels present in the whole dataset.</p></li>
+</ol>
+</li>
+</ol>
+<section id="id2">
+<h4>Notes<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>During this process audio will be duplicated in the form of smaller audio clips –
+ensure you have enough space on your machine to complete this process before
+you begin.</p></li>
+<li><p>Directory names are used as conversation ids during dataset construction.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">speakerbox</span> <span class="kn">import</span> <span class="n">preprocess</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">preprocess</span><span class="o">.</span><span class="n">expand_labeled_diarized_audio_dir_to_dataset</span><span class="p">(</span>
+    <span class="n">labeled_diarized_audio_dir</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">"0/"</span><span class="p">,</span>  <span class="c1"># The cleaned and checked audio clips for conversation id 0</span>
+        <span class="s2">"1/"</span><span class="p">,</span>  <span class="c1"># ... conversation id 1</span>
+        <span class="s2">"2/"</span><span class="p">,</span>  <span class="c1"># ... conversation id 2</span>
+        <span class="s2">"3/"</span><span class="p">,</span>  <span class="c1"># ... conversation id 3</span>
+        <span class="s2">"4/"</span><span class="p">,</span>  <span class="c1"># ... conversation id 4</span>
+        <span class="s2">"5/"</span><span class="p">,</span>  <span class="c1"># ... conversation id 5</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">dataset_dict</span><span class="p">,</span> <span class="n">value_counts</span> <span class="o">=</span> <span class="n">preprocess</span><span class="o">.</span><span class="n">prepare_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+<span class="c1"># You can print the value_counts dataframe to see how many audio clips of each label</span>
+<span class="c1"># (speaker) is present in each data subset.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">value_counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="model-training-and-evaluation">
+<h3>Model Training and Evaluation<a class="headerlink" href="#model-training-and-evaluation" title="Permalink to this headline">#</a></h3>
+<p>Once you have your dataset prepared and available, you can provide it directly to the
+training function to begin training a new model.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">eval_model</span></code> function will store a filed called <code class="docutils literal notranslate"><span class="pre">results.md</span></code> with the accuracy,
+precision, and recall of the model and additionally store a file called
+<code class="docutils literal notranslate"><span class="pre">validation-confusion.png</span></code> which is a
+<a class="reference external" href="https://en.wikipedia.org/wiki/Confusion_matrix">confusion matrix</a>.</p>
+<section id="id3">
+<h4>Notes<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>The model (and evaluation metrics) will be stored in a new directory called
+<code class="docutils literal notranslate"><span class="pre">trained-speakerbox</span></code> <em>(parametrizable)</em>.</p></li>
+<li><p>Training time depends on how much data you have annotated and provided.</p></li>
+<li><p>It is recommended to train with an NVidia GPU with CUDA available to speed up
+the training process.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">speakerbox</span> <span class="kn">import</span> <span class="n">train</span><span class="p">,</span> <span class="n">eval_model</span>
+
+<span class="c1"># dataset_dict comes from previous preparation step</span>
+<span class="n">train</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">)</span>
+
+<span class="n">eval_model</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
 <section id="development">
-<h2>Development<a class="headerlink" href="#development" title="Permalink to this headline"></a></h2>
+<h2>Development<a class="headerlink" href="#development" title="Permalink to this headline">#</a></h2>
 <p>See <a class="reference external" href="CONTRIBUTING.md">CONTRIBUTING.md</a> for information related to developing the code.</p>
 <p><strong>MIT license</strong></p>
 </section>
 </section>
 <section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">#</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
@@ -141,32 +404,94 @@ and store annotation file matched to audio as a <code class="docutils literal no
 </ul>
 </section>
 
-
-           </div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="installation.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Installation</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Jackson Maxfield Brown
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
           </div>
-          <footer>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Welcome to speakerbox’s documentation!</a></li>
+<li><a class="reference internal" href="#speakerbox">speakerbox</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#problem">Problem</a></li>
+<li><a class="reference internal" href="#workflow">Workflow</a><ul>
+<li><a class="reference internal" href="#diarization">Diarization</a><ul>
+<li><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cleaning">Cleaning</a><ul>
+<li><a class="reference internal" href="#id1">Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#training-preparation">Training Preparation</a><ul>
+<li><a class="reference internal" href="#id2">Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-training-and-evaluation">Model Training and Evaluation</a><ul>
+<li><a class="reference internal" href="#id3">Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#development">Development</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2022, Jackson Maxfield Brown.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          </div>
         </div>
       </div>
-    </section>
+      
+      
+    </aside>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
 </html>
