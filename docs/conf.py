@@ -21,8 +21,6 @@
 import os
 import sys
 
-import sphinx_rtd_theme
-
 import speakerbox
 
 sys.path.insert(0, os.path.abspath(".."))
@@ -60,18 +58,18 @@ templates_path = ["_templates"]
 # You can specify multiple suffix as a list of string:
 #
 source_suffix = {
-        ".rst": "restructuredtext",
-        ".txt": "markdown",
-        ".md": "markdown",
+    ".rst": "restructuredtext",
+    ".txt": "markdown",
+    ".md": "markdown",
 }
 
 # The master toctree document.
 master_doc = "index"
 
 # General information about the project.
-project = u"speakerbox"
-copyright = u'2022, Jackson Maxfield Brown'
-author = u"Jackson Maxfield Brown"
+project = "speakerbox"
+copyright = "2022, Jackson Maxfield Brown"
+author = "Jackson Maxfield Brown"
 
 # The version info for the project you"re documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -106,16 +104,13 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = "furo"
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
 # documentation.
 #
-html_theme_options = {
-    "collapse_navigation": False,
-    "prev_next_buttons_location": "top",
-}
+html_theme_options = {}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -135,15 +130,12 @@ latex_elements = {
     # The paper size ("letterpaper" or "a4paper").
     #
     # "papersize": "letterpaper",
-
     # The font size ("10pt", "11pt" or "12pt").
     #
     # "pointsize": "10pt",
-
     # Additional stuff for the LaTeX preamble.
     #
     # "preamble": "",
-
     # Latex figure (float) alignment
     #
     # "figure_align": "htbp",
@@ -153,9 +145,13 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass
 # [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "speakerbox.tex",
-     u"speakerbox Documentation",
-     u"Jackson Maxfield Brown", "manual"),
+    (
+        master_doc,
+        "speakerbox.tex",
+        "speakerbox Documentation",
+        "Jackson Maxfield Brown",
+        "manual",
+    ),
 ]
 
 
@@ -163,11 +159,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, "speakerbox",
-     u"speakerbox Documentation",
-     [author], 1)
-]
+man_pages = [(master_doc, "speakerbox", "speakerbox Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------
@@ -176,10 +168,13 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, "speakerbox",
-     u"speakerbox Documentation",
-     author,
-     "speakerbox",
-     "One line description of project.",
-     "Miscellaneous"),
+    (
+        master_doc,
+        "speakerbox",
+        "speakerbox Documentation",
+        author,
+        "speakerbox",
+        "One line description of project.",
+        "Miscellaneous",
+    ),
 ]

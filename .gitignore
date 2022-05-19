@@ -111,5 +111,15 @@ ENV/
 # VSCode
 .vscode
 
+# Project specific
+chunked-audio/
+trained-speakerbox/
+test-outputs/
+test-output-trained-speakerbox/
+speakerbox/tests/data/diarized/
+
 # Datasets
 seattle-2021-proto/
+training-data/
+unannotated/
+cdp-datasets/

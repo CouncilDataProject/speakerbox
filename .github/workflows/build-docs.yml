@@ -9,16 +9,18 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.1
-        with:
-          persist-credentials: false
+      - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: '3.10'
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get install libsndfile1
+          sudo apt-get install ffmpeg
       - name: Install Dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install .[dev]
       - name: Generate Docs
         run: |
