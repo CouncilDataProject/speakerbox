@@ -3,7 +3,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any, Dict, Optional, Tuple
 
 import datasets
 import matplotlib.pyplot as plt
@@ -28,8 +28,6 @@ from transformers import (
     feature_extraction_utils,
     pipeline,
 )
-from transformers.feature_extraction_utils import BatchFeature
-from transformers.modeling_outputs import SequenceClassifierOutput
 
 from .utils import set_global_seed
 
@@ -60,7 +58,7 @@ DEFAULT_TRAINER_ARGUMENTS_ARGS = dict(
     gradient_accumulation_steps=1,
     eval_accumulation_steps=40,
     per_device_eval_batch_size=8,
-    num_train_epochs=10,
+    num_train_epochs=5,
     warmup_ratio=0.1,
     logging_steps=10,
     load_best_model_at_end=True,
@@ -163,21 +161,6 @@ def eval_model(
         )
 
     return (accuracy, precision, recall, loss)
-
-
-class SpeakerboxTrainer(Trainer):
-    def compute_loss(
-        self,
-        model: Wav2Vec2ForSequenceClassification,
-        inputs: BatchFeature,
-        return_outputs: bool = True,
-    ) -> Union[Tuple[torch.Tensor, SequenceClassifierOutput], torch.Tensor]:
-        labels = inputs.get("labels")
-        outputs = model(**inputs)
-        logits = outputs.get("logits")
-        loss_fct = torch.nn.CrossEntropyLoss()
-        loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
-        return (loss, outputs) if return_outputs else loss
 
 
 def train(
@@ -291,7 +274,7 @@ def train(
         return metric.compute(predictions=predictions, references=eval_pred.label_ids)
 
     # Trainer and train!
-    trainer = SpeakerboxTrainer(
+    trainer = Trainer(
         model,
         args,
         train_dataset=dataset["train"],
@@ -301,7 +284,7 @@ def train(
         callbacks=[
             EarlyStoppingCallback(
                 early_stopping_patience=2,  # num evals that acc worsens before exit
-                early_stopping_threshold=0.005,  # acc must improve by this or exit
+                early_stopping_threshold=0.01,  # acc must improve by this or exit
             )
         ],
     )
