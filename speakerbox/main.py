@@ -19,7 +19,6 @@ from sklearn.metrics import (
     recall_score,
 )
 from transformers import (
-    EarlyStoppingCallback,
     EvalPrediction,
     Trainer,
     TrainingArguments,
@@ -281,12 +280,6 @@ def train(
         eval_dataset=dataset["test"],
         tokenizer=feature_extractor,
         compute_metrics=compute_metrics,
-        callbacks=[
-            EarlyStoppingCallback(
-                early_stopping_patience=2,  # num evals that acc worsens before exit
-                early_stopping_threshold=0.01,  # acc must improve by this or exit
-            )
-        ],
     )
     torch.cuda.empty_cache()
     transformers.logging.set_verbosity_info()
