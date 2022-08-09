@@ -21,7 +21,13 @@ def test_train(data_dir: Path, pytestconfig: Config) -> None:
 
     Or with tox:
     tox -- --cpu
+
+    On CI this test will skip
+    tox -- --ci
     """
+    if pytestconfig.getoption("ci"):
+        return
+
     # Set global seed for some level of reproducibility across tests
     set_global_seed(20220421)
 

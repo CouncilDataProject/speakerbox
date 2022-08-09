@@ -40,3 +40,4 @@ def data_dir() -> Path:
 
 def pytest_addoption(parser: Parser) -> None:
     parser.addoption("--cpu", action="store_true", dest="use_cpu")
+    parser.addoption("--ci", action="store_true", dest="ci")

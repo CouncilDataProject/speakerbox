@@ -41,6 +41,8 @@ dev_requirements = [
     "furo>=2022.4.7",
     "twine>=3.1.1",
     "wheel>=0.34.2",
+    # Pins until fixed
+    "docutils>=0.18,<0.19",
 ]
 
 requirements = [

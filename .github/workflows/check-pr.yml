@@ -25,7 +25,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install .[test]
     - name: Run tests with Tox
-      run: tox -e py -- --cpu
+      run: tox -e py -- --ci
     - name: Upload Codecov
       uses: codecov/codecov-action@v1
     - uses: iterative/setup-cml@v1
