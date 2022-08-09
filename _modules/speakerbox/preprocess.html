@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>speakerbox.preprocess - speakerbox 0.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -183,7 +183,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -231,7 +232,7 @@
     <span class="n">diarization_pipeline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Pipeline</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Diarize a single audio file and split the file into smaller chunks stored into</span>
 <span class="sd">    directories with the unlabeled speaker annotation.</span>
 
@@ -274,7 +275,7 @@
 <span class="sd">        ├── SPEAKER_01</span>
 <span class="sd">        │   ├── {start_time_millis}-{start_end_millis}.wav</span>
 <span class="sd">        │   └── {start_time_millis}-{start_end_millis}.wav</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">seed</span><span class="p">:</span>
         <span class="n">set_global_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
@@ -291,7 +292,7 @@
     <span class="k">elif</span> <span class="n">storage_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># No storage dir provided</span>
         <span class="c1"># Make one using the audio file name</span>
-        <span class="n">audio_file_name</span> <span class="o">=</span> <span class="n">audio_file</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">audio_file_name</span> <span class="o">=</span> <span class="n">audio_file</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
         <span class="n">storage_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">audio_file_name</span><span class="p">)</span>
 
     <span class="c1"># Make storage dir</span>
@@ -299,7 +300,7 @@
 
     <span class="c1"># Load pipeline</span>
     <span class="k">if</span> <span class="n">diarization_pipeline</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">diarization_pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"pyannote/speaker-diarization"</span><span class="p">)</span>
+        <span class="n">diarization_pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;pyannote/speaker-diarization&quot;</span><span class="p">)</span>
 
     <span class="c1"># Diarize</span>
     <span class="n">dia</span> <span class="o">=</span> <span class="n">diarization_pipeline</span><span class="p">(</span><span class="n">audio_file</span><span class="p">)</span>
@@ -310,7 +311,7 @@
     <span class="c1"># Iter labeled segments and store</span>
     <span class="k">for</span> <span class="n">turn</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">speaker</span> <span class="ow">in</span> <span class="n">dia</span><span class="o">.</span><span class="n">itertracks</span><span class="p">(</span><span class="n">yield_label</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="c1"># Make speaker dir if needed</span>
-        <span class="n">speaker_dir</span> <span class="o">=</span> <span class="n">storage_dir</span> <span class="o">/</span> <span class="n">speaker</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">"_"</span><span class="p">)</span>
+        <span class="n">speaker_dir</span> <span class="o">=</span> <span class="n">storage_dir</span> <span class="o">/</span> <span class="n">speaker</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
         <span class="n">speaker_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Only store chunk if duration is longer than param</span>
@@ -322,9 +323,9 @@
 
             <span class="c1"># Save chunk</span>
             <span class="n">chunk_save_path</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">speaker_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">turn_start_millis</span><span class="p">)</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">turn_end_millis</span><span class="p">)</span><span class="si">}</span><span class="s2">.wav"</span>
+                <span class="n">speaker_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">turn_start_millis</span><span class="p">)</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">turn_end_millis</span><span class="p">)</span><span class="si">}</span><span class="s2">.wav&quot;</span>
             <span class="p">)</span>
-            <span class="n">chunk</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">chunk_save_path</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"wav"</span><span class="p">)</span>
+            <span class="n">chunk</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">chunk_save_path</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;wav&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">storage_dir</span></div>
 
@@ -375,13 +376,13 @@
 
             <span class="c1"># Determine save pattern</span>
             <span class="n">chunk_save_path</span> <span class="o">=</span> <span class="n">audio_output_dir</span> <span class="o">/</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">chunk_filename_base</span><span class="si">}</span><span class="s2">-chunk_</span><span class="si">{</span><span class="n">chunk_i</span><span class="si">}</span><span class="s2">.wav"</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">chunk_filename_base</span><span class="si">}</span><span class="s2">-chunk_</span><span class="si">{</span><span class="n">chunk_i</span><span class="si">}</span><span class="s2">.wav&quot;</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">chunk_save_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="n">chunk_save_path</span><span class="p">)</span>
 
             <span class="c1"># Save audio chunk</span>
-            <span class="n">chunk</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">chunk_save_path</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"wav"</span><span class="p">)</span>
+            <span class="n">chunk</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">chunk_save_path</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;wav&quot;</span><span class="p">)</span>
 
             <span class="c1"># Append new chunk to list</span>
             <span class="n">annotated_audios</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -398,12 +399,12 @@
 
 <div class="viewcode-block" id="expand_gecko_annotations_to_dataset"><a class="viewcode-back" href="../../speakerbox.html#speakerbox.preprocess.expand_gecko_annotations_to_dataset">[docs]</a><span class="k">def</span> <span class="nf">expand_gecko_annotations_to_dataset</span><span class="p">(</span>
     <span class="n">annotations_and_audios</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">GeckoAnnotationAndAudio</span><span class="p">],</span>
-    <span class="n">audio_output_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"chunked-audio/"</span><span class="p">),</span>
+    <span class="n">audio_output_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;chunked-audio/&quot;</span><span class="p">),</span>
     <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">min_audio_chunk_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
     <span class="n">max_audio_chunk_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Expand a list of annotation and audio files into a full dataset to be used for</span>
 <span class="sd">    training and testing a speaker classification model.</span>
 
@@ -414,7 +415,7 @@
 <span class="sd">        audio file path, start and end times.</span>
 <span class="sd">    audio_output_dir: Union[str, Path]</span>
 <span class="sd">        A directory path to store the chunked audio files in.</span>
-<span class="sd">        Default: "chunked-audio" directory in the current working directory.</span>
+<span class="sd">        Default: &quot;chunked-audio&quot; directory in the current working directory.</span>
 <span class="sd">    overwrite: bool</span>
 <span class="sd">        When writting out an audio chunk, should existing files be overwritten.</span>
 <span class="sd">        Default: False (do not overwrite)</span>
@@ -440,7 +441,7 @@
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    Generated and attached conversation ids are pulled from the annotation file name.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Ensure dataset dir is valid</span>
     <span class="n">audio_output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">audio_output_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">audio_output_dir</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
@@ -451,19 +452,19 @@
     <span class="n">annotated_audios</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AnnotatedAudio</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">aaa</span> <span class="ow">in</span> <span class="n">annotations_and_audios</span><span class="p">:</span>
         <span class="n">audio</span> <span class="o">=</span> <span class="n">AudioSegment</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">aaa</span><span class="o">.</span><span class="n">audio_file</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">aaa</span><span class="o">.</span><span class="n">annotation_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">aaa</span><span class="o">.</span><span class="n">annotation_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_f</span><span class="p">:</span>
             <span class="n">annotations</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">open_f</span><span class="p">)</span>
 
-        <span class="c1"># Iter through each "monologue" section</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">monologue</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">annotations</span><span class="p">[</span><span class="s2">"monologues"</span><span class="p">]):</span>
-            <span class="n">monologue_speaker</span> <span class="o">=</span> <span class="n">monologue</span><span class="p">[</span><span class="s2">"speaker"</span><span class="p">][</span><span class="s2">"id"</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-            <span class="n">monologue_start_time</span> <span class="o">=</span> <span class="n">monologue</span><span class="p">[</span><span class="s2">"start"</span><span class="p">]</span>
-            <span class="n">monologue_end_time</span> <span class="o">=</span> <span class="n">monologue</span><span class="p">[</span><span class="s2">"end"</span><span class="p">]</span>
+        <span class="c1"># Iter through each &quot;monologue&quot; section</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">monologue</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">annotations</span><span class="p">[</span><span class="s2">&quot;monologues&quot;</span><span class="p">]):</span>
+            <span class="n">monologue_speaker</span> <span class="o">=</span> <span class="n">monologue</span><span class="p">[</span><span class="s2">&quot;speaker&quot;</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">monologue_start_time</span> <span class="o">=</span> <span class="n">monologue</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span>
+            <span class="n">monologue_end_time</span> <span class="o">=</span> <span class="n">monologue</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]</span>
 
             <span class="c1"># Construct basic filename</span>
             <span class="n">filename_base</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">aaa</span><span class="o">.</span><span class="n">audio_file</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
-                <span class="sa">f</span><span class="s2">"-monologue_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">monologue_speaker</span><span class="si">}</span><span class="s2">"</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">aaa</span><span class="o">.</span><span class="n">audio_file</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;-monologue_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">monologue_speaker</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
 
             <span class="c1"># Chunk audios for this monologue</span>
@@ -477,11 +478,11 @@
                 <span class="n">chunk_filename_base</span><span class="o">=</span><span class="n">filename_base</span><span class="p">,</span>
                 <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span>
                 <span class="n">annotated_audios</span><span class="o">=</span><span class="n">annotated_audios</span><span class="p">,</span>
-                <span class="n">conversation_id</span><span class="o">=</span><span class="n">aaa</span><span class="o">.</span><span class="n">annotation_file</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">conversation_id</span><span class="o">=</span><span class="n">aaa</span><span class="o">.</span><span class="n">annotation_file</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="n">label</span><span class="o">=</span><span class="n">monologue_speaker</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Completed expansion for annotation file: </span><span class="si">{</span><span class="n">aaa</span><span class="o">.</span><span class="n">annotation_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Completed expansion for annotation file: </span><span class="si">{</span><span class="n">aaa</span><span class="o">.</span><span class="n">annotation_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Merge all into a single dataframe</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">aa</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">aa</span> <span class="ow">in</span> <span class="n">annotated_audios</span><span class="p">])</span>  <span class="c1"># type: ignore</span></div>
@@ -495,23 +496,23 @@
         <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span>
         <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]],</span>
     <span class="p">],</span>
-    <span class="n">audio_output_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"chunked-audio/"</span><span class="p">),</span>
+    <span class="n">audio_output_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;chunked-audio/&quot;</span><span class="p">),</span>
     <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">min_audio_chunk_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
     <span class="n">max_audio_chunk_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Expand the provided labeled diarized audio into a dataset ready for training.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    labeled_diarized_audio_dir: Union[Union[str, Path], List[Union[str, Path]]]</span>
 <span class="sd">        A path or list of paths to diarization results directories. These directories</span>
-<span class="sd">        should no longer have the "SPEAKER_00", "SPEAKER_01", default labeling but</span>
+<span class="sd">        should no longer have the &quot;SPEAKER_00&quot;, &quot;SPEAKER_01&quot;, default labeling but</span>
 <span class="sd">        expert annotated labels.</span>
 <span class="sd">    audio_output_dir: Union[str, Path]</span>
 <span class="sd">        A directory path to store the chunked audio files in.</span>
-<span class="sd">        Default: "chunked-audio" directory in the current working directory.</span>
+<span class="sd">        Default: &quot;chunked-audio&quot; directory in the current working directory.</span>
 <span class="sd">    overwrite: bool</span>
 <span class="sd">        When writting out an audio chunk, should existing files be overwritten.</span>
 <span class="sd">        Default: False (do not overwrite)</span>
@@ -554,7 +555,7 @@
 
 <span class="sd">    Generated and attached conversation ids are pulled from the labeled diarized audio</span>
 <span class="sd">    directory names.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Ensure dataset dir is valid</span>
     <span class="n">audio_output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">audio_output_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">audio_output_dir</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
@@ -577,14 +578,14 @@
         <span class="c1"># Iter over all labels</span>
         <span class="k">for</span> <span class="n">label_dir</span> <span class="ow">in</span> <span class="n">anno_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">label_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
-                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">audio_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">label_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.wav"</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">audio_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">label_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.wav&quot;</span><span class="p">)):</span>
                     <span class="n">audio</span> <span class="o">=</span> <span class="n">AudioSegment</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">audio_file</span><span class="p">)</span>
                     <span class="n">monologue_speaker</span> <span class="o">=</span> <span class="n">label_dir</span><span class="o">.</span><span class="n">name</span>
 
                     <span class="c1"># Construct basic filename</span>
                     <span class="n">filename_base</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">audio_file</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
-                        <span class="sa">f</span><span class="s2">"-monologue_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">monologue_speaker</span><span class="si">}</span><span class="s2">"</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">audio_file</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;-monologue_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">monologue_speaker</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="p">)</span>
 
                     <span class="c1"># Chunk audios for this monologue</span>
@@ -602,7 +603,7 @@
                         <span class="n">label</span><span class="o">=</span><span class="n">monologue_speaker</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
                     <span class="p">)</span>
 
-                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Completed expansion for diarized audio dir: </span><span class="si">{</span><span class="n">label_dir</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Completed expansion for diarized audio dir: </span><span class="si">{</span><span class="n">label_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Merge all into a single dataframe</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">aa</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">aa</span> <span class="ow">in</span> <span class="n">annotated_audios</span><span class="p">])</span>  <span class="c1"># type: ignore</span></div>
@@ -619,7 +620,7 @@
     <span class="n">n_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
     <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DatasetDict</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Prepare a dataset for training a new speakerbox / audio-classification model.</span>
 <span class="sd">    This function attempts to randomly create train, test, and validation splits</span>
 <span class="sd">    from the provided dataframe that meet the following two conditions:</span>
@@ -677,7 +678,7 @@
 <span class="sd">    ValueError</span>
 <span class="sd">        Could not find train, test, and validation sets that meet the holdout and</span>
 <span class="sd">        stratification criteria after n iterations. Recommended to annotate more data.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Handle random seed</span>
     <span class="k">if</span> <span class="n">seed</span><span class="p">:</span>
         <span class="n">set_global_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
@@ -689,7 +690,7 @@
     <span class="c1"># Reroll holdouts until all labels are present in each split</span>
     <span class="n">all_labels_present</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">iters</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Finding data splits for provided dataset"</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Finding data splits for provided dataset&quot;</span><span class="p">)</span>
     <span class="k">while</span> <span class="ow">not</span> <span class="n">all_labels_present</span><span class="p">:</span>
         <span class="c1"># Get conversation ids split randomly</span>
         <span class="n">train_ids</span><span class="p">,</span> <span class="n">test_and_valid_ids</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
@@ -711,38 +712,38 @@
         <span class="n">iters</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">iters</span> <span class="o">==</span> <span class="n">n_iterations</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"Could not find train, test, and validation sets that meet the "</span>
-                <span class="sa">f</span><span class="s2">"holdout and stratification criteria after </span><span class="si">{</span><span class="n">n_iterations</span><span class="si">}</span><span class="s2">. "</span>
-                <span class="sa">f</span><span class="s2">"Recommended to annotate more data."</span>
+                <span class="sa">f</span><span class="s2">&quot;Could not find train, test, and validation sets that meet the &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;holdout and stratification criteria after </span><span class="si">{</span><span class="n">n_iterations</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Recommended to annotate more data.&quot;</span>
             <span class="p">)</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Attempted train test validation split construction </span><span class="si">{</span><span class="n">iters</span><span class="si">}</span><span class="s2"> times."</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempted train test validation split construction </span><span class="si">{</span><span class="n">iters</span><span class="si">}</span><span class="s2"> times.&quot;</span><span class="p">)</span>
 
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"train_ds conversation_ids: </span><span class="si">{</span><span class="n">train_ds</span><span class="o">.</span><span class="n">conversation_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"test_ds conversation_ids: </span><span class="si">{</span><span class="n">test_ds</span><span class="o">.</span><span class="n">conversation_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"valid_ds conversation_ids: </span><span class="si">{</span><span class="n">valid_ds</span><span class="o">.</span><span class="n">conversation_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;train_ds conversation_ids: </span><span class="si">{</span><span class="n">train_ds</span><span class="o">.</span><span class="n">conversation_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;test_ds conversation_ids: </span><span class="si">{</span><span class="n">test_ds</span><span class="o">.</span><span class="n">conversation_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;valid_ds conversation_ids: </span><span class="si">{</span><span class="n">valid_ds</span><span class="o">.</span><span class="n">conversation_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Drop extra columns</span>
-    <span class="n">train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"conversation_id"</span><span class="p">,</span> <span class="s2">"duration"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">test_ds</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"conversation_id"</span><span class="p">,</span> <span class="s2">"duration"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">valid_ds</span> <span class="o">=</span> <span class="n">valid_ds</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"conversation_id"</span><span class="p">,</span> <span class="s2">"duration"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;conversation_id&quot;</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">test_ds</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;conversation_id&quot;</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">valid_ds</span> <span class="o">=</span> <span class="n">valid_ds</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;conversation_id&quot;</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># Handle equalization</span>
     <span class="k">if</span> <span class="n">equalize_data_within_splits</span><span class="p">:</span>
         <span class="c1"># Subsets should be balanced by each label</span>
         <span class="c1"># Group by label and get random sample with the min of all labels</span>
-        <span class="n">train_groups</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"label"</span><span class="p">)</span>
+        <span class="n">train_groups</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
         <span class="n">train_ds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
             <span class="n">train_groups</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
                 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">train_groups</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">())</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="n">test_groups</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"label"</span><span class="p">)</span>
+        <span class="n">test_groups</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
         <span class="n">test_ds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
             <span class="n">test_groups</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
                 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">test_groups</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">())</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="n">valid_groups</span> <span class="o">=</span> <span class="n">valid_ds</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"label"</span><span class="p">)</span>
+        <span class="n">valid_groups</span> <span class="o">=</span> <span class="n">valid_ds</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
         <span class="n">valid_ds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
             <span class="n">valid_groups</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
                 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">valid_groups</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">())</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -752,28 +753,28 @@
     <span class="c1"># Construct summary table</span>
     <span class="n">value_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
         <span class="p">{</span>
-            <span class="s2">"train_counts"</span><span class="p">:</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
-            <span class="s2">"test_counts"</span><span class="p">:</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
-            <span class="s2">"valid_counts"</span><span class="p">:</span> <span class="n">valid_ds</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
+            <span class="s2">&quot;train_counts&quot;</span><span class="p">:</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
+            <span class="s2">&quot;test_counts&quot;</span><span class="p">:</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
+            <span class="s2">&quot;valid_counts&quot;</span><span class="p">:</span> <span class="n">valid_ds</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(),</span>
         <span class="p">}</span>
     <span class="p">)</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Constructed train, test, validation sets contain:</span><span class="se">\n</span><span class="si">{</span><span class="n">value_counts</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Constructed train, test, validation sets contain:</span><span class="se">\n</span><span class="si">{</span><span class="n">value_counts</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Construct DatasetDict</span>
     <span class="n">train_ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">preserve_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">class_encode_column</span><span class="p">(</span><span class="s2">"label"</span><span class="p">)</span>
+    <span class="n">train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">class_encode_column</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
     <span class="n">test_ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">test_ds</span><span class="p">,</span> <span class="n">preserve_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">test_ds</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">class_encode_column</span><span class="p">(</span><span class="s2">"label"</span><span class="p">)</span>
+    <span class="n">test_ds</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">class_encode_column</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
     <span class="n">valid_ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">valid_ds</span><span class="p">,</span> <span class="n">preserve_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">valid_ds</span> <span class="o">=</span> <span class="n">valid_ds</span><span class="o">.</span><span class="n">class_encode_column</span><span class="p">(</span><span class="s2">"label"</span><span class="p">)</span>
+    <span class="n">valid_ds</span> <span class="o">=</span> <span class="n">valid_ds</span><span class="o">.</span><span class="n">class_encode_column</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
 
     <span class="c1"># Return both the dataset dict and the value counts</span>
     <span class="k">return</span> <span class="p">(</span>
         <span class="n">DatasetDict</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">"train"</span><span class="p">:</span> <span class="n">train_ds</span><span class="p">,</span>
-                <span class="s2">"test"</span><span class="p">:</span> <span class="n">test_ds</span><span class="p">,</span>
-                <span class="s2">"valid"</span><span class="p">:</span> <span class="n">valid_ds</span><span class="p">,</span>
+                <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">train_ds</span><span class="p">,</span>
+                <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="n">test_ds</span><span class="p">,</span>
+                <span class="s2">&quot;valid&quot;</span><span class="p">:</span> <span class="n">valid_ds</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">),</span>
         <span class="n">value_counts</span><span class="p">,</span>
@@ -790,7 +791,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Jackson Maxfield Brown
+                Copyright &#169; 2022, Eva Maxfield Brown
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -815,6 +816,7 @@
 </div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/scripts/furo.js"></script>
     </body>

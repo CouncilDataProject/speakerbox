@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>speakerbox.main - speakerbox 0.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -183,7 +183,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -236,9 +237,9 @@
 
 <span class="c1">###############################################################################</span>
 
-<span class="n">DEFAULT_BASE_MODEL</span> <span class="o">=</span> <span class="s2">"superb/wav2vec2-base-superb-sid"</span>
+<span class="n">DEFAULT_BASE_MODEL</span> <span class="o">=</span> <span class="s2">&quot;superb/wav2vec2-base-superb-sid&quot;</span>
 
-<span class="n">EVAL_RESULTS_TEMPLATE</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="n">EVAL_RESULTS_TEMPLATE</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">## Results</span>
 
 <span class="s2">* **Accuracy:** </span><span class="si">{accuracy}</span><span class="s2"></span>
@@ -247,11 +248,11 @@
 <span class="s2">* **Validation Loss:** </span><span class="si">{loss}</span><span class="s2"></span>
 
 <span class="s2">### Confusion</span>
-<span class="s2">"""</span>
+<span class="s2">&quot;&quot;&quot;</span>
 
 <span class="n">DEFAULT_TRAINER_ARGUMENTS_ARGS</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-    <span class="n">evaluation_strategy</span><span class="o">=</span><span class="s2">"epoch"</span><span class="p">,</span>
-    <span class="n">save_strategy</span><span class="o">=</span><span class="s2">"epoch"</span><span class="p">,</span>
+    <span class="n">evaluation_strategy</span><span class="o">=</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span>
+    <span class="n">save_strategy</span><span class="o">=</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span>
     <span class="n">learning_rate</span><span class="o">=</span><span class="mf">3e-5</span><span class="p">,</span>
     <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
     <span class="n">gradient_accumulation_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -261,7 +262,7 @@
     <span class="n">warmup_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
     <span class="n">logging_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
     <span class="n">load_best_model_at_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">metric_for_best_model</span><span class="o">=</span><span class="s2">"accuracy"</span><span class="p">,</span>
+    <span class="n">metric_for_best_model</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span>
     <span class="n">gradient_checkpointing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -271,9 +272,9 @@
 
 <div class="viewcode-block" id="eval_model"><a class="viewcode-back" href="../../speakerbox.html#speakerbox.main.eval_model">[docs]</a><span class="k">def</span> <span class="nf">eval_model</span><span class="p">(</span>
     <span class="n">validation_dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span>
-    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"trained-speakerbox"</span><span class="p">,</span>
+    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;trained-speakerbox&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Evaluate a trained model.</span>
 
 <span class="sd">    This will store two files in the model directory, one for the accuracy, precision,</span>
@@ -287,7 +288,7 @@
 <span class="sd">    model_name: str</span>
 <span class="sd">        A name for the model. This will also create a directory with the same name</span>
 <span class="sd">        to store the produced model in.</span>
-<span class="sd">        Default: "trained-speakerbox"</span>
+<span class="sd">        Default: &quot;trained-speakerbox&quot;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -299,57 +300,57 @@
 <span class="sd">        The model (weighted) recall as returned by sklearn.metrics.recall_score.</span>
 <span class="sd">    loss: float</span>
 <span class="sd">        The model log loss as returned by sklearn.metrics.log_loss.</span>
-<span class="sd">    """</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Setting up evaluation pipeline"</span><span class="p">)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Setting up evaluation pipeline&quot;</span><span class="p">)</span>
     <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
-        <span class="s2">"audio-classification"</span><span class="p">,</span>
+        <span class="s2">&quot;audio-classification&quot;</span><span class="p">,</span>
         <span class="n">model</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Running eval"</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running eval&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">example</span><span class="p">:</span> <span class="n">datasets</span><span class="o">.</span><span class="n">arrow_dataset</span><span class="o">.</span><span class="n">Example</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="n">pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="s2">"audio"</span><span class="p">],</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-        <span class="n">pred_as_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">[</span><span class="s2">"label"</span><span class="p">]:</span> <span class="n">i</span><span class="p">[</span><span class="s2">"score"</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pred</span><span class="p">}</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="s2">&quot;audio&quot;</span><span class="p">],</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="n">pred_as_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]:</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pred</span><span class="p">}</span>
         <span class="n">top_pred</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">pred_as_dict</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">pred_as_dict</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">"pred_label"</span><span class="p">:</span> <span class="n">top_pred</span><span class="p">,</span>
-            <span class="s2">"true_label"</span><span class="p">:</span> <span class="n">classifier</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">id2label</span><span class="p">[</span><span class="n">example</span><span class="p">[</span><span class="s2">"label"</span><span class="p">]],</span>
-            <span class="s2">"pred_scores"</span><span class="p">:</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">"score"</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pred</span><span class="p">],</span>
+            <span class="s2">&quot;pred_label&quot;</span><span class="p">:</span> <span class="n">top_pred</span><span class="p">,</span>
+            <span class="s2">&quot;true_label&quot;</span><span class="p">:</span> <span class="n">classifier</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">id2label</span><span class="p">[</span><span class="n">example</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]],</span>
+            <span class="s2">&quot;pred_scores&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pred</span><span class="p">],</span>
         <span class="p">}</span>
 
     <span class="n">validation_dataset</span> <span class="o">=</span> <span class="n">validation_dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">predict</span><span class="p">)</span>
 
     <span class="c1"># Create confusion</span>
     <span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span>
-        <span class="n">validation_dataset</span><span class="p">[</span><span class="s2">"true_label"</span><span class="p">],</span>
-        <span class="n">validation_dataset</span><span class="p">[</span><span class="s2">"pred_label"</span><span class="p">],</span>
+        <span class="n">validation_dataset</span><span class="p">[</span><span class="s2">&quot;true_label&quot;</span><span class="p">],</span>
+        <span class="n">validation_dataset</span><span class="p">[</span><span class="s2">&quot;pred_label&quot;</span><span class="p">],</span>
     <span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">/validation-confusion.png"</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">/validation-confusion.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
 
     <span class="c1"># Compute metrics</span>
     <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span>
-        <span class="n">y_true</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">"true_label"</span><span class="p">],</span>
-        <span class="n">y_pred</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">"pred_label"</span><span class="p">],</span>
+        <span class="n">y_true</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">&quot;true_label&quot;</span><span class="p">],</span>
+        <span class="n">y_pred</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">&quot;pred_label&quot;</span><span class="p">],</span>
     <span class="p">)</span>
     <span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span>
-        <span class="n">y_true</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">"true_label"</span><span class="p">],</span>
-        <span class="n">y_pred</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">"pred_label"</span><span class="p">],</span>
-        <span class="n">average</span><span class="o">=</span><span class="s2">"weighted"</span><span class="p">,</span>
+        <span class="n">y_true</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">&quot;true_label&quot;</span><span class="p">],</span>
+        <span class="n">y_pred</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">&quot;pred_label&quot;</span><span class="p">],</span>
+        <span class="n">average</span><span class="o">=</span><span class="s2">&quot;weighted&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span>
-        <span class="n">y_true</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">"true_label"</span><span class="p">],</span>
-        <span class="n">y_pred</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">"pred_label"</span><span class="p">],</span>
-        <span class="n">average</span><span class="o">=</span><span class="s2">"weighted"</span><span class="p">,</span>
+        <span class="n">y_true</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">&quot;true_label&quot;</span><span class="p">],</span>
+        <span class="n">y_pred</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">&quot;pred_label&quot;</span><span class="p">],</span>
+        <span class="n">average</span><span class="o">=</span><span class="s2">&quot;weighted&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span>
-        <span class="n">y_true</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">"true_label"</span><span class="p">],</span>
-        <span class="n">y_pred</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">"pred_scores"</span><span class="p">],</span>
+        <span class="n">y_true</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">&quot;true_label&quot;</span><span class="p">],</span>
+        <span class="n">y_pred</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">[</span><span class="s2">&quot;pred_scores&quot;</span><span class="p">],</span>
     <span class="p">)</span>
 
     <span class="c1"># Store metrics</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">/results.md"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">/results.md&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_f</span><span class="p">:</span>
         <span class="n">open_f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
             <span class="n">EVAL_RESULTS_TEMPLATE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">accuracy</span><span class="o">=</span><span class="n">accuracy</span><span class="p">,</span>
@@ -364,26 +365,26 @@
 
 <div class="viewcode-block" id="train"><a class="viewcode-back" href="../../speakerbox.html#speakerbox.main.train">[docs]</a><span class="k">def</span> <span class="nf">train</span><span class="p">(</span>
     <span class="n">dataset</span><span class="p">:</span> <span class="n">DatasetDict</span><span class="p">,</span>
-    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"trained-speakerbox"</span><span class="p">,</span>
+    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;trained-speakerbox&quot;</span><span class="p">,</span>
     <span class="n">model_base</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_BASE_MODEL</span><span class="p">,</span>
     <span class="n">max_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
     <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">use_cpu</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">trainer_arguments_kws</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_TRAINER_ARGUMENTS_ARGS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Train a speaker classification model.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    dataset: DatasetDict</span>
 <span class="sd">        The datasets to use for training, testing, and validation.</span>
-<span class="sd">        Should only contain the columns/features: "label" and "audio".</span>
-<span class="sd">        The values in the "audio" column should be paths to the audio files.</span>
+<span class="sd">        Should only contain the columns/features: &quot;label&quot; and &quot;audio&quot;.</span>
+<span class="sd">        The values in the &quot;audio&quot; column should be paths to the audio files.</span>
 <span class="sd">    model_name: str</span>
 <span class="sd">        A name for the model. This will also create a directory with the same name</span>
 <span class="sd">        to store the produced model in.</span>
-<span class="sd">        Default: "trained-speakerbox"</span>
+<span class="sd">        Default: &quot;trained-speakerbox&quot;</span>
 <span class="sd">    model_base: str</span>
 <span class="sd">        The model base to use before fine tuning.</span>
 <span class="sd">    max_duration: float</span>
@@ -406,25 +407,25 @@
 <span class="sd">    -------</span>
 <span class="sd">    model_storage_path: Path</span>
 <span class="sd">        The path to the directory where the model is stored.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Handle seed</span>
     <span class="k">if</span> <span class="n">seed</span><span class="p">:</span>
         <span class="n">set_global_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
     <span class="c1"># Handle cpu</span>
     <span class="k">if</span> <span class="n">use_cpu</span><span class="p">:</span>
-        <span class="n">trainer_arguments_kws</span><span class="p">[</span><span class="s2">"no_cuda"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">trainer_arguments_kws</span><span class="p">[</span><span class="s2">&quot;no_cuda&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="c1"># Load feature extractor</span>
     <span class="n">feature_extractor</span> <span class="o">=</span> <span class="n">Wav2Vec2FeatureExtractor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_base</span><span class="p">)</span>
 
     <span class="c1"># Convert dataset audios</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Casting all audio paths to torch Audio"</span><span class="p">)</span>
-    <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">cast_column</span><span class="p">(</span><span class="s2">"audio"</span><span class="p">,</span> <span class="n">Audio</span><span class="p">(</span><span class="n">feature_extractor</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">))</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Casting all audio paths to torch Audio&quot;</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">cast_column</span><span class="p">(</span><span class="s2">&quot;audio&quot;</span><span class="p">,</span> <span class="n">Audio</span><span class="p">(</span><span class="n">feature_extractor</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">))</span>
 
     <span class="c1"># Construct label to id and vice-versa LUTs</span>
     <span class="n">label2id</span><span class="p">,</span> <span class="n">id2label</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span> <span class="nb">dict</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s2">"train"</span><span class="p">]</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s2">"label"</span><span class="p">]</span><span class="o">.</span><span class="n">names</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">names</span><span class="p">):</span>
         <span class="n">label2id</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         <span class="n">id2label</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">label</span>
 
@@ -432,7 +433,7 @@
     <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span>
         <span class="n">examples</span><span class="p">:</span> <span class="n">arrow_dataset</span><span class="o">.</span><span class="n">Batch</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">feature_extraction_utils</span><span class="o">.</span><span class="n">BatchFeature</span><span class="p">:</span>
-        <span class="n">audio_arrays</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s2">"array"</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">[</span><span class="s2">"audio"</span><span class="p">]]</span>
+        <span class="n">audio_arrays</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;array&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">[</span><span class="s2">&quot;audio&quot;</span><span class="p">]]</span>
         <span class="n">inputs</span> <span class="o">=</span> <span class="n">feature_extractor</span><span class="p">(</span>
             <span class="n">audio_arrays</span><span class="p">,</span>
             <span class="n">sampling_rate</span><span class="o">=</span><span class="n">feature_extractor</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">,</span>
@@ -444,11 +445,11 @@
         <span class="k">return</span> <span class="n">inputs</span>
 
     <span class="c1"># Encode the dataset</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Extracting features from audio"</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Extracting features from audio&quot;</span><span class="p">)</span>
     <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Create AutoModel</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Setting up Trainer"</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Setting up Trainer&quot;</span><span class="p">)</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Wav2Vec2ForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
         <span class="n">model_base</span><span class="p">,</span>
         <span class="n">num_labels</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">id2label</span><span class="p">),</span>
@@ -464,7 +465,7 @@
     <span class="p">)</span>
 
     <span class="c1"># Compute accuracy metrics</span>
-    <span class="n">metric</span> <span class="o">=</span> <span class="n">load_metric</span><span class="p">(</span><span class="s2">"accuracy"</span><span class="p">)</span>
+    <span class="n">metric</span> <span class="o">=</span> <span class="n">load_metric</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">compute_metrics</span><span class="p">(</span><span class="n">eval_pred</span><span class="p">:</span> <span class="n">EvalPrediction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
         <span class="c1"># Eval pred comes with both the predictions and the attention mask</span>
@@ -476,8 +477,8 @@
     <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
         <span class="n">model</span><span class="p">,</span>
         <span class="n">args</span><span class="p">,</span>
-        <span class="n">train_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">[</span><span class="s2">"train"</span><span class="p">],</span>
-        <span class="n">eval_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">[</span><span class="s2">"test"</span><span class="p">],</span>
+        <span class="n">train_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">],</span>
+        <span class="n">eval_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">],</span>
         <span class="n">tokenizer</span><span class="o">=</span><span class="n">feature_extractor</span><span class="p">,</span>
         <span class="n">compute_metrics</span><span class="o">=</span><span class="n">compute_metrics</span><span class="p">,</span>
     <span class="p">)</span>
@@ -501,7 +502,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Jackson Maxfield Brown
+                Copyright &#169; 2022, Eva Maxfield Brown
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -526,6 +527,7 @@
 </div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/scripts/furo.js"></script>
     </body>
