@@ -68,8 +68,8 @@ master_doc = "index"
 
 # General information about the project.
 project = "speakerbox"
-copyright = "2022, Jackson Maxfield Brown"
-author = "Jackson Maxfield Brown"
+copyright = "2022, Eva Maxfield Brown"
+author = "Eva Maxfield Brown"
 
 # The version info for the project you"re documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -149,7 +149,7 @@ latex_documents = [
         master_doc,
         "speakerbox.tex",
         "speakerbox Documentation",
-        "Jackson Maxfield Brown",
+        "Eva Maxfield Brown",
         "manual",
     ),
 ]

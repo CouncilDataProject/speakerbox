@@ -55,8 +55,7 @@ requirements = [
     "torch~=1.10",
     "torchaudio~=0.10",
     "transformers~=4.16",
-    # until v2 release
-    "pyannote.audio @ https://github.com/pyannote/pyannote-audio/archive/develop.zip",
+    "pyannote.audio~=2.0",
 ]
 
 extra_requirements = {
@@ -71,8 +70,8 @@ extra_requirements = {
 }
 
 setup(
-    author="Jackson Maxfield Brown",
-    author_email="jmaxfieldbrown@gmail.com",
+    author="Eva Maxfield Brown",
+    author_email="evamaxfieldbrown@gmail.com",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
