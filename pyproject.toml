@@ -99,7 +99,7 @@ include-package-data = true
 exclude = ["*docs/*", "*tests/*"]
 
 [tool.setuptools.package-data]
-"*" = ["*.yaml", "py.typed"]
+"*" = ["*.yaml", "py.typed", "*.zip"]
 
 # tools
 [tool.black]
@@ -123,7 +123,9 @@ ignore = [
   "CONTRIBUTING.md",
   "Justfile",
   ".cookiecutter.yaml",
-  "*docs/*",
+  "*docs/**",
+  "*test-outputs/**",
+  "*/tests/**",
 ]
 
 [tool.mypy]
