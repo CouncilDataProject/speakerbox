@@ -1,9 +1,9 @@
 # speakerbox
 
-[![Build Status](https://github.com/CouncilDataProject/speakerbox/workflows/Build/badge.svg)](https://github.com/CouncilDataProject/speakerbox/actions)
+[![Build Status](https://github.com/CouncilDataProject/speakerbox/workflows/CI/badge.svg)](https://github.com/CouncilDataProject/speakerbox/actions)
 [![Documentation](https://github.com/CouncilDataProject/speakerbox/workflows/Documentation/badge.svg)](https://CouncilDataProject.github.io/speakerbox)
 
-Workflow for Annotation and Speaker Classification Model Training from Audio
+Speaker Annotation using Audio Classification
 
 ---
 
@@ -52,8 +52,6 @@ The `speakerbox` library contains methods for both generating datasets for annot
 and for utilizing multiple audio annotation schemes to train such a model.
 
 ## Workflow
-
-⚠️ `speakerbox` currently only works on Ubuntu due to upstream dependencies ⚠️
 
 ### Diarization
 
@@ -192,4 +190,4 @@ eval_model(dataset_dict["valid"])
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for information related to developing the code.
 
-**MIT license**
+**MIT License**

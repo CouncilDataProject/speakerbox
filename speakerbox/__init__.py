@@ -2,15 +2,16 @@
 
 """Top-level package for speakerbox."""
 
+from importlib.metadata import PackageNotFoundError, version
+
+try:
+    __version__ = version("speakerbox")
+except PackageNotFoundError:
+    __version__ = "uninstalled"
+
 __author__ = "Eva Maxfield Brown"
 __email__ = "evamaxfieldbrown@gmail.com"
-# Do not edit this string manually, always use bumpversion
-# Details in CONTRIBUTING.md
-__version__ = "0.1.0"
 
+from .main import eval_model, train
 
-def get_module_version() -> str:
-    return __version__
-
-
-from .main import eval_model, train  # noqa: F401
+__all__ = ["eval_model", "train"]
