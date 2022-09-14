@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/CouncilDataProject/speakerbox/workflows/CI/badge.svg)](https://github.com/CouncilDataProject/speakerbox/actions)
 [![Documentation](https://github.com/CouncilDataProject/speakerbox/workflows/Documentation/badge.svg)](https://CouncilDataProject.github.io/speakerbox)
 
-Speaker Annotation using Audio Classification
+A Workflow for Annotation and Training for Multi-Speaker Classification Models
 
 ---
 

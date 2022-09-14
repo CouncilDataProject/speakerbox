@@ -181,6 +181,6 @@ texinfo_documents = [
         "speakerbox Documentation",
         author,
         "speakerbox",
-        "Speaker Annotation using Audio Classification",
+        "A Workflow for Annotation and Training for Multi-Speaker Classification Models",
     ),
 ]
