@@ -53,8 +53,6 @@ and for utilizing multiple audio annotation schemes to train such a model.
 
 ## Workflow
 
-⚠️ `speakerbox` currently only works on Ubuntu due to upstream dependencies ⚠️
-
 ### Diarization
 
 We quickly generate an annotated dataset by first diarizing (or clustering based
