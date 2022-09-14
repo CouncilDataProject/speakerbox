@@ -1,0 +1,10 @@
+default_context:
+    author_name: "Eva Maxfield Brown"
+    author_email: "evamaxfieldbrown@gmail.com"
+    hosting_github_username_or_org: "CouncilDataProject"
+    project_name: "Speakerbox"
+    project_slug: "speakerbox"
+    python_slug: "speakerbox"
+    project_short_description: "Speaker Annotation using Audio Classification"
+    hosting_pypi_username: "councildataproject"
+    license: "MIT License"

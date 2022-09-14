@@ -25,7 +25,7 @@ Ready to contribute? Here's how to set up `speakerbox` for local development.
 
     ```bash
     cd speakerbox/
-    pip install -e .[dev]
+    just install
     ```
 
 4. Create a branch for local development:
@@ -38,10 +38,10 @@ Ready to contribute? Here's how to set up `speakerbox` for local development.
     Now you can make your changes locally.
 
 5. When you're done making changes, check that your changes pass linting and
-   tests, including testing other Python versions with make:
+   tests with [just](https://github.com/casey/just):
 
     ```bash
-    make build
+    just build
     ```
 
 6. Commit your changes and push your branch to GitHub:
@@ -54,16 +54,40 @@ Ready to contribute? Here's how to set up `speakerbox` for local development.
 
 7. Submit a pull request through the GitHub website.
 
+## Just Commands
+
+For development commands we use [just](https://github.com/casey/just).
+
+```bash
+just
+```
+```
+Available recipes:
+    build                    # run lint and then run tests
+    clean                    # clean all build, python, and lint files
+    default                  # list all available commands
+    generate-docs            # generate Sphinx HTML documentation
+    install                  # install with all deps
+    lint                     # lint, format, and check all files
+    release                  # release a new version
+    serve-docs               # generate Sphinx HTML documentation and serve to browser
+    tag-for-release version  # tag a new version
+    test                     # run tests
+    update-from-cookiecutter # update this repo using latest cookiecutter-py-package
+```
+
 ## Deploying
 
 A reminder for the maintainers on how to deploy.
-Make sure all your changes are committed.
-Then run:
+Make sure the main branch is checked out and all desired changes
+are merged. Then run:
 
 ```bash
-$ bump2version patch # possible: major / minor / patch
-$ git push
-$ git push --tags
+just tag-for-release "vX.Y.Z"
+just release
 ```
 
-This will release a new package version on Git + GitHub and publish to PyPI.
+The presence of a tag starting with "v" will trigger the `publish` step in the
+main github workflow, which will build the package and upload it to PyPI. The
+version will be injected into the package metadata by
+[`setuptools-scm`](https://github.com/pypa/setuptools_scm)
