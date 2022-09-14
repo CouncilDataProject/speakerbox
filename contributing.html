@@ -6,9 +6,10 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="speakerbox.datasets package" href="speakerbox.datasets.html" />
 
     <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
-        <title>Contributing - speakerbox 0.1.0 documentation</title>
+        <title>Contributing - speakerbox 0.1.dev1+g433de8f documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -123,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">speakerbox 0.1.0 documentation</div></a>
+      <a href="index.html"><div class="brand">speakerbox 0.1.dev1+g433de8f documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +147,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">speakerbox 0.1.0 documentation</span>
+  <span class="sidebar-brand-text">speakerbox 0.1.dev1+g433de8f documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -221,7 +222,7 @@ project as it will always be the most up-to-date.</p>
 </li>
 <li><p>Install the project in editable mode. (It is also recommended to work in a virtualenv or anaconda environment):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> speakerbox/
-pip install -e .<span class="o">[</span>dev<span class="o">]</span>
+just install
 </pre></div>
 </div>
 </li>
@@ -234,8 +235,8 @@ Now you can make your changes locally.
 </div>
 </li>
 <li><p>When you’re done making changes, check that your changes pass linting and
-tests, including testing other Python versions with make:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make build
+tests with <a class="reference external" href="https://github.com/casey/just">just</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>just build
 </pre></div>
 </div>
 </li>
@@ -249,17 +250,40 @@ git push origin <span class="o">{</span>your_development_type<span class="o">}</
 <li><p>Submit a pull request through the GitHub website.</p></li>
 </ol>
 </section>
+<section id="just-commands">
+<h2>Just Commands<a class="headerlink" href="#just-commands" title="Permalink to this heading">#</a></h2>
+<p>For development commands we use <a class="reference external" href="https://github.com/casey/just">just</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>just
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">recipes</span><span class="p">:</span>
+    <span class="n">build</span>                    <span class="c1"># run lint and then run tests</span>
+    <span class="n">clean</span>                    <span class="c1"># clean all build, python, and lint files</span>
+    <span class="n">default</span>                  <span class="c1"># list all available commands</span>
+    <span class="n">generate</span><span class="o">-</span><span class="n">docs</span>            <span class="c1"># generate Sphinx HTML documentation</span>
+    <span class="n">install</span>                  <span class="c1"># install with all deps</span>
+    <span class="n">lint</span>                     <span class="c1"># lint, format, and check all files</span>
+    <span class="n">release</span>                  <span class="c1"># release a new version</span>
+    <span class="n">serve</span><span class="o">-</span><span class="n">docs</span>               <span class="c1"># generate Sphinx HTML documentation and serve to browser</span>
+    <span class="n">tag</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">release</span> <span class="n">version</span>  <span class="c1"># tag a new version</span>
+    <span class="n">test</span>                     <span class="c1"># run tests</span>
+    <span class="n">update</span><span class="o">-</span><span class="n">from</span><span class="o">-</span><span class="n">cookiecutter</span> <span class="c1"># update this repo using latest cookiecutter-py-package</span>
+</pre></div>
+</div>
+</section>
 <section id="deploying">
 <h2>Deploying<a class="headerlink" href="#deploying" title="Permalink to this heading">#</a></h2>
 <p>A reminder for the maintainers on how to deploy.
-Make sure all your changes are committed.
-Then run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bump2version patch <span class="c1"># possible: major / minor / patch</span>
-$ git push
-$ git push --tags
+Make sure the main branch is checked out and all desired changes
+are merged. Then run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>just tag-for-release <span class="s2">&quot;vX.Y.Z&quot;</span>
+just release
 </pre></div>
 </div>
-<p>This will release a new package version on Git + GitHub and publish to PyPI.</p>
+<p>The presence of a tag starting with “v” will trigger the <code class="docutils literal notranslate"><span class="pre">publish</span></code> step in the
+main github workflow, which will build the package and upload it to PyPI. The
+version will be injected into the package metadata by
+<cite>``setuptools-scm`</cite> &lt;<a class="reference external" href="https://github.com/pypa/setuptools_scm">https://github.com/pypa/setuptools_scm</a>&gt;`_</p>
 </section>
 </section>
 
@@ -284,7 +308,7 @@ $ git push --tags
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Eva Maxfield Brown
+                Copyright &#169; 2022
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -315,6 +339,7 @@ $ git push --tags
 <li><a class="reference internal" href="#">Contributing</a><ul>
 <li><a class="reference internal" href="#developer-installation">Developer Installation</a></li>
 <li><a class="reference internal" href="#get-started">Get Started!</a></li>
+<li><a class="reference internal" href="#just-commands">Just Commands</a></li>
 <li><a class="reference internal" href="#deploying">Deploying</a></li>
 </ul>
 </li>
@@ -333,5 +358,7 @@ $ git push --tags
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
     </body>
 </html>

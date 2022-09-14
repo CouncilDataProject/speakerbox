@@ -6,9 +6,10 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributing" href="contributing.html" /><link rel="prev" title="speakerbox package" href="speakerbox.html" />
 
     <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
-        <title>speakerbox.datasets package - speakerbox 0.1.0 documentation</title>
+        <title>speakerbox.datasets package - speakerbox 0.1.dev1+g433de8f documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -123,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">speakerbox 0.1.0 documentation</div></a>
+      <a href="index.html"><div class="brand">speakerbox 0.1.dev1+g433de8f documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +147,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">speakerbox 0.1.0 documentation</span>
+  <span class="sidebar-brand-text">speakerbox 0.1.dev1+g433de8f documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -204,82 +205,8 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="module-speakerbox.datasets.seattle_2021_proto">
-<span id="speakerbox-datasets-seattle-2021-proto-module"></span><h2>speakerbox.datasets.seattle_2021_proto module<a class="headerlink" href="#module-speakerbox.datasets.seattle_2021_proto" title="Permalink to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="speakerbox.datasets.seattle_2021_proto.pull_all_files">
-<span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.seattle_2021_proto.</span></span><span class="sig-name descname"><span class="pre">pull_all_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotations_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('seattle-2021-proto/annotations')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transcript_output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('seattle-2021-proto/unlabeled_transcripts')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('seattle-2021-proto/audio')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="speakerbox.html#speakerbox.types.GeckoAnnotationAndAudio" title="speakerbox.types.GeckoAnnotationAndAudio"><span class="pre">GeckoAnnotationAndAudio</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/speakerbox/datasets/seattle_2021_proto.html#pull_all_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.seattle_2021_proto.pull_all_files" title="Permalink to this definition">#</a></dt>
-<dd><p>Using the filenames for the files found in the annotations directory as event
-ids, pull the matching audio files and store them in the dataset directory.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>annotations_dir</strong> (<em>Union[str, Path]</em>) – The path to the directory which contains the annotation files for a dataset.
-Default: Default Seattle 2021 Prototype Dataset Annotations Directory</p></li>
-<li><p><strong>transcript_output_dir</strong> (<em>Union[str, Path]</em>) – The path to where to store the pulled unlabeled transcript files.
-Default: Default Seattle 2021 Prototype Dataset Transcript Directory</p></li>
-<li><p><strong>audio_output_dir</strong> (<em>Union[str, Path]</em>) – The path to where to store the pulled audio files.
-Default: Default Seattle 2021 Prototype Dataset Audio Directory</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em>) – If an audio file with a filename matching the event id already exists in the
-output directory exists, should it be overwritten (safer) or skipped (faster).
-Default: False (skipped)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>annotations_and_audios</strong> – A list of matching GeckoAnnotationAndAudio objects.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="speakerbox.html#speakerbox.types.GeckoAnnotationAndAudio" title="speakerbox.types.GeckoAnnotationAndAudio">GeckoAnnotationAndAudio</a>]</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>NotADirectoryError</strong> – Provided annotations directory is not a directory.</p></li>
-<li><p><strong>NotADirectoryError</strong> – A file exists at the specified audio output directory.</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">speakerbox.datasets</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="gp">... </span>    <span class="n">unpack_seattle_2021_proto</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">pull_seattle_2021_proto_audio</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="gp">... </span><span class="n">ds_dir</span> <span class="o">=</span> <span class="n">unpack_seattle_2021_proto</span><span class="p">()</span>
-<span class="gp">... </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pull_seattle_2021_proto_audio</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="speakerbox.datasets.seattle_2021_proto.unpack">
-<span class="sig-prename descclassname"><span class="pre">speakerbox.datasets.seattle_2021_proto.</span></span><span class="sig-name descname"><span class="pre">unpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('seattle-2021-proto')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="_modules/speakerbox/datasets/seattle_2021_proto.html#unpack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.datasets.seattle_2021_proto.unpack" title="Permalink to this definition">#</a></dt>
-<dd><p>Unpacks the Seattle 2021 Prototype Dataset from a zipfile to the provided
-destination location.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dest</strong> (<em>Union[str, Path]</em>) – The destination to unpack to.
-Default: A new directory in your current working directory with the standard
-Seattle 2021 Prototype Dataset name.</p></li>
-<li><p><strong>clean</strong> (<em>bool</em>) – If a directory already exists at the destination location, should the directory
-be removed entirely before unpacking again.
-Default: False</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dataset_path</strong> – The path to the unpacked data.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Path</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>NotADirectoryError</strong> – A file exists at the specified destination.</p></li>
-<li><p><strong>FileExistsError</strong> – A directory exists at the specified destination and is not empty.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="speakerbox-datasets-seattle-2021-proto-module">
+<h2>speakerbox.datasets.seattle_2021_proto module<a class="headerlink" href="#speakerbox-datasets-seattle-2021-proto-module" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="module-speakerbox.datasets">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-speakerbox.datasets" title="Permalink to this heading">#</a></h2>
@@ -316,7 +243,7 @@ Default: False</p></li>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Eva Maxfield Brown
+                Copyright &#169; 2022
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -346,7 +273,7 @@ Default: False</p></li>
             <ul>
 <li><a class="reference internal" href="#">speakerbox.datasets package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-speakerbox.datasets.seattle_2021_proto">speakerbox.datasets.seattle_2021_proto module</a></li>
+<li><a class="reference internal" href="#speakerbox-datasets-seattle-2021-proto-module">speakerbox.datasets.seattle_2021_proto module</a></li>
 <li><a class="reference internal" href="#module-speakerbox.datasets">Module contents</a></li>
 </ul>
 </li>
@@ -365,5 +292,7 @@ Default: False</p></li>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
     </body>
 </html>

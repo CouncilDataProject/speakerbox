@@ -6,9 +6,10 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="speakerbox.datasets package" href="speakerbox.datasets.html" /><link rel="prev" title="speakerbox" href="modules.html" />
 
     <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
-        <title>speakerbox package - speakerbox 0.1.0 documentation</title>
+        <title>speakerbox package - speakerbox 0.1.dev1+g433de8f documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -123,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">speakerbox 0.1.0 documentation</div></a>
+      <a href="index.html"><div class="brand">speakerbox 0.1.dev1+g433de8f documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +147,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">speakerbox 0.1.0 documentation</span>
+  <span class="sidebar-brand-text">speakerbox 0.1.dev1+g433de8f documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -207,7 +208,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="speakerbox.datasets.html">speakerbox.datasets package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="speakerbox.datasets.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="speakerbox.datasets.html#module-speakerbox.datasets.seattle_2021_proto">speakerbox.datasets.seattle_2021_proto module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="speakerbox.datasets.html#speakerbox-datasets-seattle-2021-proto-module">speakerbox.datasets.seattle_2021_proto module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="speakerbox.datasets.html#module-speakerbox.datasets">Module contents</a></li>
 </ul>
 </li>
@@ -228,21 +229,26 @@ and recall in a markdown file and the other is the generated top one confusion
 matrix as a PNG file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>validation_dataset</strong> (<em>Dataset</em>) – The dataset to validate the model against.</p></li>
-<li><p><strong>model_name</strong> (<em>str</em>) – A name for the model. This will also create a directory with the same name
+<dd class="field-odd"><dl class="simple">
+<dt><strong>validation_dataset: Dataset</strong></dt><dd><p>The dataset to validate the model against.</p>
+</dd>
+<dt><strong>model_name: str</strong></dt><dd><p>A name for the model. This will also create a directory with the same name
 to store the produced model in.
-Default: “trained-speakerbox”</p></li>
-</ul>
+Default: “trained-speakerbox”</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>accuracy</strong> (<em>float</em>) – The model accuracy as returned by sklearn.metrics.accuracy_score.</p></li>
-<li><p><strong>precision</strong> (<em>float</em>) – The model (weighted) precision as returned by sklearn.metrics.precision_score.</p></li>
-<li><p><strong>recall</strong> (<em>float</em>) – The model (weighted) recall as returned by sklearn.metrics.recall_score.</p></li>
-<li><p><strong>loss</strong> (<em>float</em>) – The model log loss as returned by sklearn.metrics.log_loss.</p></li>
-</ul>
-</p>
+<dd class="field-even"><dl class="simple">
+<dt>accuracy: float</dt><dd><p>The model accuracy as returned by sklearn.metrics.accuracy_score.</p>
+</dd>
+<dt>precision: float</dt><dd><p>The model (weighted) precision as returned by sklearn.metrics.precision_score.</p>
+</dd>
+<dt>recall: float</dt><dd><p>The model (weighted) recall as returned by sklearn.metrics.recall_score.</p>
+</dd>
+<dt>loss: float</dt><dd><p>The model log loss as returned by sklearn.metrics.log_loss.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -253,236 +259,46 @@ Default: “trained-speakerbox”</p></li>
 <dd><p>Train a speaker classification model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dataset</strong> (<em>DatasetDict</em>) – The datasets to use for training, testing, and validation.
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dataset: DatasetDict</strong></dt><dd><p>The datasets to use for training, testing, and validation.
 Should only contain the columns/features: “label” and “audio”.
-The values in the “audio” column should be paths to the audio files.</p></li>
-<li><p><strong>model_name</strong> (<em>str</em>) – A name for the model. This will also create a directory with the same name
+The values in the “audio” column should be paths to the audio files.</p>
+</dd>
+<dt><strong>model_name: str</strong></dt><dd><p>A name for the model. This will also create a directory with the same name
 to store the produced model in.
-Default: “trained-speakerbox”</p></li>
-<li><p><strong>model_base</strong> (<em>str</em>) – The model base to use before fine tuning.</p></li>
-<li><p><strong>max_duration</strong> (<em>float</em>) – The maximum duration to use for each audio clip.
+Default: “trained-speakerbox”</p>
+</dd>
+<dt><strong>model_base: str</strong></dt><dd><p>The model base to use before fine tuning.</p>
+</dd>
+<dt><strong>max_duration: float</strong></dt><dd><p>The maximum duration to use for each audio clip.
 Any clips longer than this will be trimmed.
-Default: 2.0</p></li>
-<li><p><strong>seed</strong> (<em>Optional[int]</em>) – Seed to pass to torch, numpy, and Python RNGs.
-Default: None (do not set a seed)</p></li>
-<li><p><strong>use_cpu</strong> (<em>bool</em>) – Should the model be trained using CPU.
+Default: 2.0</p>
+</dd>
+<dt><strong>seed: Optional[int]</strong></dt><dd><p>Seed to pass to torch, numpy, and Python RNGs.
+Default: None (do not set a seed)</p>
+</dd>
+<dt><strong>use_cpu: bool</strong></dt><dd><p>Should the model be trained using CPU.
 This also sets <cite>no_cuda=True</cite> on TrainerArguments.
-Default: False (use GPU if available)</p></li>
-<li><p><strong>trainer_arguments_kws</strong> (<em>Dict[Any]</em>) – Any additional keyword arguments to be passed to the HuggingFace
+Default: False (use GPU if available)</p>
+</dd>
+<dt><strong>trainer_arguments_kws: Dict[Any]</strong></dt><dd><p>Any additional keyword arguments to be passed to the HuggingFace
 TrainerArguments object.
-Default: DEFAULT_TRAINER_ARGUMENTS_ARGS</p></li>
-</ul>
+Default: DEFAULT_TRAINER_ARGUMENTS_ARGS</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>model_storage_path</strong> – The path to the directory where the model is stored.</p>
+<dd class="field-even"><dl class="simple">
+<dt>model_storage_path: Path</dt><dd><p>The path to the directory where the model is stored.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Path</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 </section>
-<section id="module-speakerbox.preprocess">
-<span id="speakerbox-preprocess-module"></span><h2>speakerbox.preprocess module<a class="headerlink" href="#module-speakerbox.preprocess" title="Permalink to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="speakerbox.preprocess.diarize_and_split_audio">
-<span class="sig-prename descclassname"><span class="pre">speakerbox.preprocess.</span></span><span class="sig-name descname"><span class="pre">diarize_and_split_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_audio_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diarization_pipeline</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Pipeline</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="_modules/speakerbox/preprocess.html#diarize_and_split_audio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.preprocess.diarize_and_split_audio" title="Permalink to this definition">#</a></dt>
-<dd><p>Diarize a single audio file and split the file into smaller chunks stored into
-directories with the unlabeled speaker annotation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>audio_file</strong> (<em>Union[str, Path]</em>) – The audio file to diarize and split.</p></li>
-<li><p><strong>storage_dir</strong> (<em>Optional[Union[str, Path]]</em>) – A specific directory to store the produced chunks to.
-Default: None (use the audio file name to create a new directory)</p></li>
-<li><p><strong>min_audio_chunk_duration</strong> (<em>float</em>) – Length of the minimum audio duration to allow through after chunking.
-default: 0.5 seconds</p></li>
-<li><p><strong>diarization_pipeline</strong> (<em>Optional[Pipeline]</em>) – A preloaded PyAnnote Pipeline.
-Default: None (load default)</p></li>
-<li><p><strong>seed</strong> (<em>Optional[int]</em>) – Seed to pass to torch, numpy, and Python RNGs.
-Default: None (do not set a seed)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>storage_dir</strong> – The path to where all the chunked audio was stored.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Path</p>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><a class="reference internal" href="#speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset" title="speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_labeled_diarized_audio_dir_to_dataset</span></code></a></dt><dd><p>After labeling the audio in the produced diarized audio directory, expand the labeled data into a dataset ready for training.</p>
-</dd>
-</dl>
-</div>
-<p class="rubric">Notes</p>
-<p>The directory structure of the produced chunks will follow the pattern:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{storage_dir}/
-├── SPEAKER_00
-│   ├── {start_time_millis}-{start_end_millis}.wav
-│   └── {start_time_millis}-{start_end_millis}.wav
-├── SPEAKER_01
-│   ├── {start_time_millis}-{start_end_millis}.wav
-│   └── {start_time_millis}-{start_end_millis}.wav
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="speakerbox.preprocess.expand_gecko_annotations_to_dataset">
-<span class="sig-prename descclassname"><span class="pre">speakerbox.preprocess.</span></span><span class="sig-name descname"><span class="pre">expand_gecko_annotations_to_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotations_and_audios</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#speakerbox.types.GeckoAnnotationAndAudio" title="speakerbox.types.GeckoAnnotationAndAudio"><span class="pre">GeckoAnnotationAndAudio</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('chunked-audio')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_audio_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_audio_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/speakerbox/preprocess.html#expand_gecko_annotations_to_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.preprocess.expand_gecko_annotations_to_dataset" title="Permalink to this definition">#</a></dt>
-<dd><p>Expand a list of annotation and audio files into a full dataset to be used for
-training and testing a speaker classification model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>annotations_and_audios</strong> (<em>List[GeckoAnnotationAndAudio]</em>) – A list of annotation and their matching audio files to expand into a speaker,
-audio file path, start and end times.</p></li>
-<li><p><strong>audio_output_dir</strong> (<em>Union[str, Path]</em>) – A directory path to store the chunked audio files in.
-Default: “chunked-audio” directory in the current working directory.</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em>) – When writting out an audio chunk, should existing files be overwritten.
-Default: False (do not overwrite)</p></li>
-<li><p><strong>min_audio_chunk_duration</strong> (<em>float</em>) – Length of the minimum audio duration to allow through after chunking.
-default: 0.5 seconds</p></li>
-<li><p><strong>max_audio_chunk_duration</strong> (<em>float</em>) – Length of the maximum audio duration to split larger audio files into.
-Default: 2.0 seconds</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dataset</strong> – The expanded dataset with columns: conversation_id, label, audio, duration</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>NotADirectoryError</strong> – A file exists at the specified destination.</p></li>
-<li><p><strong>FileExistsError</strong> – A file exists at the target chunk audio location but overwrite is False.</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Generated and attached conversation ids are pulled from the annotation file name.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset">
-<span class="sig-prename descclassname"><span class="pre">speakerbox.preprocess.</span></span><span class="sig-name descname"><span class="pre">expand_labeled_diarized_audio_dir_to_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labeled_diarized_audio_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('chunked-audio')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_audio_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_audio_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/speakerbox/preprocess.html#expand_labeled_diarized_audio_dir_to_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset" title="Permalink to this definition">#</a></dt>
-<dd><p>Expand the provided labeled diarized audio into a dataset ready for training.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>labeled_diarized_audio_dir</strong> (<em>Union[Union[str, Path], List[Union[str, Path]]]</em>) – A path or list of paths to diarization results directories. These directories
-should no longer have the “SPEAKER_00”, “SPEAKER_01”, default labeling but
-expert annotated labels.</p></li>
-<li><p><strong>audio_output_dir</strong> (<em>Union[str, Path]</em>) – A directory path to store the chunked audio files in.
-Default: “chunked-audio” directory in the current working directory.</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em>) – When writting out an audio chunk, should existing files be overwritten.
-Default: False (do not overwrite)</p></li>
-<li><p><strong>min_audio_chunk_duration</strong> (<em>float</em>) – Length of the minimum audio duration to allow through after chunking.
-default: 0.5 seconds</p></li>
-<li><p><strong>max_audio_chunk_duration</strong> (<em>float</em>) – Length of the maximum audio duration to split larger audio files into.
-Default: 2.0 seconds</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dataset</strong> – The expanded dataset with columns: conversation_id, label, audio, duration</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>NotADirectoryError</strong> – A file exists at the specified destination.</p></li>
-<li><p><strong>FileExistsError</strong> – A file exists at the target chunk audio location but overwrite is False.</p></li>
-</ul>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><a class="reference internal" href="#speakerbox.preprocess.diarize_and_split_audio" title="speakerbox.preprocess.diarize_and_split_audio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diarize_and_split_audio</span></code></a></dt><dd><p>Function to diarize an audio file and split into annotation directories.</p>
-</dd>
-</dl>
-</div>
-<p class="rubric">Notes</p>
-<p>The provided labeled diarized audio directory(s) should have the
-following structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{labeled_diarized_audio_dir}/
-├── label
-│   ├── 1.wav
-│   └── 2.wav
-├── second_label
-│   ├── 1.wav
-│   └── 2.wav
-</pre></div>
-</div>
-<p>Generated and attached conversation ids are pulled from the labeled diarized audio
-directory names.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="speakerbox.preprocess.prepare_dataset">
-<span class="sig-prename descclassname"><span class="pre">speakerbox.preprocess.</span></span><span class="sig-name descname"><span class="pre">prepare_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_and_valid_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equalize_data_within_splits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iterations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">DatasetDict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/speakerbox/preprocess.html#prepare_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.preprocess.prepare_dataset" title="Permalink to this definition">#</a></dt>
-<dd><p>Prepare a dataset for training a new speakerbox / audio-classification model.
-This function attempts to randomly create train, test, and validation splits
-from the provided dataframe that meet the following two conditions:</p>
-<p>1. There is data holdout by conversation_id. I.e. if the dataset contains data from
-nine unique conversation ids, the training, test, and validation sets should all
-have different conversation ids (train has 0, 1, 2, 3; test has 4, 5, 6; validation
-has 7, 8).</p>
-<p>2. There is data stratification by label. I.e. if the dataset contains nine unique
-labels, the training, test, and validation sets should each have all nine labels
-present (train, test, and validation all have labels 0-8).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – An expanded dataset with columns: conversation_id, label, audio, duration</p></li>
-<li><p><strong>test_and_valid_size</strong> (<em>float</em>) – How much of the dataset to use for the combined test and validation sets
-as a percent (i.e. 0.4 = 40% of the dataset).
-The test and validation sets will further split this in half (i.e. 0.4 = 40%
-which means 20% of the total data for testing and 20% of the total data for
-validation).</p></li>
-<li><p><strong>equalize_data_within_splits</strong> (<em>bool</em>) – After finding valid train, test, and validation splits, should the data within
-each split be reduced to have an equal number of data for each label.
-Default: False (Do not equalize labels within splits)</p></li>
-<li><p><strong>n_iterations</strong> (<em>int</em>) – The number of iterations to attempt to find viable train, test, and validation
-sets.
-Default: 100</p></li>
-<li><p><strong>seed</strong> (<em>Optional[int]</em>) – Seed to pass to torch, numpy, and Python RNGs.
-Default: None (do not set a seed)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>dataset</strong> (<em>DatasetDict</em>) – The prepared dataset split into train, test, and validation splits.</p></li>
-<li><p><strong>value_counts</strong> (<em>pd.DataFrame</em>) – A value count table where each row is a different label and each column is the
-count of that label in the matching train, test, or validation set.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><a class="reference internal" href="#speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset" title="speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_labeled_diarized_audio_dir_to_dataset</span></code></a></dt><dd><p>Function to move from a directory of diarized audio (or multiple) into a dataset to provide to this function.</p>
-</dd>
-<dt><a class="reference internal" href="#speakerbox.preprocess.expand_gecko_annotations_to_dataset" title="speakerbox.preprocess.expand_gecko_annotations_to_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_gecko_annotations_to_dataset</span></code></a></dt><dd><p>Function to move from a gecko annotation file (or multiple) into a dataset to provide to this function.</p>
-</dd>
-</dl>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ValueError</strong> – Could not find train, test, and validation sets that meet the holdout and
-    stratification criteria after n iterations. Recommended to annotate more data.</p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="speakerbox-preprocess-module">
+<h2>speakerbox.preprocess module<a class="headerlink" href="#speakerbox-preprocess-module" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="module-speakerbox.types">
 <span id="speakerbox-types-module"></span><h2>speakerbox.types module<a class="headerlink" href="#module-speakerbox.types" title="Permalink to this heading">#</a></h2>
@@ -570,9 +386,80 @@ count of that label in the matching train, test, or validation set.</p></li>
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-speakerbox" title="Permalink to this heading">#</a></h2>
 <p>Top-level package for speakerbox.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="speakerbox.get_module_version">
-<span class="sig-prename descclassname"><span class="pre">speakerbox.</span></span><span class="sig-name descname"><span class="pre">get_module_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/speakerbox.html#get_module_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.get_module_version" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="speakerbox.eval_model">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.</span></span><span class="sig-name descname"><span class="pre">eval_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">validation_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'trained-speakerbox'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/speakerbox/main.html#eval_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.eval_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Evaluate a trained model.</p>
+<p>This will store two files in the model directory, one for the accuracy, precision,
+and recall in a markdown file and the other is the generated top one confusion
+matrix as a PNG file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>validation_dataset: Dataset</strong></dt><dd><p>The dataset to validate the model against.</p>
+</dd>
+<dt><strong>model_name: str</strong></dt><dd><p>A name for the model. This will also create a directory with the same name
+to store the produced model in.
+Default: “trained-speakerbox”</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>accuracy: float</dt><dd><p>The model accuracy as returned by sklearn.metrics.accuracy_score.</p>
+</dd>
+<dt>precision: float</dt><dd><p>The model (weighted) precision as returned by sklearn.metrics.precision_score.</p>
+</dd>
+<dt>recall: float</dt><dd><p>The model (weighted) recall as returned by sklearn.metrics.recall_score.</p>
+</dd>
+<dt>loss: float</dt><dd><p>The model log loss as returned by sklearn.metrics.log_loss.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.train">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.</span></span><span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DatasetDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'trained-speakerbox'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_base</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'superb/wav2vec2-base-superb-sid'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trainer_arguments_kws</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{'eval_accumulation_steps':</span> <span class="pre">40,</span> <span class="pre">'evaluation_strategy':</span> <span class="pre">'epoch',</span> <span class="pre">'gradient_accumulation_steps':</span> <span class="pre">1,</span> <span class="pre">'gradient_checkpointing':</span> <span class="pre">True,</span> <span class="pre">'learning_rate':</span> <span class="pre">3e-05,</span> <span class="pre">'load_best_model_at_end':</span> <span class="pre">True,</span> <span class="pre">'logging_steps':</span> <span class="pre">10,</span> <span class="pre">'metric_for_best_model':</span> <span class="pre">'accuracy',</span> <span class="pre">'num_train_epochs':</span> <span class="pre">5,</span> <span class="pre">'per_device_eval_batch_size':</span> <span class="pre">8,</span> <span class="pre">'per_device_train_batch_size':</span> <span class="pre">8,</span> <span class="pre">'save_strategy':</span> <span class="pre">'epoch',</span> <span class="pre">'warmup_ratio':</span> <span class="pre">0.1}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="_modules/speakerbox/main.html#train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.train" title="Permalink to this definition">#</a></dt>
+<dd><p>Train a speaker classification model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dataset: DatasetDict</strong></dt><dd><p>The datasets to use for training, testing, and validation.
+Should only contain the columns/features: “label” and “audio”.
+The values in the “audio” column should be paths to the audio files.</p>
+</dd>
+<dt><strong>model_name: str</strong></dt><dd><p>A name for the model. This will also create a directory with the same name
+to store the produced model in.
+Default: “trained-speakerbox”</p>
+</dd>
+<dt><strong>model_base: str</strong></dt><dd><p>The model base to use before fine tuning.</p>
+</dd>
+<dt><strong>max_duration: float</strong></dt><dd><p>The maximum duration to use for each audio clip.
+Any clips longer than this will be trimmed.
+Default: 2.0</p>
+</dd>
+<dt><strong>seed: Optional[int]</strong></dt><dd><p>Seed to pass to torch, numpy, and Python RNGs.
+Default: None (do not set a seed)</p>
+</dd>
+<dt><strong>use_cpu: bool</strong></dt><dd><p>Should the model be trained using CPU.
+This also sets <cite>no_cuda=True</cite> on TrainerArguments.
+Default: False (use GPU if available)</p>
+</dd>
+<dt><strong>trainer_arguments_kws: Dict[Any]</strong></dt><dd><p>Any additional keyword arguments to be passed to the HuggingFace
+TrainerArguments object.
+Default: DEFAULT_TRAINER_ARGUMENTS_ARGS</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>model_storage_path: Path</dt><dd><p>The path to the directory where the model is stored.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 </section>
@@ -606,7 +493,7 @@ count of that label in the matching train, test, or validation set.</p></li>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Eva Maxfield Brown
+                Copyright &#169; 2022
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -638,7 +525,7 @@ count of that label in the matching train, test, or validation set.</p></li>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-speakerbox.main">speakerbox.main module</a></li>
-<li><a class="reference internal" href="#module-speakerbox.preprocess">speakerbox.preprocess module</a></li>
+<li><a class="reference internal" href="#speakerbox-preprocess-module">speakerbox.preprocess module</a></li>
 <li><a class="reference internal" href="#module-speakerbox.types">speakerbox.types module</a></li>
 <li><a class="reference internal" href="#module-speakerbox.utils">speakerbox.utils module</a></li>
 <li><a class="reference internal" href="#module-speakerbox">Module contents</a></li>
@@ -659,5 +546,7 @@ count of that label in the matching train, test, or validation set.</p></li>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
     </body>
 </html>
