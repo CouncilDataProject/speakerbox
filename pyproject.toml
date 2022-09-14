@@ -55,6 +55,7 @@ seattle = [
 ]
 lint = [
   "black>=22.3.0",
+  "cdp-backend~=3.0.3",
   "check-manifest>=0.48",
   "flake8>=3.8.3",
   "flake8-debugger>=3.2.1",
@@ -65,6 +66,7 @@ lint = [
   "pre-commit>=2.20.0",
 ]
 test = [
+  "cdp-backend~=3.0.3",
   "coverage>=5.1",
   "pytest>=5.4.3",
   "pytest-cov>=2.9.0",
