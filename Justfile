@@ -19,6 +19,10 @@ clean:
 	rm -fr htmlcov
 	rm -fr .pytest_cache
 	rm -fr .mypy_cache
+	rm -fr chunked-audio
+	rm -fr cdp-datasets
+	rm -fr training-data
+	rm -fr test-outputs
 
 # install with all deps
 install:
