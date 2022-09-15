@@ -115,18 +115,3 @@ jobs:
       with:
         user: councildataproject
         password: ${{ secrets.PYPI_TOKEN }}
-
-  # Generate paper
-  paper:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build Draft PDF
-        uses: openjournals/openjournals-draft-action@master
-        with:
-          journal: joss
-          paper-path: paper/paper.md
-      - uses: actions/upload-artifact@v3
-        with:
-          name: paper
-          path: paper/paper.pdf
