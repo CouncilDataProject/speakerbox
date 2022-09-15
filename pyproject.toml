@@ -129,6 +129,8 @@ ignore = [
   "*docs/**",
   "*test-outputs/**",
   "*/tests/**",
+  "*/paper/**",
+  "*/training-data/**",
 ]
 
 [tool.mypy]
