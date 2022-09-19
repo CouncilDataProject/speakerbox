@@ -5,6 +5,6 @@ default_context:
     project_name: "Speakerbox"
     project_slug: "speakerbox"
     python_slug: "speakerbox"
-    project_short_description: "A Workflow for Annotation and Training for Multi-Speaker Classification Models"
+    project_short_description: "Semi-Supervised Speaker Identification Model Training and Application"
     hosting_pypi_username: "councildataproject"
     license: "MIT License"
