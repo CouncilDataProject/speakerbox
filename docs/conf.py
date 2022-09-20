@@ -181,6 +181,6 @@ texinfo_documents = [
         "speakerbox Documentation",
         author,
         "speakerbox",
-        "Semi-Supervised Speaker Identification Model Training and Application",
+        "Supervised Speaker Identification Model Training and Application",
     ),
 ]
