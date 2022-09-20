@@ -3,32 +3,17 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
-import datasets
-import matplotlib.pyplot as plt
-import numpy as np
-import torch
-import transformers
-from datasets import Audio, Dataset, DatasetDict, arrow_dataset, load_metric
-from sklearn.metrics import (
-    ConfusionMatrixDisplay,
-    accuracy_score,
-    log_loss,
-    precision_score,
-    recall_score,
-)
-from transformers import (
-    EvalPrediction,
-    Trainer,
-    TrainingArguments,
-    Wav2Vec2FeatureExtractor,
-    Wav2Vec2ForSequenceClassification,
-    feature_extraction_utils,
-    pipeline,
-)
+from transformers import pipeline
 
-from .utils import set_global_seed
+if TYPE_CHECKING:
+    import datasets
+    from datasets import Dataset, DatasetDict, arrow_dataset
+    from pyannote.core.annotation import Annotation
+    from pydub import AudioSegment
+    from transformers import EvalPrediction, feature_extraction_utils
+    from transformers.pipelines.base import Pipeline
 
 ###############################################################################
 
@@ -70,7 +55,7 @@ DEFAULT_TRAINER_ARGUMENTS_ARGS = dict(
 
 
 def eval_model(
-    validation_dataset: Dataset,
+    validation_dataset: "Dataset",
     model_name: str = "trained-speakerbox",
 ) -> Tuple[float, float, float, float]:
     """
@@ -100,6 +85,15 @@ def eval_model(
     loss: float
         The model log loss as returned by sklearn.metrics.log_loss.
     """
+    import matplotlib.pyplot as plt
+    from sklearn.metrics import (
+        ConfusionMatrixDisplay,
+        accuracy_score,
+        log_loss,
+        precision_score,
+        recall_score,
+    )
+
     log.info("Setting up evaluation pipeline")
     classifier = pipeline(
         "audio-classification",
@@ -107,7 +101,7 @@ def eval_model(
     )
     log.info("Running eval")
 
-    def predict(example: datasets.arrow_dataset.Example) -> Dict[str, Any]:
+    def predict(example: "datasets.arrow_dataset.Example") -> Dict[str, Any]:
         pred = classifier(example["audio"], top_k=1000)
         pred_as_dict = {i["label"]: i["score"] for i in pred}
         top_pred = max(pred_as_dict, key=pred_as_dict.get)  # type: ignore
@@ -163,7 +157,7 @@ def eval_model(
 
 
 def train(
-    dataset: DatasetDict,
+    dataset: "DatasetDict",
     model_name: str = "trained-speakerbox",
     model_base: str = DEFAULT_BASE_MODEL,
     max_duration: float = 2.0,
@@ -207,6 +201,19 @@ def train(
     model_storage_path: Path
         The path to the directory where the model is stored.
     """
+    import numpy as np
+    import torch
+    import transformers
+    from datasets import Audio, load_metric
+    from transformers import (
+        Trainer,
+        TrainingArguments,
+        Wav2Vec2FeatureExtractor,
+        Wav2Vec2ForSequenceClassification,
+    )
+
+    from .utils import set_global_seed
+
     # Handle seed
     if seed:
         set_global_seed(seed)
@@ -230,8 +237,8 @@ def train(
 
     # Construct preprocessing function
     def preprocess(
-        examples: arrow_dataset.Batch,
-    ) -> feature_extraction_utils.BatchFeature:
+        examples: "arrow_dataset.Batch",
+    ) -> "feature_extraction_utils.BatchFeature":
         audio_arrays = [x["array"] for x in examples["audio"]]
         inputs = feature_extractor(
             audio_arrays,
@@ -266,7 +273,7 @@ def train(
     # Compute accuracy metrics
     metric = load_metric("accuracy")
 
-    def compute_metrics(eval_pred: EvalPrediction) -> Optional[Dict]:
+    def compute_metrics(eval_pred: "EvalPrediction") -> Optional[Dict]:
         # Eval pred comes with both the predictions and the attention mask
         # grab just the predictions
         predictions = np.argmax(eval_pred.predictions[0], axis=-1)
@@ -289,3 +296,79 @@ def train(
     trainer.save_model()
 
     return Path(model_name).resolve()
+
+
+def apply(
+    audio: Union[str, Path, "AudioSegment"],
+    model: Union[str, "Pipeline"],
+    min_chunk_duration: float = 0.5,
+    max_chunk_duration: float = 2.0,
+    confidence_threshold: float = 0.9,
+) -> "Annotation":
+    import numpy as np
+    from pyannote.core.annotation import Annotation
+    from pyannote.core.segment import Segment
+    from pyannote.core.utils.types import Label, TrackName
+    from pydub import AudioSegment
+
+    # Generate random uuid filename for storing temp audio chunks
+    TMP_AUDIO_CHUNK_SAVE_PATH = Path(".tmp-audio-chunk-during-apply.wav")
+
+    # Load audio
+    if isinstance(audio, (str, Path)):
+        track_name = str(audio)
+        audio = AudioSegment.from_file(audio)
+    else:
+        track_name = "track_0"
+
+    # Load model
+    if isinstance(model, str):
+        classifier = pipeline("audio-classification", model=model)
+    else:
+        classifier = model
+
+    # Move audio window, apply, and append annotation record
+    records: List[Tuple[Segment, TrackName, Label]] = []
+    try:
+        for chunk_start_seconds in np.arange(
+            0, audio.duration_seconds, max_chunk_duration
+        ):
+            # Calculate chunk end
+            chunk_end_seconds = chunk_start_seconds + max_chunk_duration
+            if chunk_end_seconds > audio.duration_seconds:
+                chunk_end_seconds = audio.duration_seconds
+
+            # Check if duration is long enough
+            duration = chunk_end_seconds - chunk_start_seconds
+            if duration >= min_chunk_duration:
+                # Convert seconds to millis
+                chunk_start_millis = chunk_start_seconds * 1000
+                chunk_end_millis = chunk_end_seconds * 1000
+
+                # Select chunk
+                chunk = audio[chunk_start_millis:chunk_end_millis]
+
+                # Write chunk to temp
+                chunk.export(TMP_AUDIO_CHUNK_SAVE_PATH, format="wav")
+
+                # Predict, keep top 1 and store to records
+                pred = classifier(str(TMP_AUDIO_CHUNK_SAVE_PATH), top_k=1)[0]
+                if pred["score"] >= confidence_threshold:
+                    records.append(
+                        (
+                            Segment(chunk_start_seconds, chunk_end_seconds),
+                            track_name,
+                            pred["label"],
+                        )
+                    )
+
+        # TODO:
+        # merge segments
+        # moving window for better application
+
+        return Annotation.from_records(records)
+
+    finally:
+        # Always clean up tmp file
+        if TMP_AUDIO_CHUNK_SAVE_PATH.exists():
+            TMP_AUDIO_CHUNK_SAVE_PATH.unlink()
