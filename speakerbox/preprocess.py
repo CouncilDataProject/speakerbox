@@ -512,8 +512,8 @@ def prepare_dataset(
         if iters == n_iterations:
             raise ValueError(
                 f"Could not find train, test, and validation sets that meet the "
-                f"holdout and stratification criteria after {n_iterations}. "
-                f"Recommended to annotate more data."
+                f"holdout and stratification criteria after {n_iterations} "
+                f"sampling iterations. Recommended to annotate more data."
             )
         log.debug(f"Attempted train test validation split construction {iters} times.")
 

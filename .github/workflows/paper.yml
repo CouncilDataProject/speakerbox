@@ -1,0 +1,36 @@
+name: Paper
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  pull_request:
+    branches:
+      - main
+  schedule:
+    # <minute [0,59]> <hour [0,23]> <day of the month [1,31]>
+    # <month of the year [1,12]> <day of the week [0,6]>
+    # https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
+    # Run every Monday at 10:24:00 PST
+    # (Since these CRONs are used by a lot of people -
+    # let's be nice to the servers and schedule it _not_ on the hour)
+    - cron: "24 18 * * 1"
+  workflow_dispatch:
+
+jobs:
+  # Generate paper
+  paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Draft PDF
+        uses: openjournals/openjournals-draft-action@master
+        with:
+          journal: joss
+          paper-path: paper/paper.md
+      - uses: actions/upload-artifact@v3
+        with:
+          name: paper
+          path: paper/paper.pdf

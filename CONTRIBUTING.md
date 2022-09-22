@@ -21,14 +21,23 @@ Ready to contribute? Here's how to set up `speakerbox` for local development.
     git clone git@github.com:{your_name_here}/speakerbox.git
     ```
 
-3. Install the project in editable mode. (It is also recommended to work in a virtualenv or anaconda environment):
+3. Install [just](https://github.com/casey/just).
+
+    Cargo: `cargo install just`
+    Windows: `scoop install just` or `choco install just`
+    MacOS: `brew install just`
+
+4. Install the project in editable mode. (It is also recommended to work in a virtualenv or anaconda environment):
 
     ```bash
     cd speakerbox/
     just install
     ```
 
-4. Create a branch for local development:
+    If this doesn't work try: `pip install -e .[seattle,lint,test,docs,dev]`.
+    If you are using a ZSH shell (MacOS) try: `pip install -e .\[seattle,lint,test,docs,dev\]`
+
+5. Create a branch for local development:
 
     ```bash
     git checkout -b {your_development_type}/short-description
@@ -37,14 +46,14 @@ Ready to contribute? Here's how to set up `speakerbox` for local development.
     Ex: feature/read-tiff-files or bugfix/handle-file-not-found<br>
     Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass linting and
+6. When you're done making changes, check that your changes pass linting and
    tests with [just](https://github.com/casey/just):
 
     ```bash
     just build
     ```
 
-6. Commit your changes and push your branch to GitHub:
+7. Commit your changes and push your branch to GitHub:
 
     ```bash
     git add .
@@ -52,7 +61,7 @@ Ready to contribute? Here's how to set up `speakerbox` for local development.
     git push origin {your_development_type}/short-description
     ```
 
-7. Submit a pull request through the GitHub website.
+8. Submit a pull request through the GitHub website.
 
 ## Just Commands
 

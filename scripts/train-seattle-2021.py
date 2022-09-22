@@ -45,7 +45,10 @@ diarized_ds = ds = preprocess.expand_labeled_diarized_audio_dir_to_dataset(
 combined_ds = pd.concat([seattle_2021_ds, diarized_ds], ignore_index=True)
 
 # Generate train test validate splits
-dataset, _ = preprocess.prepare_dataset(combined_ds, equalize_data=False)
+dataset, _ = preprocess.prepare_dataset(
+    combined_ds,
+    equalize_data_within_splits=False,
+)
 
 # dataset.save_to_disk(SOME_PATH)
 

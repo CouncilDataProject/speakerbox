@@ -118,6 +118,7 @@ trained-speakerbox/
 test-outputs/
 test-output-trained-speakerbox/
 speakerbox/tests/data/diarized/
+seattle-best-model/
 
 # Datasets
 seattle-2021-proto/
