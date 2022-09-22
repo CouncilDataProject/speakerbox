@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
-        <title>speakerbox.main - speakerbox 0.1.dev1+g8a0207b documentation</title>
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.09.15"/>
+        <title>speakerbox.main - speakerbox 0.1.dev1+g27f8dca documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">speakerbox 0.1.dev1+g8a0207b documentation</div></a>
+      <a href="../../index.html"><div class="brand">speakerbox 0.1.dev1+g27f8dca documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">speakerbox 0.1.dev1+g8a0207b documentation</span>
+  <span class="sidebar-brand-text">speakerbox 0.1.dev1+g27f8dca documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -205,32 +205,17 @@
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">datasets</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">transformers</span>
-<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">Audio</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DatasetDict</span><span class="p">,</span> <span class="n">arrow_dataset</span><span class="p">,</span> <span class="n">load_metric</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span>
-    <span class="n">accuracy_score</span><span class="p">,</span>
-    <span class="n">log_loss</span><span class="p">,</span>
-    <span class="n">precision_score</span><span class="p">,</span>
-    <span class="n">recall_score</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">EvalPrediction</span><span class="p">,</span>
-    <span class="n">Trainer</span><span class="p">,</span>
-    <span class="n">TrainingArguments</span><span class="p">,</span>
-    <span class="n">Wav2Vec2FeatureExtractor</span><span class="p">,</span>
-    <span class="n">Wav2Vec2ForSequenceClassification</span><span class="p">,</span>
-    <span class="n">feature_extraction_utils</span><span class="p">,</span>
-    <span class="n">pipeline</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">set_global_seed</span>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">datasets</span>
+    <span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DatasetDict</span><span class="p">,</span> <span class="n">arrow_dataset</span>
+    <span class="kn">from</span> <span class="nn">pyannote.core.annotation</span> <span class="kn">import</span> <span class="n">Annotation</span>
+    <span class="kn">from</span> <span class="nn">pydub</span> <span class="kn">import</span> <span class="n">AudioSegment</span>
+    <span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">EvalPrediction</span><span class="p">,</span> <span class="n">feature_extraction_utils</span>
+    <span class="kn">from</span> <span class="nn">transformers.pipelines.base</span> <span class="kn">import</span> <span class="n">Pipeline</span>
 
 <span class="c1">###############################################################################</span>
 
@@ -272,7 +257,7 @@
 
 
 <div class="viewcode-block" id="eval_model"><a class="viewcode-back" href="../../speakerbox.html#speakerbox.main.eval_model">[docs]</a><span class="k">def</span> <span class="nf">eval_model</span><span class="p">(</span>
-    <span class="n">validation_dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span>
+    <span class="n">validation_dataset</span><span class="p">:</span> <span class="s2">&quot;Dataset&quot;</span><span class="p">,</span>
     <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;trained-speakerbox&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -302,6 +287,15 @@
 <span class="sd">    loss: float</span>
 <span class="sd">        The model log loss as returned by sklearn.metrics.log_loss.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span>
+        <span class="n">accuracy_score</span><span class="p">,</span>
+        <span class="n">log_loss</span><span class="p">,</span>
+        <span class="n">precision_score</span><span class="p">,</span>
+        <span class="n">recall_score</span><span class="p">,</span>
+    <span class="p">)</span>
+
     <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Setting up evaluation pipeline&quot;</span><span class="p">)</span>
     <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
         <span class="s2">&quot;audio-classification&quot;</span><span class="p">,</span>
@@ -309,7 +303,7 @@
     <span class="p">)</span>
     <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running eval&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">example</span><span class="p">:</span> <span class="n">datasets</span><span class="o">.</span><span class="n">arrow_dataset</span><span class="o">.</span><span class="n">Example</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">example</span><span class="p">:</span> <span class="s2">&quot;datasets.arrow_dataset.Example&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="n">pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="s2">&quot;audio&quot;</span><span class="p">],</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
         <span class="n">pred_as_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]:</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pred</span><span class="p">}</span>
         <span class="n">top_pred</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">pred_as_dict</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">pred_as_dict</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
@@ -365,7 +359,7 @@
 
 
 <div class="viewcode-block" id="train"><a class="viewcode-back" href="../../speakerbox.html#speakerbox.main.train">[docs]</a><span class="k">def</span> <span class="nf">train</span><span class="p">(</span>
-    <span class="n">dataset</span><span class="p">:</span> <span class="n">DatasetDict</span><span class="p">,</span>
+    <span class="n">dataset</span><span class="p">:</span> <span class="s2">&quot;DatasetDict&quot;</span><span class="p">,</span>
     <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;trained-speakerbox&quot;</span><span class="p">,</span>
     <span class="n">model_base</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_BASE_MODEL</span><span class="p">,</span>
     <span class="n">max_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
@@ -409,6 +403,19 @@
 <span class="sd">    model_storage_path: Path</span>
 <span class="sd">        The path to the directory where the model is stored.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">torch</span>
+    <span class="kn">import</span> <span class="nn">transformers</span>
+    <span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">Audio</span><span class="p">,</span> <span class="n">load_metric</span>
+    <span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">Trainer</span><span class="p">,</span>
+        <span class="n">TrainingArguments</span><span class="p">,</span>
+        <span class="n">Wav2Vec2FeatureExtractor</span><span class="p">,</span>
+        <span class="n">Wav2Vec2ForSequenceClassification</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">set_global_seed</span>
+
     <span class="c1"># Handle seed</span>
     <span class="k">if</span> <span class="n">seed</span><span class="p">:</span>
         <span class="n">set_global_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
@@ -432,8 +439,8 @@
 
     <span class="c1"># Construct preprocessing function</span>
     <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span>
-        <span class="n">examples</span><span class="p">:</span> <span class="n">arrow_dataset</span><span class="o">.</span><span class="n">Batch</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">feature_extraction_utils</span><span class="o">.</span><span class="n">BatchFeature</span><span class="p">:</span>
+        <span class="n">examples</span><span class="p">:</span> <span class="s2">&quot;arrow_dataset.Batch&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;feature_extraction_utils.BatchFeature&quot;</span><span class="p">:</span>
         <span class="n">audio_arrays</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;array&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">[</span><span class="s2">&quot;audio&quot;</span><span class="p">]]</span>
         <span class="n">inputs</span> <span class="o">=</span> <span class="n">feature_extractor</span><span class="p">(</span>
             <span class="n">audio_arrays</span><span class="p">,</span>
@@ -468,7 +475,7 @@
     <span class="c1"># Compute accuracy metrics</span>
     <span class="n">metric</span> <span class="o">=</span> <span class="n">load_metric</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">compute_metrics</span><span class="p">(</span><span class="n">eval_pred</span><span class="p">:</span> <span class="n">EvalPrediction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">compute_metrics</span><span class="p">(</span><span class="n">eval_pred</span><span class="p">:</span> <span class="s2">&quot;EvalPrediction&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
         <span class="c1"># Eval pred comes with both the predictions and the attention mask</span>
         <span class="c1"># grab just the predictions</span>
         <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">eval_pred</span><span class="o">.</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
@@ -491,6 +498,82 @@
     <span class="n">trainer</span><span class="o">.</span><span class="n">save_model</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="apply"><a class="viewcode-back" href="../../speakerbox.html#speakerbox.main.apply">[docs]</a><span class="k">def</span> <span class="nf">apply</span><span class="p">(</span>
+    <span class="n">audio</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">,</span> <span class="s2">&quot;AudioSegment&quot;</span><span class="p">],</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Pipeline&quot;</span><span class="p">],</span>
+    <span class="n">min_chunk_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">max_chunk_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">confidence_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Annotation&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">from</span> <span class="nn">pyannote.core.annotation</span> <span class="kn">import</span> <span class="n">Annotation</span>
+    <span class="kn">from</span> <span class="nn">pyannote.core.segment</span> <span class="kn">import</span> <span class="n">Segment</span>
+    <span class="kn">from</span> <span class="nn">pyannote.core.utils.types</span> <span class="kn">import</span> <span class="n">Label</span><span class="p">,</span> <span class="n">TrackName</span>
+    <span class="kn">from</span> <span class="nn">pydub</span> <span class="kn">import</span> <span class="n">AudioSegment</span>
+
+    <span class="c1"># Generate random uuid filename for storing temp audio chunks</span>
+    <span class="n">TMP_AUDIO_CHUNK_SAVE_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.tmp-audio-chunk-during-apply.wav&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Load audio</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">audio</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>
+        <span class="n">track_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span>
+        <span class="n">audio</span> <span class="o">=</span> <span class="n">AudioSegment</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">track_name</span> <span class="o">=</span> <span class="s2">&quot;track_0&quot;</span>
+
+    <span class="c1"># Load model</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;audio-classification&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">classifier</span> <span class="o">=</span> <span class="n">model</span>
+
+    <span class="c1"># Move audio window, apply, and append annotation record</span>
+    <span class="n">records</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Segment</span><span class="p">,</span> <span class="n">TrackName</span><span class="p">,</span> <span class="n">Label</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">chunk_start_seconds</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span>
+            <span class="mi">0</span><span class="p">,</span> <span class="n">audio</span><span class="o">.</span><span class="n">duration_seconds</span><span class="p">,</span> <span class="n">max_chunk_duration</span>
+        <span class="p">):</span>
+            <span class="c1"># Calculate chunk end</span>
+            <span class="n">chunk_end_seconds</span> <span class="o">=</span> <span class="n">chunk_start_seconds</span> <span class="o">+</span> <span class="n">max_chunk_duration</span>
+            <span class="k">if</span> <span class="n">chunk_end_seconds</span> <span class="o">&gt;</span> <span class="n">audio</span><span class="o">.</span><span class="n">duration_seconds</span><span class="p">:</span>
+                <span class="n">chunk_end_seconds</span> <span class="o">=</span> <span class="n">audio</span><span class="o">.</span><span class="n">duration_seconds</span>
+
+            <span class="c1"># Check if duration is long enough</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">chunk_end_seconds</span> <span class="o">-</span> <span class="n">chunk_start_seconds</span>
+            <span class="k">if</span> <span class="n">duration</span> <span class="o">&gt;=</span> <span class="n">min_chunk_duration</span><span class="p">:</span>
+                <span class="c1"># Convert seconds to millis</span>
+                <span class="n">chunk_start_millis</span> <span class="o">=</span> <span class="n">chunk_start_seconds</span> <span class="o">*</span> <span class="mi">1000</span>
+                <span class="n">chunk_end_millis</span> <span class="o">=</span> <span class="n">chunk_end_seconds</span> <span class="o">*</span> <span class="mi">1000</span>
+
+                <span class="c1"># Select chunk</span>
+                <span class="n">chunk</span> <span class="o">=</span> <span class="n">audio</span><span class="p">[</span><span class="n">chunk_start_millis</span><span class="p">:</span><span class="n">chunk_end_millis</span><span class="p">]</span>
+
+                <span class="c1"># Write chunk to temp</span>
+                <span class="n">chunk</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">TMP_AUDIO_CHUNK_SAVE_PATH</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;wav&quot;</span><span class="p">)</span>
+
+                <span class="c1"># Predict, keep top 1 and store to records</span>
+                <span class="n">pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">TMP_AUDIO_CHUNK_SAVE_PATH</span><span class="p">),</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">pred</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">confidence_threshold</span><span class="p">:</span>
+                    <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="p">(</span>
+                            <span class="n">Segment</span><span class="p">(</span><span class="n">chunk_start_seconds</span><span class="p">,</span> <span class="n">chunk_end_seconds</span><span class="p">),</span>
+                            <span class="n">track_name</span><span class="p">,</span>
+                            <span class="n">pred</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">],</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+        <span class="c1"># TODO:</span>
+        <span class="c1"># merge segments</span>
+        <span class="c1"># moving window for better application</span>
+
+        <span class="k">return</span> <span class="n">Annotation</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="c1"># Always clean up tmp file</span>
+        <span class="k">if</span> <span class="n">TMP_AUDIO_CHUNK_SAVE_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">TMP_AUDIO_CHUNK_SAVE_PATH</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span></div>
 </pre></div>
         </article>
       </div>

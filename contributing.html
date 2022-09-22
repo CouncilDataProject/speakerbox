@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="speakerbox.datasets package" href="speakerbox.datasets.html" />
 
-    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
-        <title>Contributing - speakerbox 0.1.dev1+g8a0207b documentation</title>
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.09.15"/>
+        <title>Contributing - speakerbox 0.1.dev1+g27f8dca documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">speakerbox 0.1.dev1+g8a0207b documentation</div></a>
+      <a href="index.html"><div class="brand">speakerbox 0.1.dev1+g27f8dca documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -147,7 +147,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">speakerbox 0.1.dev1+g8a0207b documentation</span>
+  <span class="sidebar-brand-text">speakerbox 0.1.dev1+g27f8dca documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -220,9 +220,19 @@ project as it will always be the most up-to-date.</p>
 </pre></div>
 </div>
 </li>
+<li><p>Install <a class="reference external" href="https://github.com/casey/just">just</a>.</p>
+<blockquote>
+<div><p>Cargo: <code class="docutils literal notranslate"><span class="pre">cargo</span> <span class="pre">install</span> <span class="pre">just</span></code>
+Windows: <code class="docutils literal notranslate"><span class="pre">scoop</span> <span class="pre">install</span> <span class="pre">just</span></code> or <code class="docutils literal notranslate"><span class="pre">choco</span> <span class="pre">install</span> <span class="pre">just</span></code>
+MacOS: <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">just</span></code></p>
+</div></blockquote>
+</li>
 <li><p>Install the project in editable mode. (It is also recommended to work in a virtualenv or anaconda environment):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> speakerbox/
-just install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>   cd speakerbox/
+   just install
+
+If this doesn&#39;t work try: ``pip install -e .[seattle,lint,test,docs,dev]``.
+If you are using a ZSH shell (MacOS) try: ``pip install -e .\[seattle,lint,test,docs,dev\]``
 </pre></div>
 </div>
 </li>
@@ -294,7 +304,7 @@ version will be injected into the package metadata by
         <div class="related-pages">
           
           <a class="prev-page" href="speakerbox.datasets.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -330,7 +340,7 @@ version will be injected into the package metadata by
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
