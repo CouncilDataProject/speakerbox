@@ -1,10 +1,11 @@
 ---
-title: "Speakerbox: Supervised Speaker Identification Model Training and Application"
+title: "Speakerbox: Few-Shot Learning for Speaker Identification with Transformers"
 tags:
     - Python
     - speech identification
     - audio classification
     - machine learning
+    - transformers
 authors:
     - name: Eva Maxfield Brown
       orcid: 0000-0003-2564-0373
@@ -33,18 +34,20 @@ bibliography: paper.bib
 
 # Summary
 
-
+Speaker identification models are used heavily in fields which produce or use audio recordings or transcripts in the course of their work (journalism, qualitative research, law, etc.). To address current difficulties in training fine-tuned speaker identification models, we propose Speakerbox: a framework for few-shot fine-tuning of an audio transformer. Specifically, Speakerbox is built with the goal of making multi-recording, multi-speaker identification model training as simple as possible while still training an accurate, useful model for application. Speakerbox works by ensuring data are properly stratified by speaker and held-out by recording during fine-tuning of a pretrained Wav2Vec2 Transformer on a small number of audio and label pairs.
 
 # Statement of Need
 
-Speaker annotated transcripts from audio recordings is an increasingly important applied research problem in natural language processing. For example, speaker annotated audio and transcript data has previously been used to create comprehensive analyses of conversation dynamics [@jacobi_justice_2017;@morris_reexamining_2001;@osborn_speaking_2010;@miller_effect_2022;@maltzman_politics_1996;@slapin_sound_2020]. However, multi-speaker audio classification models for the purpose of speaker identification can be cumbersome and expensive to train and unweldy to apply. Speaker diarization, "the unsupervised identification of each speaker within an audio stream and the intervals during which each speaker is active" [@SpeakerDia2012], is a useful method in certain applications and while there are free and open tools available for speaker diarization [@Bredin2020;@Bredin2021], in many cases, unsupervised methods do not adequately meet the needs of researchers.
+Speaker annotated transcripts from audio recordings is an increasingly important applied research problem in natural language processing. For example, speaker annotated audio and transcript data has previously been used to create comprehensive analyses of conversation dynamics [@jacobi_justice_2017;@morris_reexamining_2001;@osborn_speaking_2010;@miller_effect_2022;@maltzman_politics_1996;@slapin_sound_2020]. However, multi-speaker audio classification models for the purpose of speaker identification can be cumbersome and expensive to train and unweldy to apply. Speaker diarization, "the unsupervised identification of each speaker within an audio stream and the intervals during which each speaker is active" [@SpeakerDia2012], is a useful method in certain applications and while there are free and open tools available for speaker diarization [@Bredin2020;@Bredin2021], in many cases, unsupervised methods which may inconsistently label speakers across different recordings do not adequately meet the needs of researchers.
 
-Speakerbox is built with the goal of making multi-recording, multi-speaker identification model training as simple as possible while still attempting to help train an accurate, useful model for application. To this end Speakerbox provides:
+Speakerbox is built with the goal of making multi-recording, multi-speaker  identification model training as simple as possible while still attempting to help train an accurate, useful model for application (e.g. a set of recordings where each recording has some subset of a set of speakers).
 
-1. Functions to create annotation sets and functions to import annotations.
-2. A function to prepare an audio dataset into train, test, and validation subsets.
-3. A function to train and evaluate a transformer model.
-4. A function to apply a trained model to a new audio file.
+To this end Speakerbox provides functionality to:
+
+1. create or import annotation sets.
+2. prepare an audio dataset into stratified and held-out, train, test, and validation subsets.
+3. fine-tune and evaluate a transformer.
+4. apply a transformer to an audio file.
 
 ## Related Work
 
@@ -56,37 +59,47 @@ auto-ml?
 
 explosion ai ?
 
-## Workflow
+## Functionality
 
-Speakerbox provides two methods to prepare a speaker identification training dataset: speaker diarization and labeling, and, importing annotations from other annotation tools.
+Speakerbox attempts to simplify transformer fine-tuning by making the following processes easier:
+
+* creation of a dataset via diarization
+* import of a dataset from existing annotation platforms
+* preparation of train, test, and validation subsets protected from speaker and recording data leakage
+* fine-tuning and evaluation of a transformer
+* application of a trained model across an audio file
+
+The goal of this library is to simplify these proceses while maintaining fidelity in the training and utility of a speaker identification for application.
+
+### Dataset Generation and/or Import
 
 #### Diarization
 
-Diarization is the unsupervised process of splitting audio into segments grouped by speaker identity. The output of a diarization model is usually a random ID (i.e. "speaker_0", "speaker_1", etc.) where there is no guarantee that "speaker_0" from a first audio file, is the same "speaker_0" from a second audio file. Because of this unsupervised nature, diarization cannot be used as a single solution for multi-speaker multi-recording speaker identification. It can however be used for quickly generating large amounts of training examples which can be validated and labeled for use in a later speaker identification training set.
+Diarization is the unsupervised process of splitting audio into segments grouped by speaker identity. The output of a diarization model is usually a random ID (e.g. "speaker_0", "speaker_1", etc.) where there is no guarantee that "speaker_0" from a first audio file, is the same "speaker_0" from a second audio file. Because of this unsupervised nature, diarization cannot be used as a single solution for multi-speaker, multi-recording speaker identification. It can however be used for quickly generating large amounts of training examples which can be validated and labeled for use in a later speaker identification training set.
 
-We make use of diarization as one method for preparing a speaker identification training dataset by using a diarization model provided by `pyannote.audio` to diarize an audio file and place the unlabeled chunks of audio into directories on the user's file system. A user can then listen to a few or all of the samples of audio in each directory, remove any samples that were mis-classified, and finally rename each of the directories with a true and consistent speaker identifier (i.e. a name, database ID, etc.).
+We make use of diarization as one method for preparing a speaker identification training set by using a model provided by `pyannote.audio` to diarize an audio file and place the unlabeled portions of audio into directories on the user's file system. A user can then listen to a few or all of the samples of audio in each directory, remove any samples that were mis-classified, and finally rename each of the directories with a true and consistent speaker identifier (e.g. a name, database ID, etc.).
 
 TODO WRITING: insert fig?
 
 #### Using Gecko Annotations
 
-To improve model accuracy and improve coverage of edge cases, users may find it useful to use [Gecko](https://github.com/gong-io/gecko): a free web application for manual segmentation of an audio files by speaker as well as annotation of the linguistic content of a conversation [@Gecko2019]. Speakerbox makes use of Gecko annotations as a method for training dataset creation by providing functions to split and prepare audio files using the annotations stored in a Gecko created JSON file.
+If users prefer to use a fully supervised method for dataset generation, or to improve model accuracy and improve coverage of edge cases, users may find it useful to use [Gecko](https://github.com/gong-io/gecko): a free web application for manual segmentation of an audio files by speaker as well as annotation of the linguistic content of a conversation [@Gecko2019]. Speakerbox makes use of Gecko annotations as a method for training set creation by providing functions to split and prepare audio files using the annotations stored in a Gecko created JSON file.
 
-### Data Preparation
+### Preparation for Model Training and Evaluation
 
-To ensure that the model is learning the features of each speaker's voice and not the features of the microphone or the specific words and phrases of the recording, we create dataset training, test, and evaluation splits based off of a recording holdout and speaker stratification pattern. Each train, test, or evaluation subset must contain unique recording IDs to reduce the chance of learning the features of specific microphones or recording contexts. We then check that our speaker stratifaction requirement is met by checking that each of the produced subsets contains recordings of every speaker available from the whole dataset. For example, if there are nine unique speakers in the dataset as a whole, then each train, test, and evaluation subset is required to have all nine speakers as well.
+To ensure that the model is learning the features of each speaker's voice and not the features of the microphone or the specific words and phrases of the recording, we create dataset training, test, and evaluation splits based off of a recording holdout and speaker stratification pattern. Each train, test, or evaluation subset must contain unique recording IDs to reduce the chance of learning the features of specific microphones or recording contexts. We then check that the speaker stratifaction requirement is met by checking that each of the produced subsets contains recordings of every speaker available from the whole dataset. For example, if there are nine unique speakers in the complete dataset, then each train, test, and evaluation subset is required to have examples of all nine speakers as well.
 
-If either of these conditions are not met, Speakerbox retries this random sampling process. If we cannot find a valid recording holdout and speaker stratification configuration given the sampling iterations, we inform the user of this failure and ask them to add more examples to the dataset.
+If the speaker stratification condition is not met, Speakerbox retries this random sampling process. If the sampling function cannot find a valid recording holdout and speaker stratification configuration given the sampling iterations, we inform the user of this failure and prompt them to add more examples to the dataset.
 
 TODO WRITING -- INSERT FIG OF THIS?
 
 TODO CODING -- allow param of "no holdout" and "no stratify" to ignore this process.
 
-### Model Training
+### Model Fine-Tuning
 
 The Speakerbox training process consists of fine-tuning a pre-trained Wav2Vec2 speaker identification model [@yang2021superb] provided by Huggingface's Transformers library [@wolf-etal-2020-transformers]. The default model for fine-tuning ([superb/wav2vec2-base-superb-sid](https://huggingface.co/superb/wav2vec2-base-superb-sid)) was pre-trained on the VoxCeleb1 dataset [@Nagrani17].
 
-## Model Application
+### Model Inference
 
 TODO CODING -- WRITE APPLICATION FUNCTION / MOVE IT OVER TO THIS REPO FROM CDP-BACKEND AND ALSO SPLIT DEPS TO MAKE TRAINING AND APPLICATION DEPS DIFFERENT.
 
