@@ -71,7 +71,7 @@ Speakerbox attempts to simplify transformer fine-tuning by making the following 
 
 The goal of this library is to simplify these proceses while maintaining fidelity in the training and utility of a speaker identification for application.
 
-### Dataset Generation and/or Import
+### Dataset Generation and Import
 
 #### Diarization
 
