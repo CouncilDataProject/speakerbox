@@ -79,6 +79,8 @@ Speakerbox attempts to simplify transformer fine-tuning by making the following 
 * fine-tuning and evaluation of a transformer
 * application of a trained model across an audio file
 
+![Workflow of using various functions provided by Speakerbox to prepare a dataset and fine-tune a new speaker identification model](../docs/_static/images/workflow.png)
+
 The goal of this library is to simplify these proceses while maintaining fidelity in the training and utility of a speaker identification model for application.
 
 ## Dataset Generation and Import
@@ -89,8 +91,6 @@ Diarization is the unsupervised process of splitting audio into segments grouped
 
 We make use of diarization as one method for preparing a speaker identification training set by using a model provided by `pyannote.audio` to diarize an audio file and place the unlabeled portions of audio into directories on the user's file system. A user can then listen to a few or all of the samples of audio in each directory, remove any samples that were mis-classified, and finally rename each of the directories with a true and consistent speaker identifier (e.g. a name, database ID, etc.).
 
-TODO WRITING: insert fig?
-
 ### Using Gecko Annotations
 
 If users prefer to use a fully supervised method for dataset generation, or to improve model accuracy and improve coverage of edge cases, users may find it useful to use [Gecko](https://github.com/gong-io/gecko): a free web application for manual segmentation of audio files by speaker as well as annotation of the linguistic content of a conversation [@Gecko2019]. Speakerbox makes use of Gecko annotations as a method for training set creation by providing functions to split and prepare audio files using the annotations stored in a Gecko created JSON file.
@@ -100,10 +100,6 @@ If users prefer to use a fully supervised method for dataset generation, or to i
 To ensure that the model is learning the features of each speaker's voice and not the features of the microphone or the specific words and phrases of each recording, we create dataset training, test, and evaluation splits based off of a recording holdout and speaker stratification pattern. Each train, test, and evaluation subset must contain unique recording IDs to reduce the chance of learning the features of specific microphones or recording contexts, and each produced subset must contain recordings of every speaker available from the whole dataset. For example, if there are nine unique speakers in the complete dataset, then each train, test, and evaluation subset is required to have examples of all nine speakers.
 
 If the speaker stratification condition is not met, Speakerbox retries this random sampling process. If the sampling function cannot find a valid recording holdout and speaker stratification configuration given the sampling iterations, we inform the user of this failure and prompt them to add more examples to the dataset.
-
-TODO WRITING -- INSERT FIG OF THIS?
-
-TODO CODING -- allow param of "no holdout" and "no stratify" to ignore this process.
 
 ## Model Fine-Tuning
 
