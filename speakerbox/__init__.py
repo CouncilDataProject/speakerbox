@@ -12,6 +12,6 @@ except PackageNotFoundError:
 __author__ = "Eva Maxfield Brown"
 __email__ = "evamaxfieldbrown@gmail.com"
 
-from .main import eval_model, train
+from .main import apply, eval_model, train
 
-__all__ = ["eval_model", "train"]
+__all__ = ["apply", "eval_model", "train"]

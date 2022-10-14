@@ -303,8 +303,36 @@ def apply(
     model: Union[str, "Pipeline"],
     min_chunk_duration: float = 0.5,
     max_chunk_duration: float = 2.0,
-    confidence_threshold: float = 0.9,
+    confidence_threshold: float = 0.95,
 ) -> "Annotation":
+    """
+    Iteritively apply the model across chunks of an audio file.
+
+    Parameters
+    ----------
+    audio: Union[str, Path, AudioSegment]
+        The audio filepath or the loaded AudioSegement.
+    model: Union[str, Path]
+        The path to the trained audio-classification model.
+    min_chunk_duration: float
+        The minimum size in seconds a chunk of audio is allowed to be
+        for it to be ran through the classification pipeline.
+        Default: 0.5 seconds
+    max_chunk_duration: float
+        The maximum size in seconds a chunk of audio is allowed to be
+        for it to be ran through the classification pipeline.
+        Default: 2 seconds
+    confidence_threshold: float
+        A value to act as a lower bound to the reported confidence
+        of the model prediction. Any classification that has a confidence
+        lower than this value will be ignore and not added as a segment.
+        Default: 0.95 (fairly strict / must have high confidence in prediction)
+    
+    Returns
+    -------
+    Annotation
+        A pyannote.core Annotation with all labeled segments.
+    """
     import numpy as np
     from pyannote.core.annotation import Annotation
     from pyannote.core.segment import Segment
@@ -362,11 +390,34 @@ def apply(
                         )
                     )
 
-        # TODO:
-        # merge segments
-        # moving window for better application
+        # Merge segments that are touching
+        merged_records: List[Tuple[Segment, TrackName, Label]] = []
+        current_record: Optional[Tuple[Segment, TrackName, Label]] = None
+        for record in records:
+            if current_record is None:
+                current_record = record
+            else:
+                # The label matches and the segment start and end points are
+                # touching, merge
+                if (
+                    record[2] == current_record[2]
+                    and record[0].start == current_record[0].end
+                ):
+                    # Make new record with merged data
+                    # because tuples are immutable
+                    current_record = (
+                        Segment(current_record[0].start, record[0].end),
+                        track_name,
+                        current_record[2],
+                    )
+                else:
+                    merged_records.append(current_record)
+                    current_record = record
+        
+        # Add the last current segment
+        merged_records.append(current_record)
 
-        return Annotation.from_records(records)
+        return Annotation.from_records(merged_records)
 
     finally:
         # Always clean up tmp file
