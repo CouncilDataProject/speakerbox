@@ -13,9 +13,6 @@ authors:
     - name: To Huynh
       orcid: 0000-0002-9664-3662
       affiliation: 2
-    - name: Isaac Na
-      orcid: 0000-0002-0182-1615
-      affiliation: 3
     - name: Nicholas Weber
       orcid: 0000-0002-6008-3763
       affiliation: 1
@@ -25,8 +22,6 @@ affiliations:
       index: 1
     - name: University of Washington, Seattle
       index: 2
-    - name: Washington University, St. Louis
-      index: 3
 
 date: 7 September 2022
 bibliography: paper.bib
@@ -111,29 +106,18 @@ Our example dataset contains 9 unique speakers across 10 unique recordings and e
 
 We further created random samples of this dataset with 15 minutes and 30 minutes audio (each then split between the train, test, and evaluation subsets). The results reported in Table 1 are the mean accuracy, precision, and recall of five iterations of model training and evaluation using the differently sized datasets as inputs to our `train` and `eval_model` functions.
 
-| Dataset Size (minutes) | Accuracy | Precision | Recall |
-|------------------------|----------|-----------|--------|
-| 15 minutes             |          |           |        |
-| 30 minutes             | 0.866    | 0.88      | 0.866  |
-| 60 minutes             |          |           |        |
 
-Model fine-tuning on such a small dataset completes in under 5 minutes for each of these dataset sizes when using an NVIDIA GTX 1070 TI.
+
+All results report were fine-tuned using an NVIDIA GTX 1070 TI.
 
 We provide a method to reproduce these models as follows:
 
 ```python
-from speakerbox.examples import train_and_eval_example_model
+from speakerbox.examples import train_and_eval_all_example_models
 
-# Input 15-minutes, 30-minutes, or 60-minutes as the parameter for which dataset to use
-# E.g given "15-minutes" the function will train and evaluate a new model with just
-# 15 minutes of audio from our example dataset.
-# Random sampling may cause minor changes in performance.
-train_and_eval_example_model("15-minutes")
+# Returns a pandas DataFrame
+results = train_and_eval_all_example_models()
 ```
-
-## Model Inference
-
-TODO CODING -- WRITE APPLICATION FUNCTION / MOVE IT OVER TO THIS REPO FROM CDP-BACKEND AND ALSO SPLIT DEPS TO MAKE TRAINING AND APPLICATION DEPS DIFFERENT.
 
 # Usage in Existing Research
 
