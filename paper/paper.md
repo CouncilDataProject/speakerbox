@@ -46,6 +46,10 @@ To this end Speakerbox provides functionality to:
 
 # Related Work
 
+Work in extracting and repackaging government data into machine-readable and experiment ready datasets has historically happened in fields with highly structured data, such as meteorology [@Sparks2017] and legal review and monitoring [@courtlistener]. Notably, there has been prior work in extracting and repackaging municipal government data with [Councilmatic](https://github.com/codeforamerica/councilmatic) [@councilmatic]. However, this work largely aims to make municipal data more accessible to a general public, and does not add any specific data processing to expand the research capabilities of the produced dataset. Recent advances in natural language processing have made it possible to conduct large-scale transcript-based studies on the effects of gender, ideology, and seniority in Supreme Court oral argument [@jacobi2017] and the effects that information communication technology has on civic participation [@einstein2021].
+
+While there is continuous research in new methods and model architectures for speaker identification models 
+
 pyannote-audio
 
 transformers ?
