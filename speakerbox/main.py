@@ -3,7 +3,7 @@
 
 import logging
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Literal, Optional, Tuple, Union
 
 from transformers import pipeline
 
@@ -11,9 +11,7 @@ if TYPE_CHECKING:
     import datasets
     from datasets import Dataset, DatasetDict, arrow_dataset
     from pyannote.core.annotation import Annotation
-    from pydub import AudioSegment
     from transformers import EvalPrediction, feature_extraction_utils
-    from transformers.pipelines.base import Pipeline
 
 ###############################################################################
 
@@ -175,8 +173,8 @@ def train(
         Should only contain the columns/features: "label" and "audio".
         The values in the "audio" column should be paths to the audio files.
     model_name: str
-        A name for the model. This will also create a directory with the same name
-        to store the produced model in.
+        A name for the model. This will also create a directory with the
+        same name to store the produced model in.
         Default: "trained-speakerbox"
     model_base: str
         The model base to use before fine tuning.
@@ -299,21 +297,27 @@ def train(
 
 
 def apply(
-    audio: Union[str, Path, "AudioSegment"],
-    model: Union[str, "Pipeline"],
+    audio: Union[str, Path],
+    model: str,
+    mode: Literal["diarize", "naive"] = "diarize",
     min_chunk_duration: float = 0.5,
     max_chunk_duration: float = 2.0,
-    confidence_threshold: float = 0.95,
+    confidence_threshold: float = 0.85,
 ) -> "Annotation":
     """
     Iteritively apply the model across chunks of an audio file.
 
     Parameters
     ----------
-    audio: Union[str, Path, AudioSegment]
-        The audio filepath or the loaded AudioSegement.
-    model: Union[str, Path]
+    audio: Union[str, Path]
+        The audio filepath.
+    model: str
         The path to the trained audio-classification model.
+    mode: Literal["diarize", "naive"]
+        Which mode to use for processing. "diarize" will diarize the audio
+        prior to generating chunks to classify. "naive" will iteratively process
+        chunks. "naive" is assumed to be faster but have worse performance.
+        Default: "diarize"
     min_chunk_duration: float
         The minimum size in seconds a chunk of audio is allowed to be
         for it to be ran through the classification pipeline.
@@ -334,37 +338,123 @@ def apply(
         A pyannote.core Annotation with all labeled segments.
     """
     import numpy as np
+    from pyannote.audio import Pipeline
     from pyannote.core.annotation import Annotation
     from pyannote.core.segment import Segment
     from pyannote.core.utils.types import Label, TrackName
     from pydub import AudioSegment
+    from tqdm import tqdm
+
+    # Just set track name to the same as the audio filepath
+    track_name = str(audio)
+
+    # Read audio file
+    loaded_audio = AudioSegment.from_file(audio)
+
+    # Load model
+    classifier = pipeline("audio-classification", model=model)
+
+    # Get number of speakers
+    n_speakers = len(classifier.model.config.id2label)
 
     # Generate random uuid filename for storing temp audio chunks
     TMP_AUDIO_CHUNK_SAVE_PATH = Path(".tmp-audio-chunk-during-apply.wav")
 
-    # Load audio
-    if isinstance(audio, (str, Path)):
-        track_name = str(audio)
-        audio = AudioSegment.from_file(audio)
-    else:
-        track_name = "track_0"
+    def _diarize() -> List[Tuple[Segment, TrackName, Label]]:
+        diarization_pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization")
+        dia = diarization_pipeline(audio)
 
-    # Load model
-    if isinstance(model, str):
-        classifier = pipeline("audio-classification", model=model)
-    else:
-        classifier = model
+        # Prep for calculations
+        max_chunk_duration_millis = max_chunk_duration * 1000
 
-    # Move audio window, apply, and append annotation record
-    records: List[Tuple[Segment, TrackName, Label]] = []
-    try:
-        for chunk_start_seconds in np.arange(
-            0, audio.duration_seconds, max_chunk_duration
+        # Return chunks for each diarized section
+        records: List[Tuple[Segment, TrackName, Label]] = []
+        for turn, _, _ in tqdm(dia.itertracks(yield_label=True)):
+            # Keep track of each turn chunk classification and score
+            chunk_scores: Dict[str, List[float]] = {}
+
+            # Get audio slice for turn
+            turn_start_millis = turn.start * 1000
+            turn_end_millis = turn.end * 1000
+
+            # Split into smaller chunks
+            for chunk_start_millis_float in np.arange(
+                turn_start_millis,
+                turn_end_millis,
+                max_chunk_duration_millis,
+            ):
+                # Round start to nearest int
+                chunk_start_millis = round(chunk_start_millis_float)
+
+                # Tentative chunk end
+                chunk_end_millis = round(chunk_start_millis + max_chunk_duration_millis)
+
+                # Determine chunk end time
+                # If start + chunk duration is longer than turn
+                # Chunk needs to be cut at turn end
+                if turn_end_millis < chunk_end_millis:
+                    chunk_end_millis = round(turn_end_millis)
+
+                # Only allow if duration is greater than
+                # min intra turn chunk duration
+                duration = chunk_end_millis - chunk_start_millis
+                if duration >= min_chunk_duration:
+                    # Get chunk
+                    chunk = loaded_audio[chunk_start_millis:chunk_end_millis]
+
+                    # Write to temp
+                    chunk.export(TMP_AUDIO_CHUNK_SAVE_PATH, format="wav")
+
+                    # Predict and store scores for turn
+                    preds = classifier(
+                        str(TMP_AUDIO_CHUNK_SAVE_PATH),
+                        top_k=n_speakers,
+                    )
+                    for pred in preds:
+                        if pred["label"] not in chunk_scores:
+                            chunk_scores[pred["label"]] = []
+                        chunk_scores[pred["label"]].append(pred["score"])
+
+            # Create mean score
+            turn_speaker = None
+            if len(chunk_scores) > 0:
+                mean_scores: Dict[str, float] = {}
+                for speaker, scores in chunk_scores.items():
+                    mean_scores[speaker] = sum(scores) / len(scores)
+
+                # Get highest scoring speaker and their score
+                highest_mean_speaker = ""
+                highest_mean_score = 0.0
+                for speaker, score in mean_scores.items():
+                    if score > highest_mean_score:
+                        highest_mean_speaker = speaker
+                        highest_mean_score = score
+
+                # Threshold holdout
+                if highest_mean_score >= confidence_threshold:
+                    turn_speaker = highest_mean_speaker
+
+            # Store record
+            records.append(
+                (
+                    Segment(turn.start, turn.end),
+                    track_name,
+                    turn_speaker,
+                )
+            )
+
+        return records
+
+    def _naive() -> List[Tuple[Segment, TrackName, Label]]:
+        # Move audio window, apply, and append annotation record
+        records: List[Tuple[Segment, TrackName, Label]] = []
+        for chunk_start_seconds in tqdm(
+            np.arange(0, loaded_audio.duration_seconds, max_chunk_duration)
         ):
             # Calculate chunk end
             chunk_end_seconds = chunk_start_seconds + max_chunk_duration
-            if chunk_end_seconds > audio.duration_seconds:
-                chunk_end_seconds = audio.duration_seconds
+            if chunk_end_seconds > loaded_audio.duration_seconds:
+                chunk_end_seconds = loaded_audio.duration_seconds
 
             # Check if duration is long enough
             duration = chunk_end_seconds - chunk_start_seconds
@@ -374,7 +464,7 @@ def apply(
                 chunk_end_millis = chunk_end_seconds * 1000
 
                 # Select chunk
-                chunk = audio[chunk_start_millis:chunk_end_millis]
+                chunk = loaded_audio[chunk_start_millis:chunk_end_millis]
 
                 # Write chunk to temp
                 chunk.export(TMP_AUDIO_CHUNK_SAVE_PATH, format="wav")
@@ -389,6 +479,18 @@ def apply(
                             pred["label"],
                         )
                     )
+
+        return records
+
+    # Classify based off strategy
+    mode_lut = {
+        "diarize": _diarize,
+        "naive": _naive,
+    }
+
+    # Generate records and clean up
+    try:
+        records = mode_lut[mode]()
 
         # Merge segments that are touching
         merged_records: List[Tuple[Segment, TrackName, Label]] = []
