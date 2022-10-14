@@ -186,6 +186,22 @@ train(dataset_dict)
 eval_model(dataset_dict["valid"])
 ```
 
+## Model Inference
+
+Once you have a trained model, you can use it against a new audio file:
+
+```python
+from speakerbox import apply
+
+annotation = apply(
+    "new-audio.wav",
+    "path-to-my-model-directory/",
+)
+```
+
+The apply function returns a
+[pyannote.core.Annotation](http://pyannote.github.io/pyannote-core/structure.html#annotation).
+
 ## Development
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for information related to developing the code.
