@@ -23,8 +23,7 @@ log = logging.getLogger(__name__)
 ###############################################################################
 
 EXAMPLE_TRAINING_DATA_PATH = (
-    Path(__file__).parent 
-    / "datasets" / "data" / "example-training-data.parquet"
+    Path(__file__).parent / "datasets" / "data" / "example-training-data.parquet"
 )
 
 SAMPLE_SIZE_LUT = {
@@ -35,12 +34,14 @@ SAMPLE_SIZE_LUT = {
 
 ###############################################################################
 
+
 @dataclass
 class ModelEvalScores(DataClassJsonMixin):
     accuracy: float
     precision: float
     recall: float
     duration: float
+
 
 @dataclass
 class IteratedModelEvalScores(DataClassJsonMixin):
@@ -61,7 +62,9 @@ class IteratedModelEvalScores(DataClassJsonMixin):
     mean_duration: float
     std_duration: float
 
+
 ###############################################################################
+
 
 def train_and_eval_example_model(
     dataset_size_str: str,
@@ -80,7 +83,7 @@ def train_and_eval_example_model(
         selected_data = example_training_data
     else:
         selected_data = example_training_data.sample(n=sample_size_requested)
-    
+
     # Prepare data for training
     dataset, counts = prepare_dataset(
         selected_data,
@@ -112,7 +115,12 @@ def train_and_eval_example_model(
         duration = time.time() - start_time
         acc, pre, rec, _ = eval_model(dataset["valid"], str(model))
         eval_results.append(
-            ModelEvalScores(accuracy=acc, precision=pre, recall=rec, duration=duration,)
+            ModelEvalScores(
+                accuracy=acc,
+                precision=pre,
+                recall=rec,
+                duration=duration,
+            )
         )
 
     # Average all results
@@ -135,19 +143,22 @@ def train_and_eval_example_model(
         std_duration=np.std([r.duration for r in eval_results]),
     )
 
+
 def train_and_eval_all_example_models(
-    n_iterations=5,
+    n_iterations: int = 5,
     seed: int = 182318512,
     equalize_data_within_splits: bool = False,
 ) -> pd.DataFrame:
     results = []
     for dataset_size_str in SAMPLE_SIZE_LUT.keys():
-        results.append(train_and_eval_example_model(
-            dataset_size_str=dataset_size_str,
-            n_interations=n_iterations,
-            seed=seed,
-            equalize_data_within_splits=equalize_data_within_splits,
-        ).to_dict())
+        results.append(
+            train_and_eval_example_model(
+                dataset_size_str=dataset_size_str,
+                n_interations=n_iterations,
+                seed=seed,
+                equalize_data_within_splits=equalize_data_within_splits,
+            ).to_dict()
+        )
 
     # Merge to DataFrame, save, and store selected results
     results_df = pd.DataFrame(results)
@@ -155,22 +166,23 @@ def train_and_eval_all_example_models(
     # Store to parquet
     now = datetime.now()
     results_df.to_parquet(f"grid-eval-scores-{now.isoformat()}.parquet")
-    
+
     # Store to markdown (for paper)
     results_df_for_render = results_df.set_index("dataset_size")
     results_df_for_render = results_df_for_render.drop(
         columns=[
-            'equalized_data',
-            'mean_audio_per_person_train',
-            'std_audio_per_person_train',
-            'mean_audio_per_person_test',
-            'std_audio_per_person_test',
-            'mean_audio_per_person_valid',
-            'std_audio_per_person_valid',
-            'mean_duration',
-            'std_duration',
-        ])
-    
+            "equalized_data",
+            "mean_audio_per_person_train",
+            "std_audio_per_person_train",
+            "mean_audio_per_person_test",
+            "std_audio_per_person_test",
+            "mean_audio_per_person_valid",
+            "std_audio_per_person_valid",
+            "mean_duration",
+            "std_duration",
+        ]
+    )
+
     try:
         with open(f"grid-eval-scores-{now.isoformat()}.md", "w") as open_f:
             results_df_for_render.to_markdown(open_f)
@@ -181,4 +193,3 @@ def train_and_eval_all_example_models(
         )
 
     return results_df
-    

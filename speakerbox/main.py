@@ -327,7 +327,7 @@ def apply(
         of the model prediction. Any classification that has a confidence
         lower than this value will be ignore and not added as a segment.
         Default: 0.95 (fairly strict / must have high confidence in prediction)
-    
+
     Returns
     -------
     Annotation
@@ -413,9 +413,11 @@ def apply(
                 else:
                     merged_records.append(current_record)
                     current_record = record
-        
+
         # Add the last current segment
-        merged_records.append(current_record)
+        # we only do this type check to handle the type error
+        if current_record is not None:
+            merged_records.append(current_record)
 
         return Annotation.from_records(merged_records)
 
