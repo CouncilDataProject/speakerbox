@@ -51,6 +51,24 @@ i.e. `f(audio) -> [(2.4, 10.5, "A"), (10.8, 14.1, "D"), (14.8, 22.7, "B"), ...]`
 The `speakerbox` library contains methods for both generating datasets for annotation
 and for utilizing multiple audio annotation schemes to train such a model.
 
+The following table show model performance results as the dataset size increases:
+
+| dataset_size   | mean_accuracy   | mean_precision   | mean_recall   | mean_training_duration_seconds   |
+|:---------------|----------------:|-----------------:|--------------:|---------------------------------:|
+| 15-minutes     | 0.874 ± 0.029   | 0.881 ± 0.037    | 0.874 ± 0.029 | 101 ± 1                          |
+| 30-minutes     | 0.929 ± 0.006   | 0.94 ± 0.007     | 0.929 ± 0.006 | 186 ± 3                          |
+| 60-minutes     | 0.937 ± 0.02    | 0.94 ± 0.017     | 0.937 ± 0.02  | 453 ± 7                          |
+
+All results reported are the average of five model training and evaluation trials for each of the different dataset sizes. All models were fine-tuned using an NVIDIA GTX 1070 TI.
+
+**Note:** this data can be reproduced in ~1 hour using NVIDIA GTX 1070 TI by running:
+
+```python
+from speakerbox.examples import train_and_eval_all_example_models
+
+results = train_and_eval_all_example_models()
+```
+
 ## Workflow
 
 ### Diarization
@@ -185,6 +203,22 @@ train(dataset_dict)
 
 eval_model(dataset_dict["valid"])
 ```
+
+## Model Inference
+
+Once you have a trained model, you can use it against a new audio file:
+
+```python
+from speakerbox import apply
+
+annotation = apply(
+    "new-audio.wav",
+    "path-to-my-model-directory/",
+)
+```
+
+The apply function returns a
+[pyannote.core.Annotation](http://pyannote.github.io/pyannote-core/structure.html#annotation).
 
 ## Development
 

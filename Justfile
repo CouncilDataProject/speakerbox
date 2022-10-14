@@ -23,6 +23,8 @@ clean:
 	rm -fr cdp-datasets
 	rm -fr training-data
 	rm -fr test-outputs
+	rm -fr trained-example-*
+	rm -fr grid-eval-scores*
 
 # install with all deps
 install:

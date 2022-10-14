@@ -99,7 +99,9 @@ def diarize_and_split_audio(
 
     # Load pipeline
     if diarization_pipeline is None:
-        diarization_pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization")
+        diarization_pipeline = Pipeline.from_pretrained(
+            "pyannote/speaker-diarization",
+        )
 
     # Diarize
     dia = diarization_pipeline(audio_file)

@@ -61,7 +61,7 @@ lint = [
   "check-manifest>=0.48",
   "flake8>=3.8.3",
   "flake8-debugger>=3.2.1",
-  "flake8-pyprojecttoml",
+  "flake8-pyprojecttoml==0.0.1",
   "flake8-typing-imports>=1.9.0",
   "isort>=5.7.0",
   "mypy>=0.790",
@@ -87,6 +87,7 @@ docs = [
 ]
 dev = [
   "ipython>=8.4.0",
+  "tabulate",
 ]
 
 # entry points

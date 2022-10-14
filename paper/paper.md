@@ -13,9 +13,6 @@ authors:
     - name: To Huynh
       orcid: 0000-0002-9664-3662
       affiliation: 2
-    - name: Isaac Na
-      orcid: 0000-0002-0182-1615
-      affiliation: 3
     - name: Nicholas Weber
       orcid: 0000-0002-6008-3763
       affiliation: 1
@@ -25,8 +22,6 @@ affiliations:
       index: 1
     - name: University of Washington, Seattle
       index: 2
-    - name: Washington University, St. Louis
-      index: 3
 
 date: 7 September 2022
 bibliography: paper.bib
@@ -51,23 +46,17 @@ To this end Speakerbox provides functionality to:
 
 # Related Work
 
-pyannote-audio
+While there is continuous research in new methods and model architectures for few-shot speaker identification models [@Wolters2020ASO;@li2022-few-shot;@kumar2020-few-shot], there exists little work in creating an open-source, easy-to-use library for their training and evaluation.
 
-transformers ?
+For more general speech processing and filtering, [SpeechPy](https://github.com/astorfi/speechpy) is an open-source solution for "speech processing and feature extraction ... [by providing the] most frequent used speech features including MFCCs and filterbank energies" [@Torfi2018].
 
-auto-ml?
+For open-source libraries more closely related to diarization and speaker identification, we turn to [Pyannote.Audio](https://github.com/pyannote/pyannote-audio) and [Transformers](https://github.com/huggingface/transformers). [Pyannote.Audio](https://github.com/pyannote/pyannote-audio) "provides a set of trainable end-to-end neural building blocks that can be combined and jointly optimized to build speaker diarization pipelines" [@Bredin2020;Bredin2021]. While [Transformers](https://github.com/huggingface/transformers) is a library which "provides thousands of pretrained models to perform tasks on different modalities such as text, vision, and audio" [@wolf-etal-2020-transformers]. Speakerbox makes use of both `pyannote.audio` and `transformers`.
 
-explosion ai ?
+Additionally, there are paid solutions for quickly annotating and training a custom speaker diarization and audio classification model such as [ExplosionAI's Prodigy Platform](https://prodi.gy/features/audio-video).
 
-setfit ?
+Finally, [SetFit](https://github.com/huggingface/setfit) ("an efficient and prompt-free framework for few-shot fine-tuning of Sentence Transformers") provides similar functionality as Speakerbox but for text-based data [@setfit].
 
-https://www.semanticscholar.org/paper/A-Study-of-Few-Shot-Audio-Classification-Wolters-Careaga/1a5e5ff0a04dd34af14d70dba675691de3155804
-
-https://arxiv.org/abs/2204.11180
-
-https://arxiv.org/abs/2012.07252
-
-Take aways -- There are many researchers working on creating new architectures, normalization techniques, and loss functions for few-shot audio classification (the parent task of speaker identification) and there are examples of "easy-to-use model training systems" like auto-ml and explosion ai. But there is a lack of open-source, freely available methods for quickly fine-tuning a speaker identification model.
+Speakerbox brings many of these tools together in order to be a solution for speaker identification as an easy-to-use and open-source library for the annotation of audio data and the fine-tuning of a speaker identification model.
 
 # Functionality
 
@@ -111,29 +100,22 @@ Our example dataset contains 9 unique speakers across 10 unique recordings and e
 
 We further created random samples of this dataset with 15 minutes and 30 minutes audio (each then split between the train, test, and evaluation subsets). The results reported in Table 1 are the mean accuracy, precision, and recall of five iterations of model training and evaluation using the differently sized datasets as inputs to our `train` and `eval_model` functions.
 
-| Dataset Size (minutes) | Accuracy | Precision | Recall |
-|------------------------|----------|-----------|--------|
-| 15 minutes             |          |           |        |
-| 30 minutes             | 0.866    | 0.88      | 0.866  |
-| 60 minutes             |          |           |        |
+| dataset_size   | mean_accuracy   | mean_precision   | mean_recall   | mean_training_duration_seconds   |
+|:---------------|----------------:|-----------------:|--------------:|---------------------------------:|
+| 15-minutes     | 0.874 ± 0.029   | 0.881 ± 0.037    | 0.874 ± 0.029 | 101 ± 1                          |
+| 30-minutes     | 0.929 ± 0.006   | 0.94 ± 0.007     | 0.929 ± 0.006 | 186 ± 3                          |
+| 60-minutes     | 0.937 ± 0.02    | 0.94 ± 0.017     | 0.937 ± 0.02  | 453 ± 7                          |
 
-Model fine-tuning on such a small dataset completes in under 5 minutes for each of these dataset sizes when using an NVIDIA GTX 1070 TI.
+All results reported are the average of five model training and evaluation trials for each of the different dataset sizes. All models were fine-tuned using an NVIDIA GTX 1070 TI.
 
 We provide a method to reproduce these models as follows:
 
 ```python
-from speakerbox.examples import train_and_eval_example_model
+from speakerbox.examples import train_and_eval_all_example_models
 
-# Input 15-minutes, 30-minutes, or 60-minutes as the parameter for which dataset to use
-# E.g given "15-minutes" the function will train and evaluate a new model with just
-# 15 minutes of audio from our example dataset.
-# Random sampling may cause minor changes in performance.
-train_and_eval_example_model("15-minutes")
+# Returns a pandas DataFrame
+results = train_and_eval_all_example_models()
 ```
-
-## Model Inference
-
-TODO CODING -- WRITE APPLICATION FUNCTION / MOVE IT OVER TO THIS REPO FROM CDP-BACKEND AND ALSO SPLIT DEPS TO MAKE TRAINING AND APPLICATION DEPS DIFFERENT.
 
 # Usage in Existing Research
 
