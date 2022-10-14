@@ -87,6 +87,7 @@ docs = [
 ]
 dev = [
   "ipython>=8.4.0",
+  "tabulate",
 ]
 
 # entry points

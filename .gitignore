@@ -119,6 +119,9 @@ test-outputs/
 test-output-trained-speakerbox/
 speakerbox/tests/data/diarized/
 seattle-best-model/
+.tmp-audio-chunk-during-apply.wav
+trained-example-*-minutes-equalized-*-iter-*
+grid-eval-scores*
 
 # Datasets
 seattle-2021-proto/
