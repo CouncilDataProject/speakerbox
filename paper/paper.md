@@ -46,27 +46,9 @@ To this end Speakerbox provides functionality to:
 
 # Related Work
 
-Work in extracting and repackaging government data into machine-readable and experiment ready datasets has historically happened in fields with highly structured data, such as meteorology [@Sparks2017] and legal review and monitoring [@courtlistener]. Notably, there has been prior work in extracting and repackaging municipal government data with [Councilmatic](https://github.com/codeforamerica/councilmatic) [@councilmatic]. However, this work largely aims to make municipal data more accessible to a general public, and does not add any specific data processing to expand the research capabilities of the produced dataset. Recent advances in natural language processing have made it possible to conduct large-scale transcript-based studies on the effects of gender, ideology, and seniority in Supreme Court oral argument [@jacobi2017] and the effects that information communication technology has on civic participation [@einstein2021].
+While there is continuous research in new methods and model architectures for few-shot speaker identification models [@Wolters2020ASO;@li2022-few-shot;@kumar2020-few-shot], there exists little work in creating an open-source, easy-to-use library for the training and evaluation for such models. [Pyannote.Audio](https://github.com/pyannote/pyannote-audio) is an open-source library which "provides a set of trainable end-to-end neural building blocks that can be combined and jointly optimized to build speaker diarization pipelines" [@Bredin2020;Bredin2021]. Speakerbox makes use `pyannote.audio` to help users diarize and split their audio into chunks for them to label as training data. [Transformers](https://github.com/huggingface/transformers) is and open-source library which "provides thousands of pretrained models to perform tasks on different modalities such as text, vision, and audio" [@wolf-etal-2020-transformers]. The `transformers` library provides documentation to both use and fine-tune models including models for speaker identification and Speakerbox makes use of `transformers` for the fine-tuning of the base model. There are paid solutions for quickly annotating and training a custom speaker diarization and audio classification model such as [ExplosionAI's Prodigy Platform](https://prodi.gy/features/audio-video). For few-shot text based model training, [SetFit](https://github.com/huggingface/setfit) is "an efficient and prompt-free framework for few-shot fine-tuning of Sentence Transformers" [@setfit].
 
-While there is continuous research in new methods and model architectures for speaker identification models 
-
-pyannote-audio
-
-transformers ?
-
-auto-ml?
-
-explosion ai ?
-
-setfit ?
-
-https://www.semanticscholar.org/paper/A-Study-of-Few-Shot-Audio-Classification-Wolters-Careaga/1a5e5ff0a04dd34af14d70dba675691de3155804
-
-https://arxiv.org/abs/2204.11180
-
-https://arxiv.org/abs/2012.07252
-
-Take aways -- There are many researchers working on creating new architectures, normalization techniques, and loss functions for few-shot audio classification (the parent task of speaker identification) and there are examples of "easy-to-use model training systems" like auto-ml and explosion ai. But there is a lack of open-source, freely available methods for quickly fine-tuning a speaker identification model.
+Speakerbox brings many of these tools together in order to be a solution for speaker identification as an easy-to-use and open-source library for the annotation of audio data and the fine-tuning of a speaker identification model.
 
 # Functionality
 
