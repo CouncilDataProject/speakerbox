@@ -178,9 +178,36 @@ def train_and_eval_all_example_models(
             "std_audio_per_person_test",
             "mean_audio_per_person_valid",
             "std_audio_per_person_valid",
+        ]
+    )
+
+    # Make render results rounded and formatted
+    results_df_for_render["mean_accuracy"] = results_df_for_render.apply(
+        lambda r: (f"{round(r.mean_accuracy, 3)} " f"± {round(r.std_accuracy, 3)}"),
+        axis=1,
+    )
+    results_df_for_render["mean_precision"] = results_df_for_render.apply(
+        lambda r: (f"{round(r.mean_precision, 3)} " f"± {round(r.std_precision, 3)}"),
+        axis=1,
+    )
+    results_df_for_render["mean_recall"] = results_df_for_render.apply(
+        lambda r: (f"{round(r.mean_recall, 3)} " f"± {round(r.std_recall, 3)}"),
+        axis=1,
+    )
+    results_df_for_render[
+        "mean_training_duration_seconds"
+    ] = results_df_for_render.apply(
+        lambda r: (f"{round(r.mean_duration)} " f"± {round(r.std_duration)}"),
+        axis=1,
+    )
+    results_df_for_render = results_df_for_render.drop(
+        columns=[
+            "std_accuracy",
+            "std_precision",
+            "std_recall",
             "mean_duration",
             "std_duration",
-        ]
+        ],
     )
 
     try:
