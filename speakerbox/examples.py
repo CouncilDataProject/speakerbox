@@ -6,6 +6,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -67,11 +68,39 @@ class IteratedModelEvalScores(DataClassJsonMixin):
 
 
 def train_and_eval_example_model(
-    dataset_size_str: str,
+    dataset_size_str: Literal["15-minutes", "30-minutes", "60-minutes"],
     n_interations: int = 5,
-    seed: int = 182318512,  # (7, 2, 2) OR 18231812 (5, 3, 3)
+    seed: int = 182318512,
     equalize_data_within_splits: bool = False,
 ) -> IteratedModelEvalScores:
+    """
+    Train and evaluate a model multiple times for one of the dataset sizes.
+
+    This was used to investigate the diminishing return of adding more data
+    to the model.
+
+    Parameters
+    ----------
+    dataset_size_str: Literal["15-minutes", "30-minutes", "60-minutes"]
+        The dataset size to choose from. This will load (and potentially)
+        subset the packaged data.
+    n_iterations: int
+        The number of train and evaluation iterations to try for this model
+        before averaging them all.
+        Default: 5
+    seed: int
+        A random seed to set global random state.
+    equalize_data_within_splits: bool
+        Should the data splits be equalized to the smallest number of examples
+        for any speaker in that split.
+        Default: False (allow different amounts of examples per label)
+
+    Return
+    ------
+    IteratedModelEvalScores
+        The average accuracy, precision, recall, and duration over the
+        training and evaluation iterations.
+    """
     set_global_seed(seed)
 
     # Open example training data
@@ -149,11 +178,40 @@ def train_and_eval_all_example_models(
     seed: int = 182318512,
     equalize_data_within_splits: bool = False,
 ) -> pd.DataFrame:
+    """
+    Train and evaluate a model multiple times for each of the dataset sizes.
+
+    This was used to investigate the diminishing return of adding more data
+    to the model.
+
+    Parameters
+    ----------
+    n_iterations: int
+        The number of train and evaluation iterations to try for this model
+        before averaging them all.
+        Default: 5
+    seed: int
+        A random seed to set global random state.
+    equalize_data_within_splits: bool
+        Should the data splits be equalized to the smallest number of examples
+        for any speaker in that split.
+        Default: False (allow different amounts of examples per label)
+
+    Return
+    ------
+    pd.DataFrame
+        A DataFrame of results for all the models tested.
+
+    See Also
+    --------
+    train_and_eval_example_model
+        The function used to train and eval a single model dataset size.
+    """
     results = []
     for dataset_size_str in SAMPLE_SIZE_LUT.keys():
         results.append(
             train_and_eval_example_model(
-                dataset_size_str=dataset_size_str,
+                dataset_size_str=dataset_size_str,  # type: ignore
                 n_interations=n_iterations,
                 seed=seed,
                 equalize_data_within_splits=equalize_data_within_splits,
