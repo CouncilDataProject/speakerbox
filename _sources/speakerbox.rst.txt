@@ -12,6 +12,14 @@ Subpackages
 Submodules
 ----------
 
+speakerbox.examples module
+--------------------------
+
+.. automodule:: speakerbox.examples
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 speakerbox.main module
 ----------------------
 

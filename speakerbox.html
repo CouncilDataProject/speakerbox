@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="speakerbox.datasets package" href="speakerbox.datasets.html" /><link rel="prev" title="speakerbox" href="modules.html" />
 
     <meta name="generator" content="sphinx-5.2.3, furo 2022.09.29"/>
-        <title>speakerbox package - speakerbox 0.1.dev1+gd7278ee documentation</title>
+        <title>speakerbox package - speakerbox 0.1.dev1+g94e9b8d documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">speakerbox 0.1.dev1+gd7278ee documentation</div></a>
+      <a href="index.html"><div class="brand">speakerbox 0.1.dev1+g94e9b8d documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -147,7 +147,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">speakerbox 0.1.dev1+gd7278ee documentation</span>
+  <span class="sidebar-brand-text">speakerbox 0.1.dev1+g94e9b8d documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -219,12 +219,50 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
+<section id="speakerbox-examples-module">
+<h2>speakerbox.examples module<a class="headerlink" href="#speakerbox-examples-module" title="Permalink to this heading">#</a></h2>
+</section>
 <section id="module-speakerbox.main">
 <span id="speakerbox-main-module"></span><h2>speakerbox.main module<a class="headerlink" href="#module-speakerbox.main" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="speakerbox.main.apply">
-<span class="sig-prename descclassname"><span class="pre">speakerbox.main.</span></span><span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">AudioSegment</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Pipeline</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotation</span></span></span><a class="reference internal" href="_modules/speakerbox/main.html#apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.main.apply" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">speakerbox.main.</span></span><span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'diarize'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'naive'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'diarize'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.85</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotation</span></span></span><a class="reference internal" href="_modules/speakerbox/main.html#apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.main.apply" title="Permalink to this definition">#</a></dt>
+<dd><p>Iteritively apply the model across chunks of an audio file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>audio: Union[str, Path]</strong></dt><dd><p>The audio filepath.</p>
+</dd>
+<dt><strong>model: str</strong></dt><dd><p>The path to the trained audio-classification model.</p>
+</dd>
+<dt><strong>mode: Literal[“diarize”, “naive”]</strong></dt><dd><p>Which mode to use for processing. “diarize” will diarize the audio
+prior to generating chunks to classify. “naive” will iteratively process
+chunks. “naive” is assumed to be faster but have worse performance.
+Default: “diarize”</p>
+</dd>
+<dt><strong>min_chunk_duration: float</strong></dt><dd><p>The minimum size in seconds a chunk of audio is allowed to be
+for it to be ran through the classification pipeline.
+Default: 0.5 seconds</p>
+</dd>
+<dt><strong>max_chunk_duration: float</strong></dt><dd><p>The maximum size in seconds a chunk of audio is allowed to be
+for it to be ran through the classification pipeline.
+Default: 2 seconds</p>
+</dd>
+<dt><strong>confidence_threshold: float</strong></dt><dd><p>A value to act as a lower bound to the reported confidence
+of the model prediction. Any classification that has a confidence
+lower than this value will be ignore and not added as a segment.
+Default: 0.95 (fairly strict / must have high confidence in prediction)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Annotation</dt><dd><p>A pyannote.core Annotation with all labeled segments.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="speakerbox.main.eval_model">
@@ -270,8 +308,8 @@ Default: “trained-speakerbox”</p>
 Should only contain the columns/features: “label” and “audio”.
 The values in the “audio” column should be paths to the audio files.</p>
 </dd>
-<dt><strong>model_name: str</strong></dt><dd><p>A name for the model. This will also create a directory with the same name
-to store the produced model in.
+<dt><strong>model_name: str</strong></dt><dd><p>A name for the model. This will also create a directory with the
+same name to store the produced model in.
 Default: “trained-speakerbox”</p>
 </dd>
 <dt><strong>model_base: str</strong></dt><dd><p>The model base to use before fine tuning.</p>
@@ -392,6 +430,46 @@ Default: DEFAULT_TRAINER_ARGUMENTS_ARGS</p>
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-speakerbox" title="Permalink to this heading">#</a></h2>
 <p>Top-level package for speakerbox.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.apply">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.</span></span><span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'diarize'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'naive'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'diarize'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.85</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotation</span></span></span><a class="reference internal" href="_modules/speakerbox/main.html#apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.apply" title="Permalink to this definition">#</a></dt>
+<dd><p>Iteritively apply the model across chunks of an audio file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>audio: Union[str, Path]</strong></dt><dd><p>The audio filepath.</p>
+</dd>
+<dt><strong>model: str</strong></dt><dd><p>The path to the trained audio-classification model.</p>
+</dd>
+<dt><strong>mode: Literal[“diarize”, “naive”]</strong></dt><dd><p>Which mode to use for processing. “diarize” will diarize the audio
+prior to generating chunks to classify. “naive” will iteratively process
+chunks. “naive” is assumed to be faster but have worse performance.
+Default: “diarize”</p>
+</dd>
+<dt><strong>min_chunk_duration: float</strong></dt><dd><p>The minimum size in seconds a chunk of audio is allowed to be
+for it to be ran through the classification pipeline.
+Default: 0.5 seconds</p>
+</dd>
+<dt><strong>max_chunk_duration: float</strong></dt><dd><p>The maximum size in seconds a chunk of audio is allowed to be
+for it to be ran through the classification pipeline.
+Default: 2 seconds</p>
+</dd>
+<dt><strong>confidence_threshold: float</strong></dt><dd><p>A value to act as a lower bound to the reported confidence
+of the model prediction. Any classification that has a confidence
+lower than this value will be ignore and not added as a segment.
+Default: 0.95 (fairly strict / must have high confidence in prediction)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Annotation</dt><dd><p>A pyannote.core Annotation with all labeled segments.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="speakerbox.eval_model">
 <span class="sig-prename descclassname"><span class="pre">speakerbox.</span></span><span class="sig-name descname"><span class="pre">eval_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">validation_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'trained-speakerbox'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/speakerbox/main.html#eval_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.eval_model" title="Permalink to this definition">#</a></dt>
 <dd><p>Evaluate a trained model.</p>
@@ -435,8 +513,8 @@ Default: “trained-speakerbox”</p>
 Should only contain the columns/features: “label” and “audio”.
 The values in the “audio” column should be paths to the audio files.</p>
 </dd>
-<dt><strong>model_name: str</strong></dt><dd><p>A name for the model. This will also create a directory with the same name
-to store the produced model in.
+<dt><strong>model_name: str</strong></dt><dd><p>A name for the model. This will also create a directory with the
+same name to store the produced model in.
 Default: “trained-speakerbox”</p>
 </dd>
 <dt><strong>model_base: str</strong></dt><dd><p>The model base to use before fine tuning.</p>
@@ -530,6 +608,7 @@ Default: DEFAULT_TRAINER_ARGUMENTS_ARGS</p>
 <li><a class="reference internal" href="#">speakerbox package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#speakerbox-examples-module">speakerbox.examples module</a></li>
 <li><a class="reference internal" href="#module-speakerbox.main">speakerbox.main module</a><ul>
 <li><a class="reference internal" href="#speakerbox.main.apply"><code class="docutils literal notranslate"><span class="pre">apply()</span></code></a></li>
 <li><a class="reference internal" href="#speakerbox.main.eval_model"><code class="docutils literal notranslate"><span class="pre">eval_model()</span></code></a></li>
@@ -562,6 +641,7 @@ Default: DEFAULT_TRAINER_ARGUMENTS_ARGS</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-speakerbox">Module contents</a><ul>
+<li><a class="reference internal" href="#speakerbox.apply"><code class="docutils literal notranslate"><span class="pre">apply()</span></code></a></li>
 <li><a class="reference internal" href="#speakerbox.eval_model"><code class="docutils literal notranslate"><span class="pre">eval_model()</span></code></a></li>
 <li><a class="reference internal" href="#speakerbox.train"><code class="docutils literal notranslate"><span class="pre">train()</span></code></a></li>
 </ul>
