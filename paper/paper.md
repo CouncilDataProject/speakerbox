@@ -106,9 +106,9 @@ Our example dataset contains 9 unique speakers across 10 unique recordings and e
 
 We further created random samples of this dataset with 15 minutes and 30 minutes audio (each then split between the train, test, and evaluation subsets). The results reported in Table 1 are the mean accuracy, precision, and recall of five iterations of model training and evaluation using the differently sized datasets as inputs to our `train` and `eval_model` functions.
 
+INSERT TABLE HERE
 
-
-All results report were fine-tuned using an NVIDIA GTX 1070 TI.
+All results reported are the average of five model training and evaluation trials for each of the different dataset sizes. All models were fine-tuned using an NVIDIA GTX 1070 TI.
 
 We provide a method to reproduce these models as follows:
 
