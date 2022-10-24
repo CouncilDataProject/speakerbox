@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="installation.html" />
 
     <meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
-        <title>speakerbox 0.1.dev1+gd7dc389 documentation</title>
+        <title>speakerbox 0.1.dev1+gca5e19b documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">speakerbox 0.1.dev1+gd7dc389 documentation</div></a>
+      <a href="#"><div class="brand">speakerbox 0.1.dev1+gca5e19b documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -147,7 +147,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   
-  <span class="sidebar-brand-text">speakerbox 0.1.dev1+gd7dc389 documentation</span>
+  <span class="sidebar-brand-text">speakerbox 0.1.dev1+gca5e19b documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -210,7 +210,7 @@
 <h1>speakerbox<a class="headerlink" href="#speakerbox" title="Permalink to this heading">#</a></h1>
 <a class="reference external image-reference" href="https://github.com/CouncilDataProject/speakerbox/actions"><img alt="Build Status" src="https://github.com/CouncilDataProject/speakerbox/workflows/CI/badge.svg" /></a>
 <a class="reference external image-reference" href="https://CouncilDataProject.github.io/speakerbox"><img alt="Documentation" src="https://github.com/CouncilDataProject/speakerbox/workflows/Documentation/badge.svg" /></a>
-<p>Few-Shot Speaker Identification Model Training and Application</p>
+<p>Few-Shot Multi-Recording Speaker Identification Transformer Fine-Tuning and Application</p>
 <hr class="docutils" />
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
@@ -220,11 +220,10 @@
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">#</a></h2>
 <p>For full package documentation please visit <a class="reference external" href="https://councildataproject.github.io/speakerbox">councildataproject.github.io/speakerbox</a>.</p>
-<a class="reference external image-reference" href="https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png"><img alt="Speakerbox example workflow" src="https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png" /></a>
 </section>
 <section id="problem">
 <h2>Problem<a class="headerlink" href="#problem" title="Permalink to this heading">#</a></h2>
-<p>Given a set of recordings of multi-speaker conversations or meetings:</p>
+<p>Given a set of recordings of multi-speaker recordings:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>example/
 ├── 0.wav
 ├── 1.wav
@@ -234,7 +233,7 @@
 └── 5.wav
 </pre></div>
 </div>
-<p>Where each conversation has some or all of a consistent set of speakers, for example:</p>
+<p>Where each recording has some or all of a set of speakers, for example:</p>
 <ul class="simple">
 <li><p>0.wav – contains speakers: A, B, C, D, E</p></li>
 <li><p>1.wav – contains speakers: B, D, E</p></li>
@@ -244,12 +243,13 @@
 <li><p>5.wav – contains speakers: A, B, C, D, E</p></li>
 </ul>
 <p>You want to train a model to classify portions of audio as one of the N known speakers
-in future conversations not included in your original training set.</p>
+in future recordings not included in your original training set.</p>
 <p><code class="docutils literal notranslate"><span class="pre">f(audio)</span> <span class="pre">-&gt;</span> <span class="pre">[(start_time,</span> <span class="pre">end_time,</span> <span class="pre">speaker),</span> <span class="pre">(start_time,</span> <span class="pre">end_time,</span> <span class="pre">speaker),</span> <span class="pre">...]</span></code></p>
 <p>i.e. <code class="docutils literal notranslate"><span class="pre">f(audio)</span> <span class="pre">-&gt;</span> <span class="pre">[(2.4,</span> <span class="pre">10.5,</span> <span class="pre">&quot;A&quot;),</span> <span class="pre">(10.8,</span> <span class="pre">14.1,</span> <span class="pre">&quot;D&quot;),</span> <span class="pre">(14.8,</span> <span class="pre">22.7,</span> <span class="pre">&quot;B&quot;),</span> <span class="pre">...]</span></code></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">speakerbox</span></code> library contains methods for both generating datasets for annotation
 and for utilizing multiple audio annotation schemes to train such a model.</p>
-<p>The following table show model performance results as the dataset size increases:</p>
+<a class="reference external image-reference" href="https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png"><img alt="Speakerbox example workflow" src="https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png" /></a>
+<p>The following table shows model performance results as the dataset size increases:</p>
 <div class="table-wrapper docutils container">
 <table class="docutils align-default">
 <thead>
@@ -302,7 +302,7 @@ of the clusters into their own directories that you can then manually clean up
 <h4>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>It is recommended to have each larger audio file named with a unique id that
-can be used to act as a “conversation id”.</p></li>
+can be used to act as a “recording id”.</p></li>
 <li><p>Diarization time depends on machine resources and make take a long time – one
 potential recommendation is to run a diarization script overnight and clean up the
 produced annotations the following day.</p></li>
@@ -311,7 +311,7 @@ ensure you have enough space on your machine to complete this process before
 you begin.</p></li>
 <li><p>Clustering accuracy depends on how many speakers there are, how distinct their
 voices are, and how much speech is talking over one-another.</p></li>
-<li><p>If possible, try to find meetings where speakers have a roughly uniform distribution
+<li><p>If possible, try to find recordings where speakers have a roughly uniform distribution
 of speaking durations.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">speakerbox</span> <span class="kn">import</span> <span class="n">preprocess</span>
@@ -343,8 +343,22 @@ like the following tree:</p>
 </div>
 <p>We leave it to you as a user to then go through these directories and remove any audio
 clips that were incorrectly clustered together as well as renaming the sub-directories
-to their correct speaker labels
-(from “SPEAKER_00”, “SPEAKER_01”, “SPEAKER_02”, etc. to “A”, “B”, “C”, etc.).</p>
+to their correct speaker labels. For example, labelled sub-directories may look like
+the following tree:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>0/
+├── A
+│   ├── 567-12928.wav
+│   ├── ...
+│   └── 76192-82901.wav
+├── B
+│   ├── 34123-38918.wav
+│   ├── ...
+│   └── 88212-89111.wav
+└── D
+    ├── ...
+    └── 53998-62821.wav
+</pre></div>
+</div>
 <section id="id1">
 <h4>Notes<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
@@ -352,12 +366,15 @@ to their correct speaker labels
 of audio files as a playlist for playback. This makes it easy to listen to a whole
 unlabeled sub-directory (i.e. “SPEAKER_00”) at a time and pause playback and remove
 files from the directory which were incorrectly clustered.</p></li>
+<li><p>If any clips have overlapping speakers, it is up to you as a user if you want to
+remove those clips or keep them and properly label them with the speaker you wish to
+associate them with.</p></li>
 </ul>
 </section>
 </section>
 <section id="training-preparation">
 <h3>Training Preparation<a class="headerlink" href="#training-preparation" title="Permalink to this heading">#</a></h3>
-<p>Once you have annotated what you think is enough conversations, you can try preparing
+<p>Once you have annotated what you think is enough recordings, you can try preparing
 a dataset for training.</p>
 <p>The following functions will prepare the audio for training by:</p>
 <ol class="arabic simple">
@@ -366,7 +383,7 @@ a dataset for training.</p>
 <li><p>Check that the provided annotated dataset meets the following conditions:</p>
 <ol class="arabic simple">
 <li><p>There is enough data such that the training, test, and validation subsets all
-contain different conversation ids.</p></li>
+contain different recording ids.</p></li>
 <li><p>There is enough data such that the training, test, and validation subsets each
 contain all labels present in the whole dataset.</p></li>
 </ol>
@@ -378,25 +395,25 @@ contain all labels present in the whole dataset.</p></li>
 <li><p>During this process audio will be duplicated in the form of smaller audio clips –
 ensure you have enough space on your machine to complete this process before
 you begin.</p></li>
-<li><p>Directory names are used as conversation ids during dataset construction.</p></li>
+<li><p>Directory names are used as recording ids during dataset construction.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">speakerbox</span> <span class="kn">import</span> <span class="n">preprocess</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">preprocess</span><span class="o">.</span><span class="n">expand_labeled_diarized_audio_dir_to_dataset</span><span class="p">(</span>
     <span class="n">labeled_diarized_audio_dir</span><span class="o">=</span><span class="p">[</span>
-        <span class="s2">&quot;0/&quot;</span><span class="p">,</span>  <span class="c1"># The cleaned and checked audio clips for conversation id 0</span>
-        <span class="s2">&quot;1/&quot;</span><span class="p">,</span>  <span class="c1"># ... conversation id 1</span>
-        <span class="s2">&quot;2/&quot;</span><span class="p">,</span>  <span class="c1"># ... conversation id 2</span>
-        <span class="s2">&quot;3/&quot;</span><span class="p">,</span>  <span class="c1"># ... conversation id 3</span>
-        <span class="s2">&quot;4/&quot;</span><span class="p">,</span>  <span class="c1"># ... conversation id 4</span>
-        <span class="s2">&quot;5/&quot;</span><span class="p">,</span>  <span class="c1"># ... conversation id 5</span>
+        <span class="s2">&quot;0/&quot;</span><span class="p">,</span>  <span class="c1"># The cleaned and checked audio clips for recording id 0</span>
+        <span class="s2">&quot;1/&quot;</span><span class="p">,</span>  <span class="c1"># ... recording id 1</span>
+        <span class="s2">&quot;2/&quot;</span><span class="p">,</span>  <span class="c1"># ... recording id 2</span>
+        <span class="s2">&quot;3/&quot;</span><span class="p">,</span>  <span class="c1"># ... recording id 3</span>
+        <span class="s2">&quot;4/&quot;</span><span class="p">,</span>  <span class="c1"># ... recording id 4</span>
+        <span class="s2">&quot;5/&quot;</span><span class="p">,</span>  <span class="c1"># ... recording id 5</span>
     <span class="p">]</span>
 <span class="p">)</span>
 
 <span class="n">dataset_dict</span><span class="p">,</span> <span class="n">value_counts</span> <span class="o">=</span> <span class="n">preprocess</span><span class="o">.</span><span class="n">prepare_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 
 <span class="c1"># You can print the value_counts dataframe to see how many audio clips of each label</span>
-<span class="c1"># (speaker) is present in each data subset.</span>
+<span class="c1"># (speaker) are present in each data subset.</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">value_counts</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -418,6 +435,10 @@ precision, and recall of the model and additionally store a file called
 <li><p>Training time depends on how much data you have annotated and provided.</p></li>
 <li><p>It is recommended to train with an NVidia GPU with CUDA available to speed up
 the training process.</p></li>
+<li><p>Speakerbox has only been tested on English-language audio and the base model for
+fine-tuning was trained on English-language audio. We provide no guarantees as to
+it’s effectiveness on non-English-language audio. If you try Speakerbox on with
+non-English-language audio, please let us know!</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">speakerbox</span> <span class="kn">import</span> <span class="n">train</span><span class="p">,</span> <span class="n">eval_model</span>
 
