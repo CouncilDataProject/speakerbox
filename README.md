@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/CouncilDataProject/speakerbox/workflows/CI/badge.svg)](https://github.com/CouncilDataProject/speakerbox/actions)
 [![Documentation](https://github.com/CouncilDataProject/speakerbox/workflows/Documentation/badge.svg)](https://CouncilDataProject.github.io/speakerbox)
 
-Few-Shot Speaker Identification Model Training and Application
+Few-Shot Multi-Recording Speaker Identification Transformer Fine-Tuning and Application
 
 ---
 
@@ -16,11 +16,9 @@ Few-Shot Speaker Identification Model Training and Application
 
 For full package documentation please visit [councildataproject.github.io/speakerbox](https://councildataproject.github.io/speakerbox).
 
-![Speakerbox example workflow](https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png)
-
 ## Problem
 
-Given a set of recordings of multi-speaker conversations or meetings:
+Given a set of recordings of multi-speaker recordings:
 
 ```
 example/
@@ -32,7 +30,7 @@ example/
 └── 5.wav
 ```
 
-Where each conversation has some or all of a consistent set of speakers, for example:
+Where each recording has some or all of a set of speakers, for example:
 
 -   0.wav -- contains speakers: A, B, C, D, E
 -   1.wav -- contains speakers: B, D, E
@@ -42,7 +40,7 @@ Where each conversation has some or all of a consistent set of speakers, for exa
 -   5.wav -- contains speakers: A, B, C, D, E
 
 You want to train a model to classify portions of audio as one of the N known speakers
-in future conversations not included in your original training set.
+in future recordings not included in your original training set.
 
 `f(audio) -> [(start_time, end_time, speaker), (start_time, end_time, speaker), ...]`
 
@@ -51,7 +49,9 @@ i.e. `f(audio) -> [(2.4, 10.5, "A"), (10.8, 14.1, "D"), (14.8, 22.7, "B"), ...]`
 The `speakerbox` library contains methods for both generating datasets for annotation
 and for utilizing multiple audio annotation schemes to train such a model.
 
-The following table show model performance results as the dataset size increases:
+![Speakerbox example workflow](https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png)
+
+The following table shows model performance results as the dataset size increases:
 
 | dataset_size   | mean_accuracy   | mean_precision   | mean_recall   | mean_training_duration_seconds   |
 |:---------------|----------------:|-----------------:|--------------:|---------------------------------:|
@@ -81,7 +81,7 @@ of the clusters into their own directories that you can then manually clean up
 #### Notes
 
 -   It is recommended to have each larger audio file named with a unique id that
-    can be used to act as a "conversation id".
+    can be used to act as a "recording id".
 -   Diarization time depends on machine resources and make take a long time -- one
     potential recommendation is to run a diarization script overnight and clean up the
     produced annotations the following day.
@@ -90,7 +90,7 @@ of the clusters into their own directories that you can then manually clean up
     you begin.
 -   Clustering accuracy depends on how many speakers there are, how distinct their
     voices are, and how much speech is talking over one-another.
--   If possible, try to find meetings where speakers have a roughly uniform distribution
+-   If possible, try to find recordings where speakers have a roughly uniform distribution
     of speaking durations.
 
 ```python
@@ -124,8 +124,23 @@ like the following tree:
 
 We leave it to you as a user to then go through these directories and remove any audio
 clips that were incorrectly clustered together as well as renaming the sub-directories
-to their correct speaker labels
-(from "SPEAKER_00", "SPEAKER_01", "SPEAKER_02", etc. to "A", "B", "C", etc.).
+to their correct speaker labels. For example, labelled sub-directories may look like
+the following tree:
+
+```
+0/
+├── A
+│   ├── 567-12928.wav
+│   ├── ...
+│   └── 76192-82901.wav
+├── B
+│   ├── 34123-38918.wav
+│   ├── ...
+│   └── 88212-89111.wav
+└── D
+    ├── ...
+    └── 53998-62821.wav
+```
 
 #### Notes
 
@@ -133,10 +148,13 @@ to their correct speaker labels
     of audio files as a playlist for playback. This makes it easy to listen to a whole
     unlabeled sub-directory (i.e. "SPEAKER_00") at a time and pause playback and remove
     files from the directory which were incorrectly clustered.
+-   If any clips have overlapping speakers, it is up to you as a user if you want to
+    remove those clips or keep them and properly label them with the speaker you wish to
+    associate them with.
 
 ### Training Preparation
 
-Once you have annotated what you think is enough conversations, you can try preparing
+Once you have annotated what you think is enough recordings, you can try preparing
 a dataset for training.
 
 The following functions will prepare the audio for training by:
@@ -145,7 +163,7 @@ The following functions will prepare the audio for training by:
 2. Chunk all found audio clips into smaller duration clips _(parametrizable)_
 3. Check that the provided annotated dataset meets the following conditions:
     1. There is enough data such that the training, test, and validation subsets all
-       contain different conversation ids.
+       contain different recording ids.
     2. There is enough data such that the training, test, and validation subsets each
        contain all labels present in the whole dataset.
 
@@ -154,26 +172,26 @@ The following functions will prepare the audio for training by:
 -   During this process audio will be duplicated in the form of smaller audio clips --
     ensure you have enough space on your machine to complete this process before
     you begin.
--   Directory names are used as conversation ids during dataset construction.
+-   Directory names are used as recording ids during dataset construction.
 
 ```python
 from speakerbox import preprocess
 
 dataset = preprocess.expand_labeled_diarized_audio_dir_to_dataset(
     labeled_diarized_audio_dir=[
-        "0/",  # The cleaned and checked audio clips for conversation id 0
-        "1/",  # ... conversation id 1
-        "2/",  # ... conversation id 2
-        "3/",  # ... conversation id 3
-        "4/",  # ... conversation id 4
-        "5/",  # ... conversation id 5
+        "0/",  # The cleaned and checked audio clips for recording id 0
+        "1/",  # ... recording id 1
+        "2/",  # ... recording id 2
+        "3/",  # ... recording id 3
+        "4/",  # ... recording id 4
+        "5/",  # ... recording id 5
     ]
 )
 
 dataset_dict, value_counts = preprocess.prepare_dataset(dataset)
 
 # You can print the value_counts dataframe to see how many audio clips of each label
-# (speaker) is present in each data subset.
+# (speaker) are present in each data subset.
 print(value_counts)
 ```
 
@@ -194,6 +212,10 @@ precision, and recall of the model and additionally store a file called
 -   Training time depends on how much data you have annotated and provided.
 -   It is recommended to train with an NVidia GPU with CUDA available to speed up
     the training process.
+-   Speakerbox has only been tested on English-language audio and the base model for
+    fine-tuning was trained on English-language audio. We provide no guarantees as to
+    it's effectiveness on non-English-language audio. If you try Speakerbox on with
+    non-English-language audio, please let us know!
 
 ```python
 from speakerbox import train, eval_model
