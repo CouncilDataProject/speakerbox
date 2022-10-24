@@ -34,8 +34,8 @@ Ready to contribute? Here's how to set up `speakerbox` for local development.
     just install
     ```
 
-    If this doesn't work try: `pip install -e .[seattle,lint,test,docs,dev]`.
-    If you are using a ZSH shell (MacOS) try: `pip install -e .\[seattle,lint,test,docs,dev\]`
+    If this doesn't work try: `pip install -e .[lint,test,docs,dev]`.
+    If you are using a ZSH shell (MacOS) try: `pip install -e .\[lint,test,docs,dev\]`
 
 5. Create a branch for local development:
 

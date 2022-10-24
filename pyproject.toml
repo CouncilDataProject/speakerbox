@@ -50,10 +50,6 @@ Documentation = "https://CouncilDataProject.github.io/speakerbox"
 # extra dependencies
 # https://peps.python.org/pep-0621/#dependencies-optional-dependencies
 [project.optional-dependencies]
-seattle = [
-  "cdp-backend~=3.0.3",
-  "cdp-data~=0.0.6",
-]
 lint = [
   "black>=22.3.0",
   "cdp-backend~=3.0.3",
