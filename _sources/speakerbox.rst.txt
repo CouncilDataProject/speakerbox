@@ -1,14 +1,6 @@
 speakerbox package
 ==================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   speakerbox.datasets
-
 Submodules
 ----------
 
