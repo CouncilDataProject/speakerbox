@@ -59,14 +59,20 @@ The following table shows model performance results as the dataset size increase
 | 30-minutes     | 0.929 ± 0.006   | 0.94 ± 0.007     | 0.929 ± 0.006 | 186 ± 3                          |
 | 60-minutes     | 0.937 ± 0.02    | 0.94 ± 0.017     | 0.937 ± 0.02  | 453 ± 7                          |
 
-All results reported are the average of five model training and evaluation trials for each of the different dataset sizes. All models were fine-tuned using an NVIDIA GTX 1070 TI.
+All results reported are the average of five model training and evaluation trials for each
+of the different dataset sizes. All models were fine-tuned using an NVIDIA GTX 1070 TI.
 
-**Note:** this data can be reproduced in ~1 hour using NVIDIA GTX 1070 TI by running:
+**Note:** this table can be reproduced in ~1 hour using an NVIDIA GTX 1070 TI by
+[downloading the example dataset](https://drive.google.com/file/d/1snDuv45cYCYxCae19Dz4tsQauLrA425w/view?usp=sharing)
+unzipping it's contents and then running:
 
 ```python
 from speakerbox.examples import train_and_eval_all_example_models
 
-results = train_and_eval_all_example_models()
+results = train_and_eval_all_example_models(
+    # be sure to provide the correct path to the unzipped directory
+    "/home/eva/Downloads/example-speakerbox-dataset/",
+)
 ```
 
 ## Workflow

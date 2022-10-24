@@ -6,7 +6,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Union
 
 import numpy as np
 import pandas as pd
@@ -22,10 +22,6 @@ from .utils import set_global_seed
 log = logging.getLogger(__name__)
 
 ###############################################################################
-
-EXAMPLE_TRAINING_DATA_PATH = (
-    Path(__file__).parent / "datasets" / "data" / "example-training-data.parquet"
-)
 
 SAMPLE_SIZE_LUT = {
     "15-minutes": (15 * 60) // 2,
@@ -68,6 +64,7 @@ class IteratedModelEvalScores(DataClassJsonMixin):
 
 
 def train_and_eval_example_model(
+    example_dataset_dir: Union[str, Path],
     dataset_size_str: Literal["15-minutes", "30-minutes", "60-minutes"],
     n_interations: int = 5,
     seed: int = 182318512,
@@ -81,6 +78,8 @@ def train_and_eval_example_model(
 
     Parameters
     ----------
+    example_dataset_dir: Union[str, Path]
+        Path to the downloaded and unzipped example dataset.
     dataset_size_str: Literal["15-minutes", "30-minutes", "60-minutes"]
         The dataset size to choose from. This will load (and potentially)
         subset the packaged data.
@@ -103,8 +102,16 @@ def train_and_eval_example_model(
     """
     set_global_seed(seed)
 
+    # Handle paths
+    example_dataset_dir = Path(example_dataset_dir).expanduser().resolve()
+
     # Open example training data
-    example_training_data = pd.read_parquet(EXAMPLE_TRAINING_DATA_PATH)
+    example_training_data = pd.read_parquet(example_dataset_dir / "dataset.parquet")
+
+    # Update all audio paths to be fully resolved
+    example_training_data["audio"] = example_training_data["audio"].apply(
+        lambda audio_filename: str(example_dataset_dir / audio_filename)
+    )
 
     # Get requested sample
     sample_size_requested = SAMPLE_SIZE_LUT[dataset_size_str]
@@ -174,6 +181,7 @@ def train_and_eval_example_model(
 
 
 def train_and_eval_all_example_models(
+    example_dataset_dir: Union[str, Path],
     n_iterations: int = 5,
     seed: int = 182318512,
     equalize_data_within_splits: bool = False,
@@ -186,6 +194,8 @@ def train_and_eval_all_example_models(
 
     Parameters
     ----------
+    example_dataset_dir: Union[str, Path]
+        Path to the downloaded and unzipped example dataset.
     n_iterations: int
         The number of train and evaluation iterations to try for this model
         before averaging them all.
@@ -211,6 +221,7 @@ def train_and_eval_all_example_models(
     for dataset_size_str in SAMPLE_SIZE_LUT.keys():
         results.append(
             train_and_eval_example_model(
+                example_dataset_dir=example_dataset_dir,
                 dataset_size_str=dataset_size_str,  # type: ignore
                 n_interations=n_iterations,
                 seed=seed,
