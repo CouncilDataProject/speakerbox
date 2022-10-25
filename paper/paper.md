@@ -112,7 +112,9 @@ We further created random samples of this dataset with 15 minutes and 30 minutes
 
 All results reported are the average of five model training and evaluation trials for each of the different dataset sizes. All models were fine-tuned using an NVIDIA GTX 1070 TI.
 
-We provide a method to reproduce these models as follows:
+We provide a method to reproduce these models by
+[downloading the example dataset](https://drive.google.com/file/d/1snDuv45cYCYxCae19Dz4tsQauLrA425w/view?usp=sharing)
+unzipping it's contents and then running:
 
 ```python
 from speakerbox.examples import train_and_eval_all_example_models
