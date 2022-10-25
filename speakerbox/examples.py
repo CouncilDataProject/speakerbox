@@ -4,7 +4,6 @@
 import logging
 import time
 from dataclasses import dataclass
-from datetime import datetime
 from pathlib import Path
 from typing import Literal, Union
 
@@ -233,8 +232,7 @@ def train_and_eval_all_example_models(
     results_df = pd.DataFrame(results)
 
     # Store to parquet
-    now = datetime.now()
-    results_df.to_parquet(f"grid-eval-scores-{now.isoformat()}.parquet")
+    results_df.to_parquet("example-models-grid-eval-scores.parquet")
 
     # Store to markdown (for paper)
     results_df_for_render = results_df.set_index("dataset_size")
@@ -280,7 +278,7 @@ def train_and_eval_all_example_models(
     )
 
     try:
-        with open(f"grid-eval-scores-{now.isoformat()}.md", "w") as open_f:
+        with open("example-models-grid-eval-scores.md", "w") as open_f:
             results_df_for_render.to_markdown(open_f)
     except ImportError:
         log.error(
