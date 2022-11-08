@@ -71,7 +71,10 @@ def diarize_and_split_audio(
 
     Notes
     -----
-    The directory structure of the produced chunks will follow the pattern::
+    Prior to using this function you need to accept user conditions:
+    https://hf.co/pyannote/speaker-diarization and https://hf.co/pyannote/segmentation
+
+    The output directory structure of the produced chunks will follow the pattern::
 
         {storage_dir}/
         ├── SPEAKER_00

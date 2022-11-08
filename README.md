@@ -103,7 +103,10 @@ of the clusters into their own directories that you can then manually clean up
 following steps: ⚠️
 
 1. Visit [hf.co/pyannote/speaker-diarization](hf.co/pyannote/speaker-diarization)
-2. Visit [hf.co/settings/tokens](hf.co/settings/tokens) to create an access token
+   and accept user conditions.
+2. Visit [hf.co/pyannote/segmentation](hf.co/pyannote/segmentation)
+   and accept user conditions.
+3. Visit [hf.co/settings/tokens](hf.co/settings/tokens) to create an access token
    (only if you had to complete 1.)
 
 ```python
