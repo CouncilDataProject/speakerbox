@@ -93,8 +93,8 @@ def train_and_eval_example_model(
         for any speaker in that split.
         Default: False (allow different amounts of examples per label)
 
-    Return
-    ------
+    Returns
+    -------
     IteratedModelEvalScores
         The average accuracy, precision, recall, and duration over the
         training and evaluation iterations.
@@ -206,8 +206,8 @@ def train_and_eval_all_example_models(
         for any speaker in that split.
         Default: False (allow different amounts of examples per label)
 
-    Return
-    ------
+    Returns
+    -------
     pd.DataFrame
         A DataFrame of results for all the models tested.
 
