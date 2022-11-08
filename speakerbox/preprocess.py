@@ -3,6 +3,7 @@
 
 import json
 import logging
+import os
 from pathlib import Path
 from typing import List, Optional, Tuple, Union
 
@@ -30,6 +31,7 @@ def diarize_and_split_audio(
     min_audio_chunk_duration: float = 0.5,
     diarization_pipeline: Optional[Pipeline] = None,
     seed: Optional[int] = None,
+    hf_token: Optional[str] = None,
 ) -> Path:
     """
     Diarize a single audio file and split the file into smaller chunks stored into
@@ -51,6 +53,10 @@ def diarize_and_split_audio(
     seed: Optional[int]
         Seed to pass to torch, numpy, and Python RNGs.
         Default: None (do not set a seed)
+    hf_token: Optional[str]
+        Huggingface user access token to download the diarization model.
+        Can also be set with the HUGGINGFACE_TOKEN environment variable.
+        https://hf.co/settings/tokens
 
     Returns
     -------
@@ -97,10 +103,25 @@ def diarize_and_split_audio(
     # Make storage dir
     storage_dir.mkdir(parents=True, exist_ok=True)
 
+    # Get token
+    if hf_token:
+        use_token = hf_token
+    else:
+        if "HUGGINGFACE_TOKEN" in os.environ:
+            use_token = os.environ["HUGGINGFACE_TOKEN"]
+        else:
+            raise ValueError(
+                "Must provide Huggingface token to download diarization model. "
+                "Tokens can be created at: https://hf.co/settings/tokens "
+                "and can be provided either via `hf_token` parameter or "
+                "the `HUGGINGFACE_TOKEN` environment variable."
+            )
+
     # Load pipeline
     if diarization_pipeline is None:
         diarization_pipeline = Pipeline.from_pretrained(
             "pyannote/speaker-diarization",
+            use_auth_token=use_token,
         )
 
     # Diarize

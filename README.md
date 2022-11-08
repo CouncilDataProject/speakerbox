@@ -99,10 +99,21 @@ of the clusters into their own directories that you can then manually clean up
 -   If possible, try to find recordings where speakers have a roughly uniform distribution
     of speaking durations.
 
+⚠️ To use the diarization portions of `speakerbox` you need to complete the
+following steps: ⚠️
+
+1. Visit [hf.co/pyannote/speaker-diarization](hf.co/pyannote/speaker-diarization)
+2. Visit [hf.co/settings/tokens](hf.co/settings/tokens) to create an access token
+   (only if you had to complete 1.)
+
 ```python
 from speakerbox import preprocess
 
-diarized_and_split_audio_dir = preprocess.diarize_and_split_audio("0.wav")
+# The token can also be provided via the 'HUGGINGFACE_TOKEN` environment variable.
+diarized_and_split_audio_dir = preprocess.diarize_and_split_audio(
+    "0.wav",
+    hf_token="token-from-hugging-face",
+)
 ```
 
 ### Cleaning

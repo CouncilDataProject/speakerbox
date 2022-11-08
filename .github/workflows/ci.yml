@@ -67,6 +67,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install .[test]
     - name: Run Tests
+      env:
+        HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
       run: just test-ci
     - name: Upload Codecov
       uses: codecov/codecov-action@v3
