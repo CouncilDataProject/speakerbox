@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributing" href="contributing.html" /><link rel="prev" title="speakerbox" href="modules.html" />
 
     <meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
-        <title>speakerbox package - speakerbox 0.1.dev1+g78cf8ba documentation</title>
+        <title>speakerbox package - speakerbox 0.1.dev1+g3a4f6cc documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">speakerbox 0.1.dev1+g78cf8ba documentation</div></a>
+      <a href="index.html"><div class="brand">speakerbox 0.1.dev1+g3a4f6cc documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -147,7 +147,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">speakerbox 0.1.dev1+g78cf8ba documentation</span>
+  <span class="sidebar-brand-text">speakerbox 0.1.dev1+g3a4f6cc documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -203,8 +203,182 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="speakerbox-examples-module">
-<h2>speakerbox.examples module<a class="headerlink" href="#speakerbox-examples-module" title="Permalink to this heading">#</a></h2>
+<section id="module-speakerbox.examples">
+<span id="speakerbox-examples-module"></span><h2>speakerbox.examples module<a class="headerlink" href="#module-speakerbox.examples" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">speakerbox.examples.</span></span><span class="sig-name descname"><span class="pre">IteratedModelEvalScores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equalized_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_audio_per_person_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_audio_per_person_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_audio_per_person_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_audio_per_person_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_audio_per_person_valid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_audio_per_person_valid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_accuracy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_accuracy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_precision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_precision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_recall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_recall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/examples.html#IteratedModelEvalScores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DataClassJsonMixin</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.dataset_size">
+<span class="sig-name descname"><span class="pre">dataset_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.dataset_size" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.equalized_data">
+<span class="sig-name descname"><span class="pre">equalized_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.equalized_data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.mean_accuracy">
+<span class="sig-name descname"><span class="pre">mean_accuracy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.mean_accuracy" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.mean_audio_per_person_test">
+<span class="sig-name descname"><span class="pre">mean_audio_per_person_test</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.mean_audio_per_person_test" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.mean_audio_per_person_train">
+<span class="sig-name descname"><span class="pre">mean_audio_per_person_train</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.mean_audio_per_person_train" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.mean_audio_per_person_valid">
+<span class="sig-name descname"><span class="pre">mean_audio_per_person_valid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.mean_audio_per_person_valid" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.mean_duration">
+<span class="sig-name descname"><span class="pre">mean_duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.mean_duration" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.mean_precision">
+<span class="sig-name descname"><span class="pre">mean_precision</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.mean_precision" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.mean_recall">
+<span class="sig-name descname"><span class="pre">mean_recall</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.mean_recall" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.std_accuracy">
+<span class="sig-name descname"><span class="pre">std_accuracy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.std_accuracy" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.std_audio_per_person_test">
+<span class="sig-name descname"><span class="pre">std_audio_per_person_test</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.std_audio_per_person_test" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.std_audio_per_person_train">
+<span class="sig-name descname"><span class="pre">std_audio_per_person_train</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.std_audio_per_person_train" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.std_audio_per_person_valid">
+<span class="sig-name descname"><span class="pre">std_audio_per_person_valid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.std_audio_per_person_valid" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.std_duration">
+<span class="sig-name descname"><span class="pre">std_duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.std_duration" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.std_precision">
+<span class="sig-name descname"><span class="pre">std_precision</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.std_precision" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.IteratedModelEvalScores.std_recall">
+<span class="sig-name descname"><span class="pre">std_recall</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.IteratedModelEvalScores.std_recall" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="speakerbox.examples.ModelEvalScores">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">speakerbox.examples.</span></span><span class="sig-name descname"><span class="pre">ModelEvalScores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accuracy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/speakerbox/examples.html#ModelEvalScores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.examples.ModelEvalScores" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DataClassJsonMixin</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.ModelEvalScores.accuracy">
+<span class="sig-name descname"><span class="pre">accuracy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.ModelEvalScores.accuracy" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.ModelEvalScores.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.ModelEvalScores.duration" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.ModelEvalScores.precision">
+<span class="sig-name descname"><span class="pre">precision</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.ModelEvalScores.precision" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="speakerbox.examples.ModelEvalScores.recall">
+<span class="sig-name descname"><span class="pre">recall</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#speakerbox.examples.ModelEvalScores.recall" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.examples.train_and_eval_all_example_models">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.examples.</span></span><span class="sig-name descname"><span class="pre">train_and_eval_all_example_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">example_dataset_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iterations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">182318512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equalize_data_within_splits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/speakerbox/examples.html#train_and_eval_all_example_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.examples.train_and_eval_all_example_models" title="Permalink to this definition">#</a></dt>
+<dd><p>Train and evaluate a model multiple times for each of the dataset sizes.</p>
+<p>This was used to investigate the diminishing return of adding more data
+to the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>example_dataset_dir: Union[str, Path]</strong></dt><dd><p>Path to the downloaded and unzipped example dataset.</p>
+</dd>
+<dt><strong>n_iterations: int</strong></dt><dd><p>The number of train and evaluation iterations to try for this model
+before averaging them all.
+Default: 5</p>
+</dd>
+<dt><strong>seed: int</strong></dt><dd><p>A random seed to set global random state.</p>
+</dd>
+<dt><strong>equalize_data_within_splits: bool</strong></dt><dd><p>Should the data splits be equalized to the smallest number of examples
+for any speaker in that split.
+Default: False (allow different amounts of examples per label)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#speakerbox.examples.train_and_eval_example_model" title="speakerbox.examples.train_and_eval_example_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">train_and_eval_example_model</span></code></a></dt><dd><p>The function used to train and eval a single model dataset size.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.examples.train_and_eval_example_model">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.examples.</span></span><span class="sig-name descname"><span class="pre">train_and_eval_example_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">example_dataset_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_size_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'15-minutes'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'30-minutes'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'60-minutes'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_interations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">182318512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equalize_data_within_splits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores" title="speakerbox.examples.IteratedModelEvalScores"><span class="pre">IteratedModelEvalScores</span></a></span></span><a class="reference internal" href="_modules/speakerbox/examples.html#train_and_eval_example_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.examples.train_and_eval_example_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Train and evaluate a model multiple times for one of the dataset sizes.</p>
+<p>This was used to investigate the diminishing return of adding more data
+to the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>example_dataset_dir: Union[str, Path]</strong></dt><dd><p>Path to the downloaded and unzipped example dataset.</p>
+</dd>
+<dt><strong>dataset_size_str: Literal[“15-minutes”, “30-minutes”, “60-minutes”]</strong></dt><dd><p>The dataset size to choose from. This will load (and potentially)
+subset the packaged data.</p>
+</dd>
+<dt><strong>n_iterations: int</strong></dt><dd><p>The number of train and evaluation iterations to try for this model
+before averaging them all.
+Default: 5</p>
+</dd>
+<dt><strong>seed: int</strong></dt><dd><p>A random seed to set global random state.</p>
+</dd>
+<dt><strong>equalize_data_within_splits: bool</strong></dt><dd><p>Should the data splits be equalized to the smallest number of examples
+for any speaker in that split.
+Default: False (allow different amounts of examples per label)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-speakerbox.main">
 <span id="speakerbox-main-module"></span><h2>speakerbox.main module<a class="headerlink" href="#module-speakerbox.main" title="Permalink to this heading">#</a></h2>
@@ -325,8 +499,237 @@ Default: DEFAULT_TRAINER_ARGUMENTS_ARGS</p>
 </dd></dl>
 
 </section>
-<section id="speakerbox-preprocess-module">
-<h2>speakerbox.preprocess module<a class="headerlink" href="#speakerbox-preprocess-module" title="Permalink to this heading">#</a></h2>
+<section id="module-speakerbox.preprocess">
+<span id="speakerbox-preprocess-module"></span><h2>speakerbox.preprocess module<a class="headerlink" href="#module-speakerbox.preprocess" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.preprocess.diarize_and_split_audio">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.preprocess.</span></span><span class="sig-name descname"><span class="pre">diarize_and_split_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_audio_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diarization_pipeline</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Pipeline</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hf_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="_modules/speakerbox/preprocess.html#diarize_and_split_audio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.preprocess.diarize_and_split_audio" title="Permalink to this definition">#</a></dt>
+<dd><p>Diarize a single audio file and split the file into smaller chunks stored into
+directories with the unlabeled speaker annotation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>audio_file: Union[str, Path]</strong></dt><dd><p>The audio file to diarize and split.</p>
+</dd>
+<dt><strong>storage_dir: Optional[Union[str, Path]]</strong></dt><dd><p>A specific directory to store the produced chunks to.
+Default: None (use the audio file name to create a new directory)</p>
+</dd>
+<dt><strong>min_audio_chunk_duration: float</strong></dt><dd><p>Length of the minimum audio duration to allow through after chunking.
+default: 0.5 seconds</p>
+</dd>
+<dt><strong>diarization_pipeline: Optional[Pipeline]</strong></dt><dd><p>A preloaded PyAnnote Pipeline.
+Default: None (load default)</p>
+</dd>
+<dt><strong>seed: Optional[int]</strong></dt><dd><p>Seed to pass to torch, numpy, and Python RNGs.
+Default: None (do not set a seed)</p>
+</dd>
+<dt><strong>hf_token: Optional[str]</strong></dt><dd><p>Huggingface user access token to download the diarization model.
+Can also be set with the HUGGINGFACE_TOKEN environment variable.
+<a class="reference external" href="https://hf.co/settings/tokens">https://hf.co/settings/tokens</a></p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>storage_dir: Path</dt><dd><p>The path to where all the chunked audio was stored.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset" title="speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_labeled_diarized_audio_dir_to_dataset</span></code></a></dt><dd><p>After labeling the audio in the produced diarized audio directory, expand the labeled data into a dataset ready for training.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Prior to using this function you need to accept user conditions:
+<a class="reference external" href="https://hf.co/pyannote/speaker-diarization">https://hf.co/pyannote/speaker-diarization</a> and <a class="reference external" href="https://hf.co/pyannote/segmentation">https://hf.co/pyannote/segmentation</a></p>
+<p>The output directory structure of the produced chunks will follow the pattern:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{storage_dir}/
+├── SPEAKER_00
+│   ├── {start_time_millis}-{start_end_millis}.wav
+│   └── {start_time_millis}-{start_end_millis}.wav
+├── SPEAKER_01
+│   ├── {start_time_millis}-{start_end_millis}.wav
+│   └── {start_time_millis}-{start_end_millis}.wav
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.preprocess.expand_gecko_annotations_to_dataset">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.preprocess.</span></span><span class="sig-name descname"><span class="pre">expand_gecko_annotations_to_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotations_and_audios</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#speakerbox.types.GeckoAnnotationAndAudio" title="speakerbox.types.GeckoAnnotationAndAudio"><span class="pre">GeckoAnnotationAndAudio</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('chunked-audio')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_audio_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_audio_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/speakerbox/preprocess.html#expand_gecko_annotations_to_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.preprocess.expand_gecko_annotations_to_dataset" title="Permalink to this definition">#</a></dt>
+<dd><p>Expand a list of annotation and audio files into a full dataset to be used for
+training and testing a speaker classification model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>annotations_and_audios: List[GeckoAnnotationAndAudio]</strong></dt><dd><p>A list of annotation and their matching audio files to expand into a speaker,
+audio file path, start and end times.</p>
+</dd>
+<dt><strong>audio_output_dir: Union[str, Path]</strong></dt><dd><p>A directory path to store the chunked audio files in.
+Default: “chunked-audio” directory in the current working directory.</p>
+</dd>
+<dt><strong>overwrite: bool</strong></dt><dd><p>When writting out an audio chunk, should existing files be overwritten.
+Default: False (do not overwrite)</p>
+</dd>
+<dt><strong>min_audio_chunk_duration: float</strong></dt><dd><p>Length of the minimum audio duration to allow through after chunking.
+default: 0.5 seconds</p>
+</dd>
+<dt><strong>max_audio_chunk_duration: float</strong></dt><dd><p>Length of the maximum audio duration to split larger audio files into.
+Default: 2.0 seconds</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dataset: pd.DataFrame</dt><dd><p>The expanded dataset with columns: conversation_id, label, audio, duration</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>NotADirectoryError</dt><dd><p>A file exists at the specified destination.</p>
+</dd>
+<dt>FileExistsError</dt><dd><p>A file exists at the target chunk audio location but overwrite is False.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Generated and attached conversation ids are pulled from the annotation file name.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.preprocess.</span></span><span class="sig-name descname"><span class="pre">expand_labeled_diarized_audio_dir_to_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labeled_diarized_audio_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('chunked-audio')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_audio_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_audio_chunk_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/speakerbox/preprocess.html#expand_labeled_diarized_audio_dir_to_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset" title="Permalink to this definition">#</a></dt>
+<dd><p>Expand the provided labeled diarized audio into a dataset ready for training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>labeled_diarized_audio_dir: Union[Union[str, Path], List[Union[str, Path]]]</strong></dt><dd><p>A path or list of paths to diarization results directories. These directories
+should no longer have the “SPEAKER_00”, “SPEAKER_01”, default labeling but
+expert annotated labels.</p>
+</dd>
+<dt><strong>audio_output_dir: Union[str, Path]</strong></dt><dd><p>A directory path to store the chunked audio files in.
+Default: “chunked-audio” directory in the current working directory.</p>
+</dd>
+<dt><strong>overwrite: bool</strong></dt><dd><p>When writting out an audio chunk, should existing files be overwritten.
+Default: False (do not overwrite)</p>
+</dd>
+<dt><strong>min_audio_chunk_duration: float</strong></dt><dd><p>Length of the minimum audio duration to allow through after chunking.
+default: 0.5 seconds</p>
+</dd>
+<dt><strong>max_audio_chunk_duration: float</strong></dt><dd><p>Length of the maximum audio duration to split larger audio files into.
+Default: 2.0 seconds</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dataset: pd.DataFrame</dt><dd><p>The expanded dataset with columns: conversation_id, label, audio, duration</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>NotADirectoryError</dt><dd><p>A file exists at the specified destination.</p>
+</dd>
+<dt>FileExistsError</dt><dd><p>A file exists at the target chunk audio location but overwrite is False.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#speakerbox.preprocess.diarize_and_split_audio" title="speakerbox.preprocess.diarize_and_split_audio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diarize_and_split_audio</span></code></a></dt><dd><p>Function to diarize an audio file and split into annotation directories.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>The provided labeled diarized audio directory(s) should have the
+following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{labeled_diarized_audio_dir}/
+├── label
+│   ├── 1.wav
+│   └── 2.wav
+├── second_label
+│   ├── 1.wav
+│   └── 2.wav
+</pre></div>
+</div>
+<p>Generated and attached conversation ids are pulled from the labeled diarized audio
+directory names.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="speakerbox.preprocess.prepare_dataset">
+<span class="sig-prename descclassname"><span class="pre">speakerbox.preprocess.</span></span><span class="sig-name descname"><span class="pre">prepare_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_and_valid_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equalize_data_within_splits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iterations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">DatasetDict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/speakerbox/preprocess.html#prepare_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#speakerbox.preprocess.prepare_dataset" title="Permalink to this definition">#</a></dt>
+<dd><p>Prepare a dataset for training a new speakerbox / audio-classification model.
+This function attempts to randomly create train, test, and validation splits
+from the provided dataframe that meet the following two conditions:</p>
+<p>1. There is data holdout by conversation_id. I.e. if the dataset contains data from
+nine unique conversation ids, the training, test, and validation sets should all
+have different conversation ids (train has 0, 1, 2, 3; test has 4, 5, 6; validation
+has 7, 8).</p>
+<p>2. There is data stratification by label. I.e. if the dataset contains nine unique
+labels, the training, test, and validation sets should each have all nine labels
+present (train, test, and validation all have labels 0-8).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dataset: pd.DataFrame</strong></dt><dd><p>An expanded dataset with columns: conversation_id, label, audio, duration</p>
+</dd>
+<dt><strong>test_and_valid_size: float</strong></dt><dd><p>How much of the dataset to use for the combined test and validation sets
+as a percent (i.e. 0.4 = 40% of the dataset).
+The test and validation sets will further split this in half (i.e. 0.4 = 40%
+which means 20% of the total data for testing and 20% of the total data for
+validation).</p>
+</dd>
+<dt><strong>equalize_data_within_splits: bool</strong></dt><dd><p>After finding valid train, test, and validation splits, should the data within
+each split be reduced to have an equal number of data for each label.
+Default: False (Do not equalize labels within splits)</p>
+</dd>
+<dt><strong>n_iterations: int</strong></dt><dd><p>The number of iterations to attempt to find viable train, test, and validation
+sets.
+Default: 100</p>
+</dd>
+<dt><strong>seed: Optional[int]</strong></dt><dd><p>Seed to pass to torch, numpy, and Python RNGs.
+Default: None (do not set a seed)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dataset: DatasetDict</dt><dd><p>The prepared dataset split into train, test, and validation splits.</p>
+</dd>
+<dt>value_counts: pd.DataFrame</dt><dd><p>A value count table where each row is a different label and each column is the
+count of that label in the matching train, test, or validation set.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>Could not find train, test, and validation sets that meet the holdout and
+stratification criteria after n iterations. Recommended to annotate more data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset" title="speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_labeled_diarized_audio_dir_to_dataset</span></code></a></dt><dd><p>Function to move from a directory of diarized audio (or multiple) into a dataset to provide to this function.</p>
+</dd>
+<dt><a class="reference internal" href="#speakerbox.preprocess.expand_gecko_annotations_to_dataset" title="speakerbox.preprocess.expand_gecko_annotations_to_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_gecko_annotations_to_dataset</span></code></a></dt><dd><p>Function to move from a gecko annotation file (or multiple) into a dataset to provide to this function.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
 </section>
 <section id="module-speakerbox.types">
 <span id="speakerbox-types-module"></span><h2>speakerbox.types module<a class="headerlink" href="#module-speakerbox.types" title="Permalink to this heading">#</a></h2>
@@ -591,14 +994,50 @@ Default: DEFAULT_TRAINER_ARGUMENTS_ARGS</p>
             <ul>
 <li><a class="reference internal" href="#">speakerbox package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#speakerbox-examples-module">speakerbox.examples module</a></li>
+<li><a class="reference internal" href="#module-speakerbox.examples">speakerbox.examples module</a><ul>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores</span></code></a><ul>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.dataset_size"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.dataset_size</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.equalized_data"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.equalized_data</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.mean_accuracy"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.mean_accuracy</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.mean_audio_per_person_test"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.mean_audio_per_person_test</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.mean_audio_per_person_train"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.mean_audio_per_person_train</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.mean_audio_per_person_valid"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.mean_audio_per_person_valid</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.mean_duration"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.mean_duration</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.mean_precision"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.mean_precision</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.mean_recall"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.mean_recall</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.std_accuracy"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.std_accuracy</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.std_audio_per_person_test"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.std_audio_per_person_test</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.std_audio_per_person_train"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.std_audio_per_person_train</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.std_audio_per_person_valid"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.std_audio_per_person_valid</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.std_duration"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.std_duration</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.std_precision"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.std_precision</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.IteratedModelEvalScores.std_recall"><code class="docutils literal notranslate"><span class="pre">IteratedModelEvalScores.std_recall</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#speakerbox.examples.ModelEvalScores"><code class="docutils literal notranslate"><span class="pre">ModelEvalScores</span></code></a><ul>
+<li><a class="reference internal" href="#speakerbox.examples.ModelEvalScores.accuracy"><code class="docutils literal notranslate"><span class="pre">ModelEvalScores.accuracy</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.ModelEvalScores.duration"><code class="docutils literal notranslate"><span class="pre">ModelEvalScores.duration</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.ModelEvalScores.precision"><code class="docutils literal notranslate"><span class="pre">ModelEvalScores.precision</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.ModelEvalScores.recall"><code class="docutils literal notranslate"><span class="pre">ModelEvalScores.recall</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#speakerbox.examples.train_and_eval_all_example_models"><code class="docutils literal notranslate"><span class="pre">train_and_eval_all_example_models()</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.examples.train_and_eval_example_model"><code class="docutils literal notranslate"><span class="pre">train_and_eval_example_model()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-speakerbox.main">speakerbox.main module</a><ul>
 <li><a class="reference internal" href="#speakerbox.main.apply"><code class="docutils literal notranslate"><span class="pre">apply()</span></code></a></li>
 <li><a class="reference internal" href="#speakerbox.main.eval_model"><code class="docutils literal notranslate"><span class="pre">eval_model()</span></code></a></li>
 <li><a class="reference internal" href="#speakerbox.main.train"><code class="docutils literal notranslate"><span class="pre">train()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#speakerbox-preprocess-module">speakerbox.preprocess module</a></li>
+<li><a class="reference internal" href="#module-speakerbox.preprocess">speakerbox.preprocess module</a><ul>
+<li><a class="reference internal" href="#speakerbox.preprocess.diarize_and_split_audio"><code class="docutils literal notranslate"><span class="pre">diarize_and_split_audio()</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.preprocess.expand_gecko_annotations_to_dataset"><code class="docutils literal notranslate"><span class="pre">expand_gecko_annotations_to_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.preprocess.expand_labeled_diarized_audio_dir_to_dataset"><code class="docutils literal notranslate"><span class="pre">expand_labeled_diarized_audio_dir_to_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#speakerbox.preprocess.prepare_dataset"><code class="docutils literal notranslate"><span class="pre">prepare_dataset()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-speakerbox.types">speakerbox.types module</a><ul>
 <li><a class="reference internal" href="#speakerbox.types.AnnotatedAudio"><code class="docutils literal notranslate"><span class="pre">AnnotatedAudio</span></code></a><ul>
 <li><a class="reference internal" href="#speakerbox.types.AnnotatedAudio.audio"><code class="docutils literal notranslate"><span class="pre">AnnotatedAudio.audio</span></code></a></li>
