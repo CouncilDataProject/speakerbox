@@ -18,6 +18,11 @@ jobs:
       - uses: extractions/setup-just@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Packages (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get install libsndfile1
+          sudo apt-get install ffmpeg
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
