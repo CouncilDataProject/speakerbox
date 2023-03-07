@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import json
 import logging
@@ -224,7 +223,7 @@ def _chunk_audio(
 
 def expand_gecko_annotations_to_dataset(
     annotations_and_audios: List[GeckoAnnotationAndAudio],
-    audio_output_dir: Union[str, Path] = Path("chunked-audio/"),
+    audio_output_dir: Union[str, Path] = "chunked-audio/",
     overwrite: bool = False,
     min_audio_chunk_duration: float = 0.5,
     max_audio_chunk_duration: float = 2.0,
@@ -277,7 +276,7 @@ def expand_gecko_annotations_to_dataset(
     annotated_audios: List[AnnotatedAudio] = []
     for aaa in annotations_and_audios:
         audio = AudioSegment.from_file(aaa.audio_file)
-        with open(aaa.annotation_file, "r") as open_f:
+        with open(aaa.annotation_file) as open_f:
             annotations = json.load(open_f)
 
         # Iter through each "monologue" section
@@ -321,7 +320,7 @@ def expand_labeled_diarized_audio_dir_to_dataset(
         List[Path],
         List[Union[str, Path]],
     ],
-    audio_output_dir: Union[str, Path] = Path("chunked-audio/"),
+    audio_output_dir: Union[str, Path] = "chunked-audio/",
     overwrite: bool = False,
     min_audio_chunk_duration: float = 0.5,
     max_audio_chunk_duration: float = 2.0,
@@ -447,6 +446,7 @@ def prepare_dataset(
 ) -> Tuple[DatasetDict, pd.DataFrame]:
     """
     Prepare a dataset for training a new speakerbox / audio-classification model.
+
     This function attempts to randomly create train, test, and validation splits
     from the provided dataframe that meet the following two conditions:
 

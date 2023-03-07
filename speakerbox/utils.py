@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import shutil
 from pathlib import Path
@@ -69,9 +68,7 @@ def _unpack_zip(
 
 
 def set_global_seed(seed: int) -> None:
-    """
-    Set the global RNG seed for torch, numpy, and Python.
-    """
+    """Set the global RNG seed for torch, numpy, and Python."""
     import random
 
     import numpy as np

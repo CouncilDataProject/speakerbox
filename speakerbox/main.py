@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import logging
 from pathlib import Path
@@ -32,21 +31,21 @@ EVAL_RESULTS_TEMPLATE = """
 ### Confusion
 """
 
-DEFAULT_TRAINER_ARGUMENTS_ARGS = dict(
-    evaluation_strategy="epoch",
-    save_strategy="epoch",
-    learning_rate=3e-5,
-    per_device_train_batch_size=8,
-    gradient_accumulation_steps=1,
-    eval_accumulation_steps=40,
-    per_device_eval_batch_size=8,
-    num_train_epochs=5,
-    warmup_ratio=0.1,
-    logging_steps=10,
-    load_best_model_at_end=True,
-    metric_for_best_model="accuracy",
-    gradient_checkpointing=True,
-)
+DEFAULT_TRAINER_ARGUMENTS_ARGS = {
+    "evaluation_strategy": "epoch",
+    "save_strategy": "epoch",
+    "learning_rate": 3e-5,
+    "per_device_train_batch_size": 8,
+    "gradient_accumulation_steps": 1,
+    "eval_accumulation_steps": 40,
+    "per_device_eval_batch_size": 8,
+    "num_train_epochs": 5,
+    "warmup_ratio": 0.1,
+    "logging_steps": 10,
+    "load_best_model_at_end": True,
+    "metric_for_best_model": "accuracy",
+    "gradient_checkpointing": True,
+}
 
 
 ###############################################################################
@@ -228,7 +227,7 @@ def train(
     dataset = dataset.cast_column("audio", Audio(feature_extractor.sampling_rate))
 
     # Construct label to id and vice-versa LUTs
-    label2id, id2label = dict(), dict()
+    label2id, id2label = {}, {}
     for i, label in enumerate(dataset["train"].features["label"].names):
         label2id[label] = str(i)
         id2label[str(i)] = label
@@ -296,7 +295,7 @@ def train(
     return Path(model_name).resolve()
 
 
-def apply(
+def apply(  # noqa: C901
     audio: Union[str, Path],
     model: str,
     mode: Literal["diarize", "naive"] = "diarize",
@@ -358,9 +357,9 @@ def apply(
     n_speakers = len(classifier.model.config.id2label)
 
     # Generate random uuid filename for storing temp audio chunks
-    TMP_AUDIO_CHUNK_SAVE_PATH = Path(".tmp-audio-chunk-during-apply.wav")
+    tmp_audio_chunk_save_path = Path(".tmp-audio-chunk-during-apply.wav")
 
-    def _diarize() -> List[Tuple[Segment, TrackName, Label]]:
+    def _diarize() -> List[Tuple[Segment, TrackName, Label]]:  # noqa: C901
         diarization_pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization")
         dia = diarization_pipeline(audio)
 
@@ -403,11 +402,11 @@ def apply(
                     chunk = loaded_audio[chunk_start_millis:chunk_end_millis]
 
                     # Write to temp
-                    chunk.export(TMP_AUDIO_CHUNK_SAVE_PATH, format="wav")
+                    chunk.export(tmp_audio_chunk_save_path, format="wav")
 
                     # Predict and store scores for turn
                     preds = classifier(
-                        str(TMP_AUDIO_CHUNK_SAVE_PATH),
+                        str(tmp_audio_chunk_save_path),
                         top_k=n_speakers,
                     )
                     for pred in preds:
@@ -467,10 +466,10 @@ def apply(
                 chunk = loaded_audio[chunk_start_millis:chunk_end_millis]
 
                 # Write chunk to temp
-                chunk.export(TMP_AUDIO_CHUNK_SAVE_PATH, format="wav")
+                chunk.export(tmp_audio_chunk_save_path, format="wav")
 
                 # Predict, keep top 1 and store to records
-                pred = classifier(str(TMP_AUDIO_CHUNK_SAVE_PATH), top_k=1)[0]
+                pred = classifier(str(tmp_audio_chunk_save_path), top_k=1)[0]
                 if pred["score"] >= confidence_threshold:
                     records.append(
                         (
@@ -525,5 +524,5 @@ def apply(
 
     finally:
         # Always clean up tmp file
-        if TMP_AUDIO_CHUNK_SAVE_PATH.exists():
-            TMP_AUDIO_CHUNK_SAVE_PATH.unlink()
+        if tmp_audio_chunk_save_path.exists():
+            tmp_audio_chunk_save_path.unlink()

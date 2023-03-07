@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """Top-level package for speakerbox."""
 
 from importlib.metadata import PackageNotFoundError, version

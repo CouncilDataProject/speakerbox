@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import logging
 import time
@@ -65,7 +64,7 @@ class IteratedModelEvalScores(DataClassJsonMixin):
 def train_and_eval_example_model(
     example_dataset_dir: Union[str, Path],
     dataset_size_str: Literal["15-minutes", "30-minutes", "60-minutes"],
-    n_interations: int = 5,
+    n_iterations: int = 5,
     seed: int = 182318512,
     equalize_data_within_splits: bool = False,
 ) -> IteratedModelEvalScores:
@@ -138,7 +137,7 @@ def train_and_eval_example_model(
 
     # Train
     eval_results = []
-    for i in tqdm(range(n_interations)):
+    for i in tqdm(range(n_iterations)):
         model_name = (
             f"trained-example"
             f"-{dataset_size_str}"
@@ -222,7 +221,7 @@ def train_and_eval_all_example_models(
             train_and_eval_example_model(
                 example_dataset_dir=example_dataset_dir,
                 dataset_size_str=dataset_size_str,  # type: ignore
-                n_interations=n_iterations,
+                n_iterations=n_iterations,
                 seed=seed,
                 equalize_data_within_splits=equalize_data_within_splits,
             ).to_dict()

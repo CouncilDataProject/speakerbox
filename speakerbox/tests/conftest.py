@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 """
 Configuration for tests! There are a whole list of hooks you can define in this file to
