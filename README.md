@@ -102,12 +102,14 @@ of the clusters into their own directories that you can then manually clean up
 ⚠️ To use the diarization portions of `speakerbox` you need to complete the
 following steps: ⚠️
 
-1. Visit [hf.co/pyannote/speaker-diarization](hf.co/pyannote/speaker-diarization)
+1. Visit [hf.co/pyannote/speaker-diarization](https://hf.co/pyannote/speaker-diarization)
    and accept user conditions.
-2. Visit [hf.co/pyannote/segmentation](hf.co/pyannote/segmentation)
+2. Visit [hf.co/pyannote/segmentation](https://hf.co/pyannote/segmentation)
    and accept user conditions.
-3. Visit [hf.co/settings/tokens](hf.co/settings/tokens) to create an access token
+3. Visit [hf.co/settings/tokens](https://hf.co/settings/tokens) to create an access token
    (only if you had to complete 1.)
+
+**Diarize a single file:**
 
 ```python
 from speakerbox import preprocess
@@ -117,6 +119,23 @@ diarized_and_split_audio_dir = preprocess.diarize_and_split_audio(
     "0.wav",
     hf_token="token-from-hugging-face",
 )
+```
+
+**Diarize all files in a directory:**
+```python
+from speakerbox import preprocess
+from pathlib import Path
+from tqdm import tqdm
+
+# Iterate over all 'wav' format files in a directory called 'data'
+for audio_file in tqdm(list(Path("data").glob("*.wav"))):
+    # The token can also be provided via the 'HUGGINGFACE_TOKEN` environment variable.
+    diarized_and_split_audio_dir = preprocess.diarize_and_split_audio(
+        audio_file,
+        # Create a new directory to place all created sub-directories within
+        storage_dir=f"diarized-audio/{audio_file.stem}",
+        hf_token="token-from-hugging-face",
+    )
 ```
 
 ### Cleaning
@@ -208,11 +227,17 @@ dataset = preprocess.expand_labeled_diarized_audio_dir_to_dataset(
     ]
 )
 
-dataset_dict, value_counts = preprocess.prepare_dataset(dataset)
+dataset_dict, value_counts = preprocess.prepare_dataset(
+    dataset,
+    # good if you have large variation in number of data points for each label
+    equalize_data_within_splits=True,
+    # set seed to get a reproducible data split
+    seed=60,
+)
 
 # You can print the value_counts dataframe to see how many audio clips of each label
 # (speaker) are present in each data subset.
-print(value_counts)
+value_counts
 ```
 
 ### Model Training and Evaluation
