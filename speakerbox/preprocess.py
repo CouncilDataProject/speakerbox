@@ -536,6 +536,11 @@ def prepare_dataset(
 
         iters += 1
         if iters == n_iterations:
+            log.error(
+                f"Could not find train, test, and validation sets that "
+                f"meet holdout and stratification criteria with provided dataset. "
+                f"\n\nLabel (speaker id) counts:\n{dataset.label.value_counts()}"
+            )
             raise ValueError(
                 f"Could not find train, test, and validation sets that meet the "
                 f"holdout and stratification criteria after {n_iterations} "
