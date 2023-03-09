@@ -16,6 +16,18 @@ Few-Shot Multi-Recording Speaker Identification Transformer Fine-Tuning and Appl
 
 For full package documentation please visit [councildataproject.github.io/speakerbox](https://councildataproject.github.io/speakerbox).
 
+## Example Usage Video
+
+[![screenshot from example usage youtube video](https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/speakerbox-example-usage-screenshot.png)](https://youtu.be/SK2oVqSKPTE)
+
+Link: [https://youtu.be/SK2oVqSKPTE](https://youtu.be/SK2oVqSKPTE)
+
+In the example video, we use the Speakerbox library to quickly annotate a 
+dataset of audio clips from the show 
+[The West Wing](https://en.wikipedia.org/wiki/The_West_Wing) 
+and train a speaker identification model to identify three of 
+the show's characters (President Bartlet, Charlie Young, and Leo McGarry).
+
 ## Problem
 
 Given a set of recordings of multi-speaker recordings:
