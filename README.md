@@ -18,7 +18,7 @@ For full package documentation please visit [councildataproject.github.io/speake
 
 ## Example Usage Video
 
-[![screenshot from example usage youtube video](https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/speakerbox-example-usage-screenshot.png)](https://youtu.be/SK2oVqSKPTE)
+[![screenshot from example usage youtube video](https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/speakerbox-example-video-screenshot.png)](https://youtu.be/SK2oVqSKPTE)
 
 Link: [https://youtu.be/SK2oVqSKPTE](https://youtu.be/SK2oVqSKPTE)
 
