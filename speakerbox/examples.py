@@ -61,6 +61,44 @@ class IteratedModelEvalScores(DataClassJsonMixin):
 ###############################################################################
 
 
+def download_preprocessed_example_data() -> Path:
+    """
+    Install the example preprocessed dataset from Google Drive.
+
+    Stored to the: "example-speakerbox-dataset" directory.
+
+    Returns
+    -------
+    Path
+        The path to the directory with all of the unzipped data.
+    """
+    import shutil
+
+    try:
+        import gdown
+    except ImportError as e:
+        raise ImportError(
+            "Missing dependencies required for downloading the example dataset. "
+            "Install with `pip install speakerbox[example_data]`."
+        ) from e
+
+    # Download the zip archive
+    archive = Path(
+        gdown.download(
+            "https://drive.google.com/uc?id=1snDuv45cYCYxCae19Dz4tsQauLrA425w"
+        )
+    ).resolve()
+
+    # Unpack the archive
+    shutil.unpack_archive(archive)
+
+    # Remove the archive file
+    archive.unlink()
+
+    # Return the unpacked dir (the filename without the suffix)
+    return archive.with_suffix("")
+
+
 def train_and_eval_example_model(
     example_dataset_dir: Union[str, Path],
     dataset_size_str: Literal["15-minutes", "30-minutes", "60-minutes"],
