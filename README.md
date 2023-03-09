@@ -44,12 +44,12 @@ example/
 
 Where each recording has some or all of a set of speakers, for example:
 
--   0.wav -- contains speakers: A, B, C, D, E
--   1.wav -- contains speakers: B, D, E
--   2.wav -- contains speakers: A, B, C
--   3.wav -- contains speakers: A, B, C, D, E
--   4.wav -- contains speakers: A, C, D
--   5.wav -- contains speakers: A, B, C, D, E
+-   0.wav -- contains speakers: A, B, C
+-   1.wav -- contains speakers: A, C
+-   2.wav -- contains speakers: B, C
+-   3.wav -- contains speakers: A, B, C
+-   4.wav -- contains speakers: A, B, C
+-   5.wav -- contains speakers: A, B, C
 
 You want to train a model to classify portions of audio as one of the N known speakers
 in future recordings not included in your original training set.
@@ -61,7 +61,7 @@ i.e. `f(audio) -> [(2.4, 10.5, "A"), (10.8, 14.1, "D"), (14.8, 22.7, "B"), ...]`
 The `speakerbox` library contains methods for both generating datasets for annotation
 and for utilizing multiple audio annotation schemes to train such a model.
 
-![Speakerbox example workflow](https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png)
+![Typical workflow to prepare a speaker identification dataset and fine-tune a new model using tools provided from the Speakerbox library. The user starts with a collection of audio files that include portions speech from the speakers they want to train a model to identify. The `diarize_and_split_audio` function will create a new directory with the same name as the audio file, diarize the audio file, and finally, sort the audio portions produced from diarization into sub-directories within this new directory. The user should then manually rename each of the produced sub-directories to the correct speaker identifier (i.e. the speaker's name or a unique id) and additionally remove any incorrectly diarized or mislabeled portions of audio. Finally, the user can prepare training, evaluation, and testing datasets (via the `expand_labeled_diarized_audio_dir_to_dataset` and `preprocess_dataset` functions) and fine-tune a new speaker identification model (via the `train` function).](https://raw.githubusercontent.com/CouncilDataProject/speakerbox/main/docs/_static/images/workflow.png)
 
 The following table shows model performance results as the dataset size increases:
 
@@ -74,17 +74,27 @@ The following table shows model performance results as the dataset size increase
 All results reported are the average of five model training and evaluation trials for each
 of the different dataset sizes. All models were fine-tuned using an NVIDIA GTX 1070 TI.
 
-**Note:** this table can be reproduced in ~1 hour using an NVIDIA GTX 1070 TI by
-[downloading the example dataset](https://drive.google.com/file/d/1snDuv45cYCYxCae19Dz4tsQauLrA425w/view?usp=sharing)
-unzipping it's contents and then running:
+**Note:** this table can be reproduced in ~1 hour using an NVIDIA GTX 1070 TI by:
+
+Installing the example data download dependency:
+
+```bash
+pip install speakerbox[example_data]
+```
+
+Then running the following commands in Python:
 
 ```python
-from speakerbox.examples import train_and_eval_all_example_models
-
-results = train_and_eval_all_example_models(
-    # be sure to provide the correct path to the unzipped directory
-    "/home/eva/Downloads/example-speakerbox-dataset/",
+from speakerbox.examples import (
+    download_preprocessed_example_data,
+    train_and_eval_all_example_models,
 )
+
+# Download and unpack the preprocessed example data
+dataset = download_preprocessed_example_data()
+
+# Train and eval models with different subsets of the data
+results = train_and_eval_all_example_models(dataset)
 ```
 
 ## Workflow
