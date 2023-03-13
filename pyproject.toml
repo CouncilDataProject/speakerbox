@@ -152,6 +152,7 @@ ignore = [
   "*test-outputs/**",
   "*/tests/**",
   "paper/*",
+  ".zenodo.json",
 ]
 
 [tool.mypy]
