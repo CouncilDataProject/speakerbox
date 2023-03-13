@@ -98,11 +98,11 @@ If these recording holdout and speaker stratification conditions are not met, Sp
 
 The Speakerbox training process consists of fine-tuning a pre-trained speaker identification model [@yang2021superb] provided by Huggingface's Transformers library [@wolf-etal-2020-transformers]. The default model for fine-tuning ([superb/wav2vec2-base-superb-sid](https://huggingface.co/superb/wav2vec2-base-superb-sid)) was pre-trained on the VoxCeleb1 dataset [@Nagrani17].
 
-As Speakerbox is a framework for fine-tuning a pre-trained speaker identification transformer, we will not cover the original evaluation of the model but instead provide details about what we believe is a more typical use case for a fine-tuned speaker identification model.
+As Speakerbox is a framework for fine-tuning a pre-trained speaker identification transformer, we will not cover the original evaluation of the model but instead, provide details about what we believe is a more typical use case for a fine-tuned speaker identification model.
 
-Our example dataset contains 9 unique speakers across 10 unique recordings and each recording has some or all of the 9 unique speakers for a total of 1 hour of audio. For our use-case in computational social science, this dataset represents a typical audio (and transcript) dataset created from government meetings, 1-on-1 interviews, group interviews, etc.
+Our example dataset contains 9 unique speakers across 10 unique recordings and each recording has some or all of the 9 unique speakers for a total of 1 hour of audio. For our use case in computational social science, this dataset represents a typical audio (and transcript) dataset created from government meetings, 1-on-1 interviews, group interviews, etc.
 
-We further created random samples of this dataset with 15 minutes and 30 minutes audio (each then split between the train, test, and evaluation subsets). The results reported in Table 1 are the mean accuracy, precision, and recall of five iterations of model training and evaluation using the differently sized datasets as inputs to our `train` and `eval_model` functions.
+We further created random samples of this dataset with 15 minutes and 30 minutes of audio (each then split between the train, test, and evaluation subsets). The results reported in Table 1 are the mean accuracy, precision, and recall of five iterations of model training and evaluation using the differently sized datasets as inputs to our `train` and `eval_model` functions.
 
 | dataset_size   | mean_accuracy   | mean_precision   | mean_recall   | mean_training_duration_seconds   |
 |:---------------|----------------:|-----------------:|--------------:|---------------------------------:|
@@ -114,7 +114,7 @@ All results reported are the average of five model training and evaluation trial
 
 We provide a method to reproduce these models by
 [downloading the example dataset](https://drive.google.com/file/d/1snDuv45cYCYxCae19Dz4tsQauLrA425w/view?usp=sharing)
-unzipping it's contents and then running:
+unzipping its contents and then running:
 
 ```python
 from speakerbox.examples import train_and_eval_all_example_models
@@ -127,14 +127,14 @@ results = train_and_eval_all_example_models(
 
 # Usage in Existing Research
 
-We are utilizing Speakerbox trained models to annotate municipal council meeting transcripts provided by the Council Data Project [@Brown2021]. In our initial research, we first annotated ~10 hours of audio using the Gecko platform in ~12 hours of time, we then used our diarization and labeling method to annotate an additional ~21 hours of audio in ~6 hours of time. In total, the dataset was annotated and compiled in less than ~18 hours and contained ~31 hours of audio from meetings of the Seattle City Council [@eva2022councils]. The model trained from the annotated dataset with the best precision and recall achieved 0.977 and 0.976 respectively. We additionally have used this model to annotate ~200 audio-aligned transcripts of Seattle City Council meetings and are now conducting analysis of speaker behaviors and group dynamics in such meetings.
+We are utilizing Speakerbox-trained models to annotate municipal council meeting transcripts provided by the Council Data Project [@Brown2021]. In our initial research, we first annotated ~10 hours of audio using the Gecko platform in ~12 hours of time, we then used our diarization and labeling method to annotate an additional ~21 hours of audio in ~6 hours of time. In total, the dataset was annotated and compiled in less than ~18 hours and contained ~31 hours of audio from meetings of the Seattle City Council [@eva2022councils]. The model trained from the annotated dataset with the best precision and recall achieved 0.977 and 0.976 respectively. We additionally have used this model to annotate ~200 audio-aligned transcripts of Seattle City Council meetings and are now conducting analysis of speaker behaviors and group dynamics in such meetings.
 
 # Future Work
 The few-shot approach we have described in Speakerbox can be extended, and made more accessible in future work. This could include:
 
 1. **The creation of a GUI for dataset preparation, training, and application:** GUIs developed with Python have become much more accessible in recent years with tools such as [MagicGUI](https://github.com/napari/magicgui) being developed. A GUI would likely help non-computational scientists more easily train their own fine-tuned Speakerbox models.
 
-2. **The creation of a template repository to assist in the "productionization" of Speakerbox models:** The construction of a "template" or "cookiecutter" [@cookiecutter] repository may also be useful. A template repository may provide a standard configuration for the storage and versioning of the training data and the management of model training and evaluation via continuous integration. We plan to create and embed a similar system within Council Data Project (CDP) infrastructures to enable the transparent training of speaker identification models specific to each municipal council. In our case, we plan to have continuous integration attempt to train a new model when new training data is added to the infrastructure repository. If the trained model reaches an accuracy threshold, we plan to store this model on our remote storage system. This model would then be used to annotate transcripts with their speakers during the processing of each municipal meeting.
+2. **The creation of a template repository to assist in the "productization" of Speakerbox models:** The construction of a "template" or "cookiecutter" [@cookiecutter] repository may also be useful. A template repository may provide a standard configuration for the storage and versioning of the training data and the management of model training and evaluation via continuous integration. We plan to create and embed a similar system within Council Data Project (CDP) infrastructures to enable the transparent training of speaker identification models specific to each municipal council. In our case, we plan to have a continuous integration attempt to train a new model when new training data is added to the infrastructure repository. If the trained model reaches an accuracy threshold, we plan to store this model on our remote storage system. This model would then be used to annotate transcripts with their speakers during the processing of each municipal meeting.
 
 # Acknowledgements
 
