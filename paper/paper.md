@@ -2,7 +2,7 @@
 title: "Speakerbox: Few-Shot Learning for Speaker Identification with Transformers"
 tags:
     - Python
-    - speech identification
+    - speaker identification
     - audio classification
     - machine learning
     - transformers
