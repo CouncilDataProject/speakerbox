@@ -57,3 +57,28 @@ keywords:
   - transformers
 license: MIT
 version: 1.2.0
+preferred-citation:
+  type: article
+  authors:
+  - given-names: Eva
+    family-names: Maxfield Brown
+    email: evamxb@uw.edu
+    affiliation: University of Washington Information School
+    orcid: 'https://orcid.org/0000-0003-2564-0373'
+  - given-names: To
+    family-names: Huynh
+    affiliation: University of Washington
+    orcid: 'https://orcid.org/0000-0002-9664-3662'
+  - given-names: Nicholas
+    family-names: Weber
+    email: nmweber@uw.edu
+    affiliation: University of Washington Information School
+    orcid: 'https://orcid.org/0000-0002-6008-3763'
+  doi: "10.21105/joss.05132"
+  journal: "Journal of Open Source Software"
+  start: 5132 # First page number
+  end: 5132 # Last page number
+  title: "Speakerbox: Few-Shot Learning for Speaker Identification with Transformers"
+  issue: 83
+  volume: 8
+  year: 2023
