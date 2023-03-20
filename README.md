@@ -2,6 +2,7 @@
 
 [![Build Status](https://github.com/CouncilDataProject/speakerbox/workflows/CI/badge.svg)](https://github.com/CouncilDataProject/speakerbox/actions)
 [![Documentation](https://github.com/CouncilDataProject/speakerbox/workflows/Documentation/badge.svg)](https://CouncilDataProject.github.io/speakerbox)
+[![status](https://joss.theoj.org/papers/49cfcef1769c812ce4ff2e388a5c7641/status.svg)](https://joss.theoj.org/papers/49cfcef1769c812ce4ff2e388a5c7641)
 
 Few-Shot Multi-Recording Speaker Identification Transformer Fine-Tuning and Application
 
@@ -312,5 +313,22 @@ The apply function returns a
 ## Development
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for information related to developing the code.
+
+## Citation
+
+```bibtex
+@article{Brown2023,
+    doi = {10.21105/joss.05132},
+    url = {https://doi.org/10.21105/joss.05132},
+    year = {2023},
+    publisher = {The Open Journal},
+    volume = {8},
+    number = {83},
+    pages = {5132},
+    author = {Eva Maxfield Brown and To Huynh and Nicholas Weber},
+    title = {Speakerbox: Few-Shot Learning for Speaker Identification with Transformers},
+    journal = {Journal of Open Source Software}
+} 
+```
 
 **MIT License**

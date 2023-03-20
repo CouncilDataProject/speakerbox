@@ -1,0 +1,59 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  Speakerbox: Few-Shot Learning for Speaker Identification
+  with Transformers
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Eva
+    family-names: Maxfield Brown
+    email: evamxb@uw.edu
+    affiliation: University of Washington Information School
+    orcid: 'https://orcid.org/0000-0003-2564-0373'
+  - given-names: To
+    family-names: Huynh
+    affiliation: University of Washington
+    orcid: 'https://orcid.org/0000-0002-9664-3662'
+  - given-names: Nicholas
+    family-names: Weber
+    email: nmweber@uw.edu
+    affiliation: University of Washington Information School
+    orcid: 'https://orcid.org/0000-0002-6008-3763'
+identifiers:
+  - type: doi
+    value: 10.21105/joss.05132
+    description: The JOSS Paper for Speakerbox
+repository-code: 'https://github.com/CouncilDataProject/speakerbox'
+repository-artifact: 'https://zenodo.org/record/7729994'
+abstract: >-
+  Automated speaker identification is a modeling challenge
+  for research when large-scale corpora, such as audio
+  recordings or transcripts, are relied upon for evidence
+  (e.g. Journalism, Qualitative Research, Law, etc.). To
+  address current difficulties in training speaker
+  identification models, we propose Speakerbox: a method for
+  few-shot fine-tuning of an audio transformer.
+  Specifically, Speakerbox makes multi-recording,
+  multi-speaker identification model fine-tuning as simple
+  as possible while still fitting an accurate, useful model
+  for application. Speakerbox works by ensuring data are
+  safely stratified by speaker id and held-out by recording
+  id prior to fine-tuning of a pretrained speaker
+  identification Transformer on a small number of audio
+  examples. We show that with less than an hour of
+  audio-recorded input, Speakerbox can fine-tune a
+  multi-speaker identification model for use in assisting
+  researchers in audio and transcript annotation.
+keywords:
+  - Python
+  - speaker identification
+  - audio classification
+  - machine learning
+  - transformers
+license: MIT
+version: 1.2.0
