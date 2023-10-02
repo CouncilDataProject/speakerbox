@@ -24,7 +24,7 @@ jobs:
   paper:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build Draft PDF
         uses: openjournals/openjournals-draft-action@master
         with:
