@@ -3,6 +3,7 @@
 import json
 import logging
 import os
+from itertools import chain
 from pathlib import Path
 from typing import List, Optional, Tuple, Union
 
@@ -19,6 +20,7 @@ from .utils import set_global_seed
 ###############################################################################
 
 log = logging.getLogger(__name__)
+
 
 ###############################################################################
 # Annotation
@@ -402,7 +404,9 @@ def expand_labeled_diarized_audio_dir_to_dataset(
         # Iter over all labels
         for label_dir in anno_dir.iterdir():
             if label_dir.is_dir():
-                for i, audio_file in enumerate(label_dir.glob("*.wav")):
+                glob = label_dir.glob
+                for i, audio_file in enumerate(chain(glob("*.wav"), glob("*.mp3"), glob("*.aac"), glob("*.ogg"),
+                                                     glob("*.raw"), glob("*.pcm"), glob("*.mp4"), glob("*.flv"))):
                     audio = AudioSegment.from_file(audio_file)
                     monologue_speaker = label_dir.name
 
